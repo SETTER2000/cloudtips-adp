@@ -1,2 +1,2 @@
 # cloudtips-adp
-CloudTips Adapter позволяет интегрировать прием чаевых в Django приложение.
+CloudTips Adapter позволяет интегрировать прием донатов в Django приложение.
