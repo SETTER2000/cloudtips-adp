@@ -1,5 +1,3 @@
-from src.cloudtipsadp.clients import WikiClient, SandboxClient, Worker
-
 
 def test_worker(monkeypatch):
     pass

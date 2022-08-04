@@ -1,5 +1,7 @@
-import sys, shutil
-from os.path import abspath, dirname, islink
+import shutil
+import sys
+from os.path import abspath, dirname
+
 import pytest
 
 root_dir = dirname(dirname(abspath(__file__)))

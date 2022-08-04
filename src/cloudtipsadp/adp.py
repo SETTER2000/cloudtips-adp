@@ -1,8 +1,14 @@
-from urllib.parse import urljoin
-import requests
 import json
+import os
+from urllib.parse import urljoin
 
-from src.cloudtipsadp.constants import *
+import requests
+from dotenv import load_dotenv
+
+from src.cloudtipsadp.constants import (
+    BASE_URL_API, AUTH_URL_SANDBOX, CLOUDTIPS_ID_COMPANY, )
+
+load_dotenv()
 
 
 class Token:
@@ -11,6 +17,15 @@ class Token:
     token_type: str
     refresh_token: str
     scope: str
+
+
+class ConnectData:
+    @staticmethod
+    def get():
+        return dict(Client_id=os.getenv('Client_id'),
+                    UserName=os.getenv('UserName'),
+                    Password=os.getenv('Password'),
+                    Grant_type=os.getenv('Grant_type'))
 
 
 class CLoudTipsAdp:
@@ -27,21 +42,16 @@ class CLoudTipsAdp:
     #     self.limit: int = limit
     #     # self.__today = dt.date.today()
 
-    def get_token(self):
+    def get_token(self, connect_data: ConnectData):
         """
         To start working with the API, you need to log in to the system,
         for this you need to get a login and password from your manager.
         :return: Token
         """
-        data = {
-            'Grant_type': 'password',
-            'Client_id': 'Partner',
-            'UserName': 'dmitriy.efremov@folovers.online',
-            'Password': 'hw2ciQFwXQFej84'
-        }
+
         headers = {"Content-Type": "application/x-www-form-urlencoded"}
         response = requests.post(
-            AUTH_URL_SANDBOX, data=data, headers=headers)
+            AUTH_URL_SANDBOX, data=connect_data, headers=headers)
 
         if response.ok:
             self.token: Token = response.json()
@@ -85,5 +95,6 @@ class CLoudTipsAdp:
 
 if __name__ == '__main__':
     cta = CLoudTipsAdp()
-    print(cta.get_token())
+    print(cta.get_token(ConnectData.get()))
+    print(cta.token['access_token'])
     print(cta.create_many())

@@ -1,5 +1,5 @@
 from unittest import TestCase
-import pytest
+
 from src.cloudtipsadp.configuration import Configuration
 
 

@@ -1,4 +1,4 @@
-__all__=[
+__all__ = [
     'CLOUDTIPS_API_TOKEN',
     'AUTH_URL',
     'BASE_URL',

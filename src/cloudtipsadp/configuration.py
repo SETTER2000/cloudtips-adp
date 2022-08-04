@@ -2,7 +2,8 @@ class Configuration(object):
     """
     A class representing the configuration.
     """
-    api_url = "https://api.cloudtips.ru/api"
+    _api_url = "https://api.cloudtips.ru/api"
+    _api_url_sandbox = "https://api.cloudtips.ru/api"
     account_id = None
     secret_key = None
     timeout = 1800
