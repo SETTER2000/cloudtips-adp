@@ -50,23 +50,21 @@ class BaseClient:
     base_url: str = BASE_URL
     headers: dict = {"Content-Type": "application/x-www-form-urlencoded"}
 
-    def connect(self):
+    def auth(self):
+        """Получить объект Response от сервиса CloudTips."""
         raise NotImplementedError()
+
+    def connect(self):
+        response = self.auth()
+        if response.ok:
+            self.token: Token = response.json()
+            return response
+        return None
 
     @staticmethod
     def api(endpoint: str):
         """Вернёт правильный URL для запроса к API."""
         return urljoin(BASE_URL_API, endpoint)
-
-    # def get_token(self, result):
-    #     if result.ok:
-    #         self.token: Token = result.json()
-    #         return result
-    #     return None
-
-    # def get(self):
-    #     raise NotImplementedError(f'The {my_name()} method is not '
-    #                               f'implemented in the child class')
 
     # def __call__(self, *args, **kwargs):
     #     return self.make_get_request()
@@ -76,26 +74,18 @@ class ProductClient(BaseClient):
     """Production server."""
     base_url = urljoin(BaseClient.base_url, 'connect/token')
 
-    def connect(self):
-        response = requests.post(self.base_url, data=ConnectData.get(),
-                                 headers=self.headers)
-        if response.ok:
-            self.token: Token = response.json()
-            return response
-        return None
+    def auth(self):
+        return requests.post(self.base_url, data=ConnectData.get(),
+                             headers=self.headers)
 
 
 class SandboxClient(BaseClient):
     """Для работы в песочнице. Тестовый сервер."""
     base_url: str = urljoin(BASE_URL_SANDBOX, 'connect/token')
 
-    def connect(self):
-        response = requests.post(self.base_url, data=ConnectData.get(),
-                                 headers=self.headers)
-        if response.ok:
-            self.token: Token = response.json()
-            return response
-        return None
+    def auth(self):
+        return requests.post(self.base_url, data=ConnectData.get(),
+                             headers=self.headers)
 
 
 def connect(cl: BaseClient):
