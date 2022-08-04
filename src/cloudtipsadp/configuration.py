@@ -1,3 +1,11 @@
+class Token:
+    access_token: str
+    expires_in: int
+    token_type: str
+    refresh_token: str
+    scope: str
+
+
 class Configuration(object):
     """
     A class representing the configuration.
@@ -11,13 +19,12 @@ class Configuration(object):
     auth_token = None
 
     @staticmethod
-    def configure_auth_token(token, **kwargs):
+    def configure_auth_token(access_token, **kwargs):
         Configuration.account_id = None
         Configuration.secret_key = None
-        Configuration.auth_token = token
+        Configuration.auth_token = access_token
         Configuration.timeout = kwargs.get("timeout", 1800)
         Configuration.max_attempts = kwargs.get("max_attempts", 3)
-
 
 # if __name__ == '__main__':
 #     Configuration.configure_auth_token('wegtehytr65', timeout=2000)

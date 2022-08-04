@@ -1,7 +1,7 @@
 import os
 import traceback
 from urllib.parse import urljoin
-
+from configuration import Token
 import requests as requests
 from dotenv import load_dotenv
 
@@ -31,14 +31,6 @@ class ConnectData:
                     Grant_type=os.getenv('Grant_type'))
 
 
-class Token:
-    access_token: str
-    expires_in: int
-    token_type: str
-    refresh_token: str
-    scope: str
-
-
 def my_name():
     """Получить имя текущего метода."""
     stack = traceback.extract_stack()
@@ -49,10 +41,11 @@ class BaseClient:
     token: Token
     base_url: str = BASE_URL
     headers: dict = {"Content-Type": "application/x-www-form-urlencoded"}
+    auth_url = 'connect/token'
 
-    def auth(self):
-        """Получить объект Response от сервиса CloudTips."""
-        raise NotImplementedError()
+    # def auth(self):
+    #     """Получить объект Response от сервиса CloudTips."""
+    #     raise NotImplementedError()
 
     def connect(self):
         response = self.auth()
@@ -66,30 +59,29 @@ class BaseClient:
         """Вернёт правильный URL для запроса к API."""
         return urljoin(BASE_URL_API, endpoint)
 
+    @classmethod
+    def auth(cls):
+        return requests.post(cls.base_url, data=ConnectData.get(),
+                             headers=cls.headers)
+
     # def __call__(self, *args, **kwargs):
     #     return self.make_get_request()
 
 
 class ProductClient(BaseClient):
     """Production server."""
-    base_url = urljoin(BaseClient.base_url, 'connect/token')
-
-    def auth(self):
-        return requests.post(self.base_url, data=ConnectData.get(),
-                             headers=self.headers)
+    base_url = urljoin(BaseClient.base_url, BaseClient.auth_url)
+    BaseClient.auth()
 
 
 class SandboxClient(BaseClient):
     """Для работы в песочнице. Тестовый сервер."""
-    base_url: str = urljoin(BASE_URL_SANDBOX, 'connect/token')
-
-    def auth(self):
-        return requests.post(self.base_url, data=ConnectData.get(),
-                             headers=self.headers)
+    base_url: str = urljoin(BASE_URL_SANDBOX, BaseClient.auth_url)
+    BaseClient.auth()
 
 
-def connect(cl: BaseClient):
-    contact = cl.connect()
+def connect(auth: BaseClient):
+    contact = auth.connect()
     print(f'CONNECT: {contact}')
 
 
