@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "cloudtips-adp"
+name = "cloudtipsadp"
 version = "0.1.0"
 authors = [
   { name="setter", email="lphp@mail.ru" },

@@ -1,17 +1,14 @@
 from unittest import TestCase
 from unittest.mock import patch, Mock
-
-try:
-    from src.cloudtipsadp.adp import CLoudTipsAdp as cta
-except ModuleNotFoundError:
-    assert False, 'Не найдена домашняя работа! :)'
+from src.cloudtipsadp.adp import CLoudTipsAdp
 
 
-class ServicesAuthTest(TestCase):
+class CLoudTipsAdpTest(TestCase):
     """
     Checking the health of the connection and authorization with obtaining a
     token for working with the remote service API.
     """
+
     @classmethod
     def setUpTestData(cls):
         """
@@ -34,24 +31,29 @@ class ServicesAuthTest(TestCase):
 
     def test_request_response(self):
         """Checking the connection of the service to the remote API."""
-        response = cta.get_token(self)
+        response = CLoudTipsAdp.get_token(self)
         self.assertIsNotNone(response)
 
     def test_getting_cloudtips(self):
         """Connecting to a remote server will return True."""
         self.mock_post.return_value.ok = True
-        response = cta.get_token(self)
+        response = CLoudTipsAdp.get_token(self)
         self.assertIsNotNone(response)
 
-    def test_getting_todos_when_response_is_ok(self):
+    def test_get_token_ok(self):
+        # self.mock_post.return_value = Mock(ok=True)
         self.mock_post.return_value.ok = True
+        # self.mock_post.return_value.access_token = 'werte56tefrqw3r'
+
         todos = [{
             'access_token': 'vcy56ey3xtw5txe',
-            'expires_in': 1659545369,
-            'refresh_token': 'vcy56ey3xtw5txe'
+            'expires_in': 1800,
+            'token_type': 'Bearer',
+            'refresh_token': 'vcy56ey3xtw5txe',
+            'scope': 'api email IdentityAPI offline_access openid phone prof'
         }]
 
         self.mock_post.return_value = Mock()
         self.mock_post.return_value.json.return_value = todos
-        response = cta.get_token(self)
+        response = CLoudTipsAdp.get_token(self)
         self.assertEqual(response.json(), todos)
