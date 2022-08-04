@@ -5,8 +5,8 @@ from urllib.parse import urljoin
 import requests
 from dotenv import load_dotenv
 
-from src.cloudtipsadp.constants import (
-    BASE_URL_API, AUTH_URL_SANDBOX, CLOUDTIPS_ID_COMPANY, )
+from src.cloudtipsadp.constants import (AUTH_URL_SANDBOX, BASE_URL_API,
+                                        CLOUDTIPS_ID_COMPANY)
 
 load_dotenv()
 

@@ -5,8 +5,7 @@ from urllib.parse import urljoin
 import requests as requests
 from dotenv import load_dotenv
 
-from src.cloudtipsadp.constants import (
-    BASE_URL, BASE_URL_SANDBOX, BASE_URL_API)
+from src.cloudtipsadp.constants import BASE_URL, BASE_URL_API, BASE_URL_SANDBOX
 
 load_dotenv()
 
