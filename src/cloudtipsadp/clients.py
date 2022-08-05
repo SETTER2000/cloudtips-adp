@@ -1,11 +1,11 @@
 import os
 import traceback
 from urllib.parse import urljoin
-from configuration import Token
+from .configuration import Token
 import requests as requests
 from dotenv import load_dotenv
 
-from src.cloudtipsadp.constants import BASE_URL, BASE_URL_API, BASE_URL_SANDBOX
+from .constants import BASE_URL, BASE_URL_API, BASE_URL_SANDBOX
 
 load_dotenv()
 
@@ -80,10 +80,14 @@ class SandboxClient(BaseClient):
     BaseClient.auth()
 
 
-class Connect():
-    def __init__(self, auth: BaseClient):
-        contact = auth.connect()
-        print(f'CONNECT: {contact}')
+class Connect:
+    def __init__(self, client: BaseClient):
+        self.client = client()
+        self.client.connect()
+
+    def get_token(self):
+        return (f'{self.client.token["token_type"]}'
+                f' {self.client.token["access_token"]}')
 
 
 if __name__ == '__main__':
