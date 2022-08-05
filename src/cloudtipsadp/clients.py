@@ -80,13 +80,14 @@ class SandboxClient(BaseClient):
     BaseClient.auth()
 
 
-def connect(auth: BaseClient):
-    contact = auth.connect()
-    print(f'CONNECT: {contact}')
+class Connect():
+    def __init__(self, auth: BaseClient):
+        contact = auth.connect()
+        print(f'CONNECT: {contact}')
 
 
 if __name__ == '__main__':
     # ProductClient - будет доступен с данными для продакшен, когда менеджер
     # выдаст новые логин и пароль
     # client = ProductClient()
-    connect(SandboxClient())
+    Connect(SandboxClient())
