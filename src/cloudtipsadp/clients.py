@@ -5,7 +5,7 @@ from .configuration import Token
 import requests as requests
 from dotenv import load_dotenv
 
-from .constants import BASE_URL, BASE_URL_API, BASE_URL_SANDBOX
+from .constants import BASE_URL, BASE_URL_API, BASE_URL_SANDBOX, BASE_URL_API_SANDBOX
 
 load_dotenv()
 
@@ -63,9 +63,6 @@ class BaseClient:
     def auth(cls):
         return requests.post(cls.base_url, data=ConnectData.get(),
                              headers=cls.headers)
-
-    # def __call__(self, *args, **kwargs):
-    #     return self.make_get_request()
 
 
 class ProductClient(BaseClient):

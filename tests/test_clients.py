@@ -1,7 +1,7 @@
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
-from src.cloudtipsadp.adp import CLoudTipsAdp
+from src.cloudtipsadp.clients import Connect
 
 
 class CLoudTipsAdpTest(TestCase):
@@ -21,8 +21,10 @@ class CLoudTipsAdpTest(TestCase):
         """
         setUp: Run once for each test method, to set up clean data.
         """
-        # self.mock_get_patcher = patch('src.cloudtipsadp.adp.requests.get')
-        self.mock_post_patcher = patch('src.cloudtipsadp.adp.requests.post')
+        # self.mock_get_patcher = patch(
+        # 'src.cloudtipsadp.clients.requests.get')
+        self.mock_post_patcher = patch(
+            'src.cloudtipsadp.clients.requests.post')
         # self.mock_get = self.mock_get_patcher.start()
         self.mock_post = self.mock_post_patcher.start()
 
@@ -32,13 +34,13 @@ class CLoudTipsAdpTest(TestCase):
 
     def test_request_response(self):
         """Checking the connection of the service to the remote API."""
-        response = CLoudTipsAdp.get_token(self)
+        response = Connect.get_token(self)
         self.assertIsNotNone(response)
 
     def test_getting_cloudtips(self):
         """Connecting to a remote server will return True."""
         self.mock_post.return_value.ok = True
-        response = CLoudTipsAdp.get_token(self)
+        response = Connect.get_token(self)
         self.assertIsNotNone(response)
 
     def test_get_token_ok(self):
@@ -56,5 +58,5 @@ class CLoudTipsAdpTest(TestCase):
 
         self.mock_post.return_value = Mock()
         self.mock_post.return_value.json.return_value = todos
-        response = CLoudTipsAdp.get_token(self)
+        response = Connect.get_token(self)
         self.assertEqual(response.json(), todos)
