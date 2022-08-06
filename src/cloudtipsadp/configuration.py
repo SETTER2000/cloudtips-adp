@@ -1,3 +1,7 @@
+class ConfigurationError(Exception):
+    pass
+
+
 class Token:
     access_token: str
     expires_in: int

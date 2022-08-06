@@ -1,11 +1,12 @@
 import os
 import traceback
 from urllib.parse import urljoin
-from src.cloudtipsadp.configuration import Token
+from src.cloudtipsadp.configuration import Token, ConfigurationError
 import requests as requests
 from dotenv import load_dotenv
 
-from src.cloudtipsadp.constants import (BASE_URL, BASE_URL_API, BASE_URL_SANDBOX)
+from src.cloudtipsadp.constants import (BASE_URL, BASE_URL_API,
+                                        BASE_URL_SANDBOX)
 
 load_dotenv()
 
@@ -53,11 +54,19 @@ class BaseClient:
         if response.ok:
             self.token: Token = response.json()
             return response
-        return None
+        else:
+            text = f'{response.status_code}: {response.reason} connection ' \
+                   f'to the service.'
+            raise ConfigurationError(text)
+
+            # raise GeneratorExit(response.reason, response.status_code)
 
     def connect(self):
+        # try:
         response = self.auth()
         self.valid(response)
+        # except Exception as e:
+        #     raise NotImplementedError(e)
 
     @staticmethod
     def api(endpoint: str):
@@ -105,9 +114,13 @@ class Connect:
     __instance = None
     client = None
 
-    def __new__(cls, client: BaseClient):
+    def __new__(cls, client: BaseClient = None):
         if cls.__instance is None:
-            cls.client = client
+            if client is None:
+                cls.client = ProductClient()
+            else:
+                cls.client = client
+
             cls.client.connect()
             cls.__instance = super(Connect, cls).__new__(cls)
 
@@ -130,22 +143,22 @@ if __name__ == '__main__':
     # ProductClient - будет доступен с данными для production, когда менеджер
     # выдаст новые логин и пароль
     # client = ProductClient()
-    connect = Connect(SandboxClient())
-    connect2 = Connect(SandboxClient())
+    connect = Connect()
+    # connect2 = Connect(SandboxClient())
     token = connect.get_token()
     print(f'TOKEN::{token[-5:]}')
-
-    refresh_token = connect.refresh_token()
-    print(f'REFRESH TOKEN::{refresh_token[-5:]}')
-    token2 = connect2.get_token()
-    print(f'TOKEN2::{token2[-5:]}')
-
-    refresh_token2 = connect.refresh_token()
-    print(f'REFRESH TOKEN::{refresh_token2[-5:]}')
-    token3 = connect2.get_token()
-
-    print(f'TOKEN3::{token3[-5:]}')
-    token2 = connect2.get_token()
-    print(f'TOKEN2::{token2[-5:]}')
-    token = connect.get_token()
-    print(f'TOKEN::{token[-5:]}')
+    #
+    # refresh_token = connect.refresh_token()
+    # print(f'REFRESH TOKEN::{refresh_token[-5:]}')
+    # token2 = connect2.get_token()
+    # print(f'TOKEN2::{token2[-5:]}')
+    #
+    # refresh_token2 = connect.refresh_token()
+    # print(f'REFRESH TOKEN::{refresh_token2[-5:]}')
+    # token3 = connect2.get_token()
+    #
+    # print(f'TOKEN3::{token3[-5:]}')
+    # token2 = connect2.get_token()
+    # print(f'TOKEN2::{token2[-5:]}')
+    # token = connect.get_token()
+    # print(f'TOKEN::{token[-5:]}')
