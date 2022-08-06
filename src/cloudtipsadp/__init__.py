@@ -6,4 +6,3 @@ from src.cloudtipsadp.clients import (ProductClient, SandboxClient, Connect)
 
 __author__ = "SETTER"
 __email__ = 'lphp@mail.ru'
-__version__ = '0.1.3'
