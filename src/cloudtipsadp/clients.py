@@ -1,11 +1,12 @@
 import os
 import traceback
 from urllib.parse import urljoin
-from .configuration import Token
+from configuration import Token
 import requests as requests
 from dotenv import load_dotenv
 
-from .constants import BASE_URL, BASE_URL_API, BASE_URL_SANDBOX, BASE_URL_API_SANDBOX
+from constants import (BASE_URL, BASE_URL_API, BASE_URL_SANDBOX,
+                       BASE_URL_API_SANDBOX)
 
 load_dotenv()
 
@@ -30,6 +31,13 @@ class ConnectData:
                     Password=os.getenv('Password'),
                     Grant_type=os.getenv('Grant_type'))
 
+    @classmethod
+    def refresh(cls, tkn: Token):
+        print(f'DDD:: {tkn["refresh_token"]}')
+        return dict(Client_id=os.getenv('Client_id'),
+                    refresh_token=tkn['refresh_token'],
+                    Grant_type='refreshToken')
+
 
 def my_name():
     """Получить имя текущего метода."""
@@ -44,15 +52,21 @@ class BaseClient:
     auth_url = 'connect/token'
 
     # def auth(self):
-    #     """Получить объект Response от сервиса CloudTips."""
     #     raise NotImplementedError()
 
-    def connect(self):
-        response = self.auth()
+    def valid(self, response):
         if response.ok:
             self.token: Token = response.json()
             return response
         return None
+
+    def connect(self):
+        response = self.auth()
+        self.valid(response)
+
+    def refresh(self):
+        response = self.refresh_token()
+        self.valid(response)
 
     @staticmethod
     def api(endpoint: str):
@@ -61,8 +75,19 @@ class BaseClient:
 
     @classmethod
     def auth(cls):
+        """Авторизоваться в системе."""
         return requests.post(cls.base_url, data=ConnectData.get(),
                              headers=cls.headers)
+
+    def refresh_token(self):
+        """
+        Refresh token.
+        Для получения нового access_token необходимо использовать
+        refresh_token полученный при авторизации.
+        """
+        return requests.post(self.base_url,
+                             data=ConnectData.refresh(self.token),
+                             headers=self.headers)
 
 
 class ProductClient(BaseClient):
@@ -72,14 +97,14 @@ class ProductClient(BaseClient):
 
 
 class SandboxClient(BaseClient):
-    """Для работы в песочнице. Тестовый сервер."""
+    """Тестовый сервер. Для работы в песочнице."""
     base_url: str = urljoin(BASE_URL_SANDBOX, BaseClient.auth_url)
     BaseClient.auth()
 
 
-class Connect:
-    def __init__(self, client: BaseClient):
-        self.client = client()
+class ConnectOld:
+    def __init__(self, connect: BaseClient):
+        self.client = connect
         self.client.connect()
 
     def get_token(self):
@@ -87,8 +112,36 @@ class Connect:
                 f' {self.client.token["access_token"]}')
 
 
+class Connect:
+    """Singleton."""
+    __instance = None
+    __client = None
+
+    def __new__(cls, connect: BaseClient, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__client = connect
+            cls.__client.connect()
+            cls.__instance = super(Connect, cls).__new__(cls)
+
+        return cls.__instance
+
+    @classmethod
+    def get_token(cls):
+        return (f'{cls.__client.token["token_type"]}'
+                f' {cls.__client.token["access_token"]}')
+
+    def refresh_token(self):
+        self.__client.refresh()
+        return (f'{self.__client.token["token_type"]}'
+                f' {self.__client.token["access_token"]}')
+
+
 if __name__ == '__main__':
     # ProductClient - будет доступен с данными для продакшен, когда менеджер
     # выдаст новые логин и пароль
     # client = ProductClient()
-    Connect(SandboxClient())
+    client = Connect(SandboxClient())
+    token = client.get_token()
+    print(token)
+    # token = client.refresh_token()
+    # print(token)

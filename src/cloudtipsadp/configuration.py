@@ -5,6 +5,9 @@ class Token:
     refresh_token: str
     scope: str
 
+    def refresh(self):
+        return self.refresh_token
+
 
 class Configuration(object):
     """
