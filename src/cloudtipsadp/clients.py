@@ -61,6 +61,7 @@ class BaseClient:
 
             # raise GeneratorExit(response.reason, response.status_code)
 
+
     def connect(self):
         # try:
         response = self.auth()
@@ -143,6 +144,8 @@ if __name__ == '__main__':
     # ProductClient - будет доступен с данными для production, когда менеджер
     # выдаст новые логин и пароль
     # client = ProductClient()
+    # TODO: Исправить. Сервер не должен падать при неправильном
+    #  соединение c CloudTips!!! Ошибка: Connect()
     connect = Connect()
     # connect2 = Connect(SandboxClient())
     token = connect.get_token()
