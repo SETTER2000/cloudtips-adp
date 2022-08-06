@@ -1,11 +1,11 @@
 import os
 import traceback
 from urllib.parse import urljoin
-from configuration import Token
+from src.cloudtipsadp.configuration import Token
 import requests as requests
 from dotenv import load_dotenv
 
-from constants import (BASE_URL, BASE_URL_API, BASE_URL_SANDBOX)
+from src.cloudtipsadp.constants import (BASE_URL, BASE_URL_API, BASE_URL_SANDBOX)
 
 load_dotenv()
 
