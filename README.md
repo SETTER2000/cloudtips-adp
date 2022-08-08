@@ -48,10 +48,10 @@ env
 connect = Connect()
 ```
 
-## Создать получателя
+## Создать получателя донатов
 ```angular2html
-ob = Receivers('Иван', '+79180060125')
-res = ob.create_receiver()
-if res:
+receiver = Receivers('Иван', '+79180060125')
+response = receiver.create_receiver()
+if response:
     print('Получатель создан.')
 ```
