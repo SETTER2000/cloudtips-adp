@@ -6,7 +6,7 @@ import requests as requests
 from dotenv import load_dotenv
 
 from src.cloudtipsadp.constants import (BASE_URL, BASE_URL_API,
-                                        BASE_URL_SANDBOX)
+                                        BASE_URL_SANDBOX, M_BAD_CONNECT)
 
 load_dotenv()
 
@@ -54,20 +54,11 @@ class BaseClient:
         if response.ok:
             self.token: Token = response.json()
             return response
-        else:
-            text = f'{response.status_code}: {response.reason} connection ' \
-                   f'to the service.'
-            raise ConfigurationError(text)
-
-            # raise GeneratorExit(response.reason, response.status_code)
-
+        return None
 
     def connect(self):
-        # try:
         response = self.auth()
         self.valid(response)
-        # except Exception as e:
-        #     raise NotImplementedError(e)
 
     @staticmethod
     def api(endpoint: str):
@@ -129,13 +120,20 @@ class Connect:
 
     @classmethod
     def get_token(cls):
-        return (f'{cls.client.token["token_type"]}'
-                f' {cls.client.token["access_token"]}')
+        try:
+            return (f'{cls.client.token["token_type"]}'
+                    f' {cls.client.token["access_token"]}')
+        except AttributeError:
+            print(M_BAD_CONNECT)
 
     def refresh_token(self):
-        self.client.refresh_token()
-        return (f'{self.client.token["token_type"]}'
-                f' {self.client.token["access_token"]}')
+        try:
+            self.client.refresh_token()
+        except AttributeError:
+            print(M_BAD_CONNECT)
+        else:
+            return (f'{self.client.token["token_type"]}'
+                    f' {self.client.token["access_token"]}')
 
 
 if __name__ == '__main__':
@@ -143,25 +141,13 @@ if __name__ == '__main__':
     # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
     # ProductClient - будет доступен с данными для production, когда менеджер
     # выдаст новые логин и пароль
-    # client = ProductClient()
-    # TODO: Исправить. Сервер не должен падать при неправильном
-    #  соединение c CloudTips!!! Ошибка: Connect()
-    connect = Connect()
-    # connect2 = Connect(SandboxClient())
-    token = connect.get_token()
-    print(f'TOKEN::{token[-5:]}')
-    #
-    # refresh_token = connect.refresh_token()
-    # print(f'REFRESH TOKEN::{refresh_token[-5:]}')
-    # token2 = connect2.get_token()
-    # print(f'TOKEN2::{token2[-5:]}')
-    #
-    # refresh_token2 = connect.refresh_token()
-    # print(f'REFRESH TOKEN::{refresh_token2[-5:]}')
-    # token3 = connect2.get_token()
-    #
-    # print(f'TOKEN3::{token3[-5:]}')
-    # token2 = connect2.get_token()
-    # print(f'TOKEN2::{token2[-5:]}')
+    # Подключение к Production service
+    # connect = Connect()
+    # # Получить токен
     # token = connect.get_token()
-    # print(f'TOKEN::{token[-5:]}')
+
+    # Подключение к Sandbox service
+    connect = Connect(SandboxClient())
+    # Получить токен
+    token = connect.get_token()
+    print(token)
