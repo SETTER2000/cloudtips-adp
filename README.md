@@ -45,9 +45,9 @@ env, уберите SandboxClient из Connect.
 ```angular2html
 connect = Connect()
 ```
-
-## Создать получателя донатов
-*Идемпотентный метод*
+## Получатель
+#### Создать получателя донатов
+(*Идемпотентный метод*)
 
 Вариант 1
 ```angular2html
@@ -59,4 +59,12 @@ if response:
 Вариант 2
 ```angular2html
 receiver = Receivers('Иван', '+79180060100').create()
+```
+
+## Заведения
+#### Получить информацию по всем заведениям ТСП
+```angular2html
+places = Places().get()
+    if ob:
+        print(f'Все заведения: {places}')
 ```
