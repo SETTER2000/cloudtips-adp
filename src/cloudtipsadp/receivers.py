@@ -26,7 +26,7 @@ class Receiver:
         else:
             return json.dumps(data)
 
-    def create_receiver(self):
+    def create(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
 
@@ -37,7 +37,7 @@ class Receivers(Receiver):
     def __init__(self, *args):
         super().__init__(*args)
 
-    def create_receiver(self):
+    def create(self):
         """Создать получателя донатов в сервисе."""
         # URL для запроса к API
         api_url = Connect.client.api([self.base_path, 'create-many'])
@@ -47,7 +47,7 @@ class Receivers(Receiver):
             return response.json()
         elif response.status_code == 415:
             connect.refresh_token()
-            self.create_receiver()
+            self.create()
         return None
 
 
@@ -55,5 +55,5 @@ if __name__ == '__main__':
     connect = Connect(SandboxClient())
     # connect.get_token()
     ob = Receivers("Olga", "+79105265720")
-    if ob.create_receiver():
+    if ob.create():
         print('Получатель создан.')
