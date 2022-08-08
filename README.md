@@ -49,9 +49,16 @@ connect = Connect()
 ```
 
 ## Создать получателя донатов
+*Идемпотентный метод*
+
+Вариант 1
 ```angular2html
-receiver = Receivers('Иван', '+79180060125')
+receiver = Receivers('Иван', '+79180060100')
 response = receiver.create_receiver()
 if response:
     print('Получатель создан.')
+```
+Вариант 2
+```angular2html
+receiver = Receivers('Иван', '+79180060100').create_receiver()
 ```
