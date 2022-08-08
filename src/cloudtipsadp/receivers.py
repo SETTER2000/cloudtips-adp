@@ -54,6 +54,6 @@ class Receivers(Receiver):
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
     # connect.get_token()
-    ob = Receivers("Olga33", "+79105265720")
+    ob = Receivers("Olga", "+79105265720")
     if ob.create_receiver():
         print('Получатель создан.')

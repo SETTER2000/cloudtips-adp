@@ -40,10 +40,8 @@ from cloudtipsadp.clients import Connect, SandboxClient
 connect = Connect(SandboxClient())
 ```
 ### Работа с Production Serves
-После тестирования и работы с production сервисом поменяйте данные в файле .
-env 
-
-и убрать SandboxClient из Connect.
+После тестирования для работы с production сервисом поменяйте данные в файле .
+env, уберите SandboxClient из Connect.
 ```angular2html
 connect = Connect()
 ```
