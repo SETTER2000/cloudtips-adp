@@ -54,7 +54,7 @@ connect = Connect()
 receiver = Receivers('Иван', '+79180060100')
 response = receiver.create()
 if response:
-    print('Получатель создан.')
+    print('Получатель создан: {response.get("data")}')
 ```
 Вариант 2
 ```angular2html
@@ -65,6 +65,6 @@ receiver = Receivers('Иван', '+79180060100').create()
 #### Получить информацию по всем заведениям ТСП
 ```angular2html
 places = Places().get()
-    if ob:
-        print(f'Все заведения: {places}')
+    if places:
+        print(f'Все заведения: {places.get("data")}')
 ```

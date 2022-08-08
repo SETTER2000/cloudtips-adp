@@ -27,6 +27,6 @@ class Places(Place):
 
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
-    ob = Places().get()
-    if ob:
-        print(f'Все заведения: {ob}')
+    places = Places().get()
+    if places:
+        print(f'Все заведения: {places.get("data")}')
