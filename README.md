@@ -25,4 +25,21 @@ UserName=<your_email>
 Password=<your_password>
 ```
 
+##  Работа с пакетом
+
+```angular2html
+from cloudtipsadp.clients import Connect, SandboxClient 
+```
+### Работа с тестовым сервисом
+Установка соединения c песочницей (тестовый сервис CloudTips)
+```angular2html
+connect = Connect(SandboxClient())
+```
+### Работа с Production Serves
+После тестирования и работы с production сервисом измените в файле .env или 
+в вашем окружение данные и убрать SandboxClient из Connect.
+```angular2html
+connect = Connect()
+```
+
 
