@@ -52,11 +52,11 @@ connect = Connect()
 Вариант 1
 ```angular2html
 receiver = Receivers('Иван', '+79180060100')
-response = receiver.create_receiver()
+response = receiver.create()
 if response:
     print('Получатель создан.')
 ```
 Вариант 2
 ```angular2html
-receiver = Receivers('Иван', '+79180060100').create_receiver()
+receiver = Receivers('Иван', '+79180060100').create()
 ```
