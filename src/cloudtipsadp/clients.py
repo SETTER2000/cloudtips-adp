@@ -1,15 +1,14 @@
 import os
-import traceback
 from urllib.parse import urljoin
-from src.cloudtipsadp.configuration import Token, ConfigurationError
+
 import requests as requests
 from dotenv import load_dotenv
 
-from src.cloudtipsadp.constants import (BASE_URL, BASE_URL_API,
-                                        BASE_URL_SANDBOX, M_BAD_CONNECT,
-                                        M_BASE_IMPLEMENTED,
-                                        BASE_URL_API_SANDBOX, API_VERSION,
-                                        HEADERS_REQUEST)
+from src.cloudtipsadp.configuration import Token
+from src.cloudtipsadp.constants import (API_VERSION, BASE_URL, BASE_URL_API,
+                                        BASE_URL_API_SANDBOX, BASE_URL_SANDBOX,
+                                        HEADERS_REQUEST, M_BAD_CONNECT,
+                                        M_BASE_IMPLEMENTED)
 
 load_dotenv()
 
@@ -131,6 +130,9 @@ class Connect:
 
     @classmethod
     def get_token(cls):
+        # TODO заменить на метод get() ["token.."] и т.п. Избавиться от
+        #  двойных кавычек и желтизны кода.
+
         try:
             return (f'{cls.client.token["token_type"]}'
                     f' {cls.client.token["access_token"]}')

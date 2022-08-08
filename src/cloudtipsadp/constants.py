@@ -16,4 +16,3 @@ M_BAD_CONNECT = 'No service connection.'
 M_BASE_IMPLEMENTED = 'Base class method not implemented.'
 API_VERSION = 'api'
 HEADERS_REQUEST = {"Content-Type": "application/x-www-form-urlencoded"}
-

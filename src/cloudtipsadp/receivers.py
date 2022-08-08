@@ -1,6 +1,8 @@
-import os
 import json
+import os
+
 import requests as requests
+
 from src.cloudtipsadp.clients import Connect, SandboxClient
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
@@ -55,4 +57,3 @@ if __name__ == '__main__':
     ob = Receivers("Olga3", "+79104265720")
     if ob.create_receiver():
         print('Получатель создан.')
-

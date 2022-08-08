@@ -17,6 +17,7 @@ pip install python-dotenv requests
 sudo touch .env
 ```
 Для авторизации на CloudTips добавить настройки в файл .env
+
 placeId - идентификатор вашего заведения (в админке CloudTips)
 
 ```angular2html
@@ -39,13 +40,18 @@ from cloudtipsadp.clients import Connect, SandboxClient
 connect = Connect(SandboxClient())
 ```
 ### Работа с Production Serves
-После тестирования и работы с production сервисом измените в файле .env или 
-в вашем окружение данные и убрать SandboxClient из Connect.
+После тестирования и работы с production сервисом поменяйте данные в файле .
+env 
+
+и убрать SandboxClient из Connect.
 ```angular2html
 connect = Connect()
 ```
 
 ## Создать получателя
 ```angular2html
-
+ob = Receivers('Иван', '+79180060125')
+res = ob.create_receiver()
+if res:
+    print('Получатель создан.')
 ```
