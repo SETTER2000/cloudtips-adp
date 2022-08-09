@@ -36,6 +36,7 @@ from cloudtipsadp.clients import Connect, SandboxClient
 ```
 ### Работа с тестовым сервисом
 Установка соединения c песочницей (тестовый сервис CloudTips)
+* Эта конструкция обязательна в любом файле где используется пакет
 ```angular2html
 connect = Connect(SandboxClient())
 ```
@@ -47,7 +48,8 @@ connect = Connect()
 ```
 ## Получатель
 #### Создать получателя донатов
-(*Идемпотентный метод*)
+* name - обязательно
+* phone_number - обязательно
 
 Вариант 1
 ```angular2html
@@ -59,12 +61,34 @@ if response:
 Вариант 2
 ```angular2html
 receiver = Receivers('Иван', '+79180060100').create()
+if receiver.get('succeed'):
+    print(f'Получатель создан. {receiver}')
 ```
 
 ## Заведения
 #### Получить информацию по всем заведениям ТСП
 ```angular2html
 places = Places().get()
-    if places:
-        print(f'Все заведения: {places.get("data")}')
+if places.get('succeed'):
+    print(f'Все заведения: {places.get("data")}')
+```
+
+## Карты
+#### Получение списка карт получателя
+* user_id - обязательно
+```angular2html
+cards = Cards(user_id).get()
+if cards.get('succeed'):
+    print(cards.get('data'))
+else:
+    print(cards.get('errors'))
+```
+
+## Накопления
+#### Получить общую сумму донатов, по сотруднику.
+* user_id - обязательно
+```angular2html
+accumulations = Accumulations(user_id).get()
+if accumulations.get('succeed'):
+    print(accumulations.get('data')
 ```

@@ -1,6 +1,7 @@
+import requests as requests
+
 from src.cloudtipsadp import Connect, SandboxClient
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
-import requests as requests
 
 
 class Place:
@@ -17,12 +18,7 @@ class Places(Place):
         # URL для запроса к API
         api_url = Connect.client.api([self.base_path])
         response = requests.get(api_url, headers=Connect.get_headers())
-        if response.ok:
-            return response.json()
-        # elif response.status_code == 415:
-        #     connect.refresh_token()
-        #     self.create()
-        return None
+        return response.json()
 
 
 if __name__ == '__main__':

@@ -43,17 +43,12 @@ class Receivers(Receiver):
         api_url = Connect.client.api([self.base_path, 'create-many'])
         response = requests.post(api_url, data=self.get_data(),
                                  headers=Connect.get_headers())
-        if response.ok:
-            return response.json()
-        elif response.status_code == 415:
-            connect.refresh_token()
-            self.create()
-        return None
+        return response.json()
 
 
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
     # connect.get_token()
-    ob = Receivers("Olga", "+79105265720")
-    if ob.create():
-        print('Получатель создан.')
+    ob = Receivers('Bob', '+79125265720').create()
+    if ob.get('succeed'):
+        print(f'Получатель создан. {ob}')

@@ -150,8 +150,9 @@ class Connect:
 
     @classmethod
     def get_headers(cls):
-        return {"Authorization": f"{cls.get_token()}",
-                "Content-Type": "application/json"}
+        headers = {'Authorization': f'{cls.get_token()}',
+                   'Content-Type': 'application/json'}
+        return headers
 
 
 if __name__ == '__main__':
