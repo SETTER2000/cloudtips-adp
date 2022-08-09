@@ -2,7 +2,7 @@ import json
 
 import requests as requests
 
-from src.cloudtipsadp import Connect, SandboxClient
+from src.cloudtipsadp.clients import Connect, SandboxClient
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
 
