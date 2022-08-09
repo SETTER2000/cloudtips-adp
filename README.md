@@ -90,5 +90,5 @@ else:
 ```angular2html
 accumulations = Accumulations(user_id).get()
 if accumulations.get('succeed'):
-    print(accumulations.get('data')
+    print(accumulations.get('data'))
 ```
