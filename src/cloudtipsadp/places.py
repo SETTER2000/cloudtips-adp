@@ -1,6 +1,5 @@
 import json
 import os
-from accessify import protected
 import requests as requests
 
 from src.cloudtipsadp.clients import Connect, SandboxClient

@@ -6,6 +6,10 @@ CloudTips Adapter позволяет интегрировать прием до�
 ```angular2html
 pip install cloudtipsadp
 ```
+Удаление пакета
+```angular2html
+pip uninstall cloudtipsadp
+```
 Зависимости разрешить 
 ```angular2html
 pip install python-dotenv requests
@@ -72,7 +76,7 @@ else:
 ## Заведения
 #### Установить зависимости
 ```angular2html
-from cloudtipsadp.places import Places, place_send
+from cloudtipsadp.places import (Places, place_send, place_get, place_confirm)
 ```
 #### Информация по всем заведениям ТСП.
 ```angular2html
