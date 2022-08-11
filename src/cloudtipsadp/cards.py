@@ -18,7 +18,7 @@ class Card:
 
 
 class Cards(Card):
-    def __init__(self, user_id, checkout: str=None):
+    def __init__(self, user_id, checkout: str = None):
         super(Cards, self).__init__(user_id)
         self.checkout = checkout
 

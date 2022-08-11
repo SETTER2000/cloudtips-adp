@@ -30,5 +30,3 @@ class ClientsTest(TestCase):
     def test_smoke2(self):
         """Smoke test 2."""
         self.assertEqual(self.g, 100)
-
-

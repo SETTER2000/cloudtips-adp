@@ -61,7 +61,7 @@ from cloudtipsadp.receivers import Receivers, receiver_create
 #### Создать получателя донатов
 
 ```angular2html
-response = receiver_create(Receivers('Adam', '+79162047558'))
+response = receiver_create(Receivers(name, phone_number))
 ```
 
 #### Вариант просмотра результата ответа сервера
