@@ -36,7 +36,7 @@ from cloudtipsadp.clients import Connect, SandboxClient
 ```
 ### Работа с тестовым сервисом
 Установка соединения c песочницей (тестовый сервис CloudTips)
-* Эта конструкция обязательна в любом файле где используется пакет
+* Эта инструкция обязательна в любом файле где используется пакет
 ```angular2html
 connect = Connect(SandboxClient())
 ```
@@ -45,50 +45,66 @@ connect = Connect(SandboxClient())
 env, уберите SandboxClient из Connect.
 ```angular2html
 connect = Connect()
+
+
 ```
 ## Получатель
-#### Создать получателя донатов
-* name - обязательно
-* phone_number - обязательно
+#### Установить зависимости
+```angular2html
+from cloudtipsadp.receivers import Receivers, receiver_create
+```
 
-Вариант 1
+#### Создать получателя донатов
+
 ```angular2html
-receiver = Receivers('Иван', '+79180060100')
-response = receiver.create()
-if response:
-    print('Получатель создан: {response.get("data")}')
+response = receiver_create(Receivers('Adam', '+79162047558'))
 ```
-Вариант 2
+
+#### Вариант просмотра результата ответа сервера
 ```angular2html
-receiver = Receivers('Иван', '+79180060100').create()
-if receiver.get('succeed'):
-    print(f'Получатель создан. {receiver}')
+if response.get('succeed'):
+    print(response.get('data'))
+else:
+    response.get('errors')
 ```
+
 
 ## Заведения
-#### Получить информацию по всем заведениям ТСП
+#### Установить зависимости
 ```angular2html
-places = Places().get()
-if places.get('succeed'):
-    print(f'Все заведения: {places.get("data")}')
+from cloudtipsadp.places import Places, place_send
+```
+#### Информация по всем заведениям ТСП.
+```angular2html
+response = place_get(Places())
+```
+#### Привязка получателя к заведению. Отправить сотруднику на его номер телефона код в смс сообщении.
+```angular2html
+response = place_send(Places(user_id))
+```
+#### Подтверждение привязки телефона (пользователя) к предприятию. Передать код из смс.
+```angular2html
+response = place_confirm(Places(user_id, confirm_code))
 ```
 
+
+
 ## Карты
-#### Получение списка карт получателя
-* user_id - обязательно
+#### Установить зависимости
 ```angular2html
-cards = Cards(user_id).get()
-if cards.get('succeed'):
-    print(cards.get('data'))
-else:
-    print(cards.get('errors'))
+from cloudtipsadp.cards import Cards, card_get
+```
+#### Список карт получателя
+```angular2html
+response = card_get(Cards(user_id))
 ```
 
 ## Накопления
-#### Получить общую сумму донатов, по сотруднику.
-* user_id - обязательно
+#### Установить зависимости
 ```angular2html
-accumulations = Accumulations(user_id).get()
-if accumulations.get('succeed'):
-    print(accumulations.get('data'))
+from cloudtipsadp.accumulations import Accumulations, acc_get
+```
+#### Получить общую сумму донатов, по сотруднику
+```angular2html
+response = acc_get(Accumulations(user_id))
 ```

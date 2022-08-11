@@ -18,8 +18,8 @@ class Accumulation:
 class Accumulations(Accumulation):
     """Накопления."""
 
-    def __init__(self, *args):
-        super().__init__(*args)
+    def __init__(self, user_id):
+        super(Accumulations, self).__init__(user_id)
 
     def get(self):
         """Получить общую сумму донатов, по сотруднику."""
@@ -33,11 +33,17 @@ class Accumulations(Accumulation):
         pass
 
 
+def acc_get(accumulation: Accumulation):
+    return accumulation.get()
+
+
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
-    ob = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf').get()
-    if ob.get('succeed'):
+    accumulations = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf')
+    response = acc_get(accumulations)
+
+    if response.get('succeed'):
         print('Получить общую сумму донатов, по сотруднику:')
-        print(ob.get('data'))
+        print(response.get('data'))
     else:
-        print(ob.get('errors'))
+        print(response.get('errors'))

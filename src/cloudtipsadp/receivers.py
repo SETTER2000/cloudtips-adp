@@ -3,6 +3,7 @@ import os
 
 import requests as requests
 
+from src.cloudtipsadp import Places
 from src.cloudtipsadp.clients import Connect, SandboxClient
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
@@ -11,20 +12,9 @@ class Receiver:
     receivers = list
     phone_number: str
     name: str
-    place_id: str = str(os.getenv('placeId'))
 
-    def __init__(self, name: str, phone_number: str):
+    def __init__(self, phone_number: str):
         self.phone_number = phone_number
-        self.name = name
-
-    def get_data(self):
-        try:
-            receivers = [dict(phoneNumber=self.phone_number, name=self.name)]
-            data = dict(placeId=self.place_id, receivers=receivers)
-        except AttributeError:
-            print('No user data.')
-        else:
-            return json.dumps(data)
 
     def create(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
@@ -34,8 +24,18 @@ class Receivers(Receiver):
     """Получатель донатов."""
     base_path = 'receivers'
 
-    def __init__(self, *args):
-        super().__init__(*args)
+    def __init__(self, name: str, phone_number: str):
+        super(Receivers, self).__init__(phone_number)
+        self.name = name
+
+    def get_data(self):
+        try:
+            receivers = [dict(phoneNumber=self.phone_number, name=self.name)]
+            data = dict(placeId=Places.get_place(), receivers=receivers)
+        except AttributeError:
+            print('No user data.')
+        else:
+            return json.dumps(data)
 
     def create(self):
         """Создать получателя донатов в сервисе."""
@@ -46,9 +46,13 @@ class Receivers(Receiver):
         return response.json()
 
 
+def receiver_create(receiver: Receiver):
+    return receiver.create()
+
+
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
     # connect.get_token()
-    ob = Receivers('Bob', '+79125265720').create()
+    ob = receiver_create(Receivers('Adam', '+79162047558'))
     if ob.get('succeed'):
         print(f'Получатель создан. {ob}')
