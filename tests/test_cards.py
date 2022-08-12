@@ -48,4 +48,3 @@ def get_sum(user_id):
     """Получить общую сумму донатов, по сотруднику."""
     response = cta.acc_get(cta.accum(user_id))
     res(response, 'Cумму донатов, по сотруднику:')
-

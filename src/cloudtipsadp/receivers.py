@@ -48,6 +48,6 @@ class Receivers(Receiver):
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
     # connect.get_token()
-    ob = receiver_create(Receivers('Adam', '+79162047558'))
-    if ob.get('succeed'):
-        print(f'Получатель создан. {ob}')
+    # ob = receiver_create(Receivers('Adam', '+79162047558'))
+    # if ob.get('succeed'):
+    #     print(f'Получатель создан. {ob}')

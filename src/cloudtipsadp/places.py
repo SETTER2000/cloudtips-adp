@@ -69,24 +69,24 @@ class Places(Place):
 
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
-    places = place_send(Places('19b3f83f-9930-4d50-b293-06edccbef2cf'))
-    if places.get('succeed'):
-        print(f'SMS отправлено: {places.get("data")}')
-    else:
-        print(places)
+    # places = place_send(Places('19b3f83f-9930-4d50-b293-06edccbef2cf'))
+    # if places.get('succeed'):
+    #     print(f'SMS отправлено: {places.get("data")}')
+    # else:
+    #     print(places)
+    # #
     #
-
-    places = place_get(Places())
-    if places.get('succeed'):
-        print(f'Получить информацию по всем заведениям ТСП: '
-              f'{places.get("data")}')
-    else:
-        print(places)
-
-    places = place_confirm(Places('19b3f83f-9930-4d50-b293-06edccbef2cf',
-                                  '123456'))
-    if places.get('succeed'):
-        print(f'Получить информацию по всем заведениям ТСП: '
-              f'{places.get("data")}')
-    else:
-        print(places)
+    # places = places_get(Places())
+    # if places.get('succeed'):
+    #     print(f'Получить информацию по всем заведениям ТСП: '
+    #           f'{places.get("data")}')
+    # else:
+    #     print(places)
+    #
+    # places = places_confirm(Places('19b3f83f-9930-4d50-b293-06edccbef2cf',
+    #                               '123456'))
+    # if places.get('succeed'):
+    #     print(f'Получить информацию по всем заведениям ТСП: '
+    #           f'{places.get("data")}')
+    # else:
+    #     print(places)

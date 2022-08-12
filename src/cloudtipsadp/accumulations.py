@@ -1,7 +1,7 @@
 import requests as requests
 
-from src.cloudtipsadp.clients import Connect, SandboxClient
-from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
+from cloudtipsadp.clients import Connect, SandboxClient
+from cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
 
 class Accumulation:
@@ -31,10 +31,7 @@ class Accumulations(Accumulation):
         """Выплата накопления получателю."""
         # TODO CloudTips ещё не объявлены ручки
         pass
-#
-# @staticmethod
-# def accum_get(accumulation: Accumulation):
-#     return accumulation.get()
+
 
 if __name__ == '__main__':
     connect = Connect(SandboxClient())

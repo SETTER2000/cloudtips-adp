@@ -76,12 +76,6 @@ class BaseClient:
         """
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
-    # def get_headers(self):
-    #     """
-    #     Получить заголовки для API соединения.
-    #     """
-    #     raise NotImplementedError(M_BASE_IMPLEMENTED)
-
 
 class ProductClient(BaseClient):
     """Production server."""

@@ -122,7 +122,6 @@ if __name__ == '__main__':
     from src.cloudtipsadp.core import Cloudtipsadp
     connect = Connect(SandboxClient())
     cta = Cloudtipsadp()
-    # cta = src.Cloudtipsadp()
     id = '23d3e83b-eef0-42dc-aa45-3d0b7e612924'
     checkout = '014242424242250102H9dexRXUhXrYc4oNjQHFnHeK2E41DqX0CqUFL27RSyWrPX0H5GFIIxHblzOykrRdKrgMya5DhbNfvaRv1WA20Reln6bYSjEkQuPcK+FdWt6TZgp/6fVXYTvUz2F9KM/xlgatGmO5n2XoAt+zN4cKcLN6ip8WY4wwq+Mbw7DACxNJR8vPjS+3IMMUPfdxTsMkw4ZHw2Vm1U1l7IlvRJsKHGULat5svBRq5zzNGXJYneMM1ApGPMiKYJemgVscMwilr1sTfvTcwONUYFzwW8AlC/KIfbINICOBeEE1CcHCrNWbe+hWEcSVC/t5oRINSOdwPE961lPcjxT97lsqS7JCag=='
 
@@ -148,7 +147,7 @@ if __name__ == '__main__':
         response = cta.cards_flow(challenge)
         print(f'TUTUU::: {response}')
     except ValueError:
-        print(f'3D Secure аутентификации')
+        print('3D Secure аутентификации')
 
     # if (response.status_code != 204 and response.headers[
     #     "content-type"].strip().startswith("application/json")):
@@ -156,7 +155,8 @@ if __name__ == '__main__':
     #         print(f'3D Secure аутентификации:{response.json()}')
     #         # return response.json()
     #     except ValueError:
-    #         # решить, как обращаться с сервером, который плохо себя ведет до такой степени
+    #         # решить, как обращаться с сервером, который плохо себя ведет до
+    #         #такой степени
     #         print('Error')
     # decide how to handle a server that's misbehaving to this extent
 
