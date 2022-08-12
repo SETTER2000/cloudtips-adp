@@ -31,19 +31,18 @@ class Accumulations(Accumulation):
         """Выплата накопления получателю."""
         # TODO CloudTips ещё не объявлены ручки
         pass
-
-
-def acc_get(accumulation: Accumulation):
-    return accumulation.get()
-
+#
+# @staticmethod
+# def accum_get(accumulation: Accumulation):
+#     return accumulation.get()
 
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
     accumulations = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf')
-    response = acc_get(accumulations)
+    # response = accum_get(accumulations)
 
-    if response.get('succeed'):
-        print('Получить общую сумму донатов, по сотруднику:')
-        print(response.get('data'))
-    else:
-        print(response.get('errors'))
+    # if response.get('succeed'):
+    #     print('Получить общую сумму донатов, по сотруднику:')
+    #     print(response.get('data'))
+    # else:
+    #     print(response.get('errors'))

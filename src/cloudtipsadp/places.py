@@ -67,18 +67,6 @@ class Places(Place):
         return response.json()
 
 
-def place_send(place: Place):
-    return place.send()
-
-
-def place_get(place: Place):
-    return place.get()
-
-
-def place_confirm(place: Place):
-    return place.confirm()
-
-
 if __name__ == '__main__':
     connect = Connect(SandboxClient())
     places = place_send(Places('19b3f83f-9930-4d50-b293-06edccbef2cf'))

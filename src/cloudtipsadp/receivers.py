@@ -2,7 +2,7 @@ import json
 
 import requests as requests
 
-from src.cloudtipsadp import Places
+from src.cloudtipsadp.places import Places
 from src.cloudtipsadp.clients import Connect, SandboxClient
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
@@ -43,10 +43,6 @@ class Receivers(Receiver):
         response = requests.post(api_url, data=self.get_data(),
                                  headers=Connect.get_headers())
         return response.json()
-
-
-def receiver_create(receiver: Receiver):
-    return receiver.create()
 
 
 if __name__ == '__main__':

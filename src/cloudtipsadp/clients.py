@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 import requests as requests
 from dotenv import load_dotenv
 
-from src.cloudtipsadp.configuration import Token
+from src.cloudtipsadp.config import Token
 from src.cloudtipsadp.constants import (API_VERSION, BASE_URL, BASE_URL_API,
                                         BASE_URL_API_SANDBOX, BASE_URL_SANDBOX,
                                         HEADERS_REQUEST, M_BAD_CONNECT,

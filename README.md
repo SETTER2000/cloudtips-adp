@@ -49,19 +49,23 @@ connect = Connect(SandboxClient())
 env, уберите SandboxClient из Connect.
 ```angular2html
 connect = Connect()
-
-
 ```
-## Получатель
-#### Установить зависимости
+
+### В общем установка зависимостей для модуля выглядит так
 ```angular2html
-from cloudtipsadp.receivers import Receivers, receiver_create
+from cloudtipsadp.clients import Connect, SandboxClient
+from cloudtipsadp import Cloudtipsadp
+
+connect = Connect(SandboxClient())
+cta = Cloudtipsadp()
 ```
 
+
+## Получатель
 #### Создать получателя донатов
 
 ```angular2html
-response = receiver_create(Receivers(name, phone_number))
+response = cta.receivers_create(cta.receivers(name, phone_number))
 ```
 
 #### Вариант просмотра результата ответа сервера
@@ -74,41 +78,33 @@ else:
 
 
 ## Заведения
-#### Установить зависимости
-```angular2html
-from cloudtipsadp.places import (Places, place_send, place_get, place_confirm)
-```
 #### Информация по всем заведениям ТСП.
 ```angular2html
-response = place_get(Places())
+response = cta.places_get(cta.places())
 ```
 #### Привязка получателя к заведению. Отправить сотруднику на его номер телефона код в смс сообщении.
 ```angular2html
-response = place_send(Places(user_id))
+response = cta.places_send(cta.places(user_id))
 ```
 #### Подтверждение привязки телефона (пользователя) к предприятию. Передать код из смс.
 ```angular2html
-response = place_confirm(Places(user_id, confirm_code))
+response = cta.places_confirm(cta.places(user_id, confirm_code))
 ```
 
 
 
 ## Карты
-#### Установить зависимости
-```angular2html
-from cloudtipsadp.cards import Cards, card_get
-```
 #### Список карт получателя
 ```angular2html
-response = card_get(Cards(user_id))
+response = cta.cards_get(cta.cards(user_id))
+```
+#### Отправить криптограмму
+```angular2html
+response = cta.cards_auth(cta.cards(user_id, checkout))
 ```
 
 ## Накопления
-#### Установить зависимости
-```angular2html
-from cloudtipsadp.accumulations import Accumulations, acc_get
-```
 #### Получить общую сумму донатов, по сотруднику
 ```angular2html
-response = acc_get(Accumulations(user_id))
+response = cta.accums_get(cta.accums(user_id))
 ```
