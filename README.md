@@ -67,6 +67,10 @@ cta = Cloudtipsadp()
 ```angular2html
 response = cta.receivers_create(cta.receivers(name, phone_number))
 ```
+#### Все получатели донатов
+```angular2html
+response = cta.receivers_pages(cta.receivers())
+```
 
 #### Вариант просмотра результата ответа сервера
 ```angular2html
@@ -84,7 +88,7 @@ response = cta.places_get(cta.places())
 ```
 #### Привязка получателя к заведению. Отправить сотруднику на его номер телефона код в смс сообщении.
 ```angular2html
-response = cta.places_send(cta.places(user_id))
+response = cta.places_send_sms(cta.places(user_id))
 ```
 #### Подтверждение привязки телефона (пользователя) к предприятию. Передать код из смс.
 ```angular2html

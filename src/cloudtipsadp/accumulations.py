@@ -24,8 +24,8 @@ class Accumulations(Accumulation):
     def get(self):
         """Получить общую сумму донатов, по сотруднику."""
         api_url = Connect.client.api([self.base_path, self.user_id, 'summary'])
-        response = requests.get(api_url, headers=Connect.get_headers())
-        return response.json()
+        parsed = requests.get(api_url, headers=Connect.get_headers()).json()
+        return parsed
 
     def payout(self):
         """Выплата накопления получателю."""

@@ -36,8 +36,8 @@ class Places(Place):
         """Позволяет получить информацию по всем заведениям ТСП."""
         # URL для запроса к API
         api_url = Connect.client.api([self.base_path])
-        response = requests.get(api_url, headers=Connect.get_headers())
-        return response.json()
+        parsed = requests.get(api_url, headers=Connect.get_headers()).json()
+        return parsed
 
     def send(self):
         """
@@ -47,10 +47,10 @@ class Places(Place):
         api_url = Connect.client.api(
             [self.base_path, self.get_place(), 'employees', 'attach',
              'send-sms'])
-        response = requests.post(
+        parsed = requests.post(
             api_url, data=json.dumps(dict(UserId=self.user_id)),
-            headers=Connect.get_headers())
-        return response.json()
+            headers=Connect.get_headers()).json()
+        return parsed
 
     def confirm(self):
         """
@@ -60,21 +60,34 @@ class Places(Place):
         api_url = Connect.client.api(
             [self.base_path, self.get_place(), 'employees', 'attach',
              'confirm'])
-        response = requests.post(
+        parsed = requests.post(
             api_url, data=json.dumps(dict(UserId=self.user_id,
                                           SmsCode=self.code)),
-            headers=Connect.get_headers())
-        return response.json()
+            headers=Connect.get_headers()).json()
+        return parsed
 
 
 if __name__ == '__main__':
+    from core import Cloudtipsadp
     connect = Connect(SandboxClient())
-    # places = place_send(Places('19b3f83f-9930-4d50-b293-06edccbef2cf'))
-    # if places.get('succeed'):
-    #     print(f'SMS отправлено: {places.get("data")}')
-    # else:
-    #     print(places)
-    # #
+    cta = Cloudtipsadp()
+
+    places = cta.places_send_sms(
+        cta.places('44a38440-595d-494e-a028-09804355757a'))
+
+    if places.get('succeed'):
+        print(f'SMS отправлено: {places.get("data")}')
+    else:
+        print(places)
+
+    places = cta.places_confirm(
+        cta.places('44a38440-595d-494e-a028-09804355757a', '000000'))
+
+    if places.get('succeed'):
+        print(f'Код из sms: '
+              f'{places.get("data")}')
+    else:
+        print(places)
     #
     # places = places_get(Places())
     # if places.get('succeed'):
@@ -83,10 +96,4 @@ if __name__ == '__main__':
     # else:
     #     print(places)
     #
-    # places = places_confirm(Places('19b3f83f-9930-4d50-b293-06edccbef2cf',
-    #                               '123456'))
-    # if places.get('succeed'):
-    #     print(f'Получить информацию по всем заведениям ТСП: '
-    #           f'{places.get("data")}')
-    # else:
-    #     print(places)
+

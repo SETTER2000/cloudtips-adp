@@ -128,8 +128,9 @@ class Connect:
         #  двойных кавычек и желтизны кода.
 
         try:
-            return (f'{cls.client.token["token_type"]}'
-                    f' {cls.client.token["access_token"]}')
+            type_token = cls.client.token['token_type']
+            access_token = cls.client.token['access_token']
+            return f'{type_token} {access_token}'
         except AttributeError:
             print(M_BAD_CONNECT)
 
@@ -139,8 +140,9 @@ class Connect:
         except AttributeError:
             print(M_BAD_CONNECT)
         else:
-            return (f'{self.client.token["token_type"]}'
-                    f' {self.client.token["access_token"]}')
+            type_token = self.client.token['token_type']
+            access_token = self.client.token['access_token']
+            return f'{type_token} {access_token}'
 
     @classmethod
     def get_headers(cls):
@@ -164,3 +166,6 @@ if __name__ == '__main__':
     # Получить токен
     token = connect.get_token()
     print(token)
+    #
+    # token = connect.refresh_token()
+    # print(token)

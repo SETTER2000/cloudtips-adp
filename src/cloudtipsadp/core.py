@@ -22,8 +22,9 @@ class Cloudtipsadp:
         self.cards_flow = _card_flow
         self.places_confirm = _place_confirm
         self.places_get = _place_get
-        self.places_send = _place_send
+        self.places_send_sms = _place_send
         self.receivers_create = _receiver_create
+        self.receivers_pages = _receiver_pages
 
 
 def _accum_get(accumulation: Accumulation):
@@ -59,3 +60,7 @@ def _place_send(place: Place):
 
 def _receiver_create(receiver: Receiver):
     return receiver.create()
+
+
+def _receiver_pages(receiver: Receiver):
+    return receiver.pages()
