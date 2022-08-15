@@ -52,6 +52,10 @@ class Receivers(Receiver):
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 
+    def filter(self, ):
+        """Выборка данных согласно параметрам запроса."""
+        pass
+
 
 if __name__ == '__main__':
     from core import Cloudtipsadp
@@ -85,7 +89,9 @@ if __name__ == '__main__':
             print('Получатель уже есть в системе и находится в вашем скоупе,'
                   'так как находится в массиве skipped: ')
             print(ob.get('data')['skipped'])
-        elif len(ob.get('data')['created']) > 0 and ob.get('data')['created'][0]['layoutStatus'] == 'WaitingForConfirmation':
+        elif len(ob.get('data')['created']) > 0 and \
+                ob.get('data')['created'][0][
+                    'layoutStatus'] == 'WaitingForConfirmation':
             print('Получатель уже есть в системе, но не в нашем скоупе.')
             print('Так как есть в массиве created и '
                   'layoutStatus = WaitingForConfirmation:')
@@ -93,7 +99,8 @@ if __name__ == '__main__':
             print('Получатель должен подтвердить свое желание, что вы его '
                   'привяжете к своему скоупу.')
             print('Для подтверждение, ему надо направить sms.')
-        elif len(ob.get('data')['created']) > 0 and ob.get('data')['created'][0]['layoutStatus'] == 'None':
+        elif len(ob.get('data')['created']) > 0 and \
+                ob.get('data')['created'][0]['layoutStatus'] == 'None':
             print('Получатель не был в системе и сейчас был создан и '
                   'добавлен в ваш скоуп.')
             print(ob.get('data'))
@@ -103,4 +110,3 @@ if __name__ == '__main__':
 
     else:
         print(f'ERROR: {ob}')
-
