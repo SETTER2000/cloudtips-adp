@@ -71,13 +71,19 @@ response = cta.receivers_create(cta.receivers(name, phone_number))
 ```angular2html
 response = cta.receivers_pages(cta.receivers())
 ```
+#### Загрузка фотографии получателя
+```angular2html
+user_id = 'b8835022-f475-44b9-99d3-e22ca9c3e44a'
+photo_path='/home/user_name/Изображения/photo/1.png'
+response = cta.receivers_photo(cta.receivers(id_user=user_id,photo_path=photo_path))
+```
 
 #### Вариант просмотра результата ответа сервера
 ```angular2html
-if response.get('succeed'):
+if type(response) == dict and response.get('succeed'):
     print(response.get('data'))
 else:
-    response.get('errors')
+    print(response)
 ```
 
 

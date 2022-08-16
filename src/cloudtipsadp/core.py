@@ -25,17 +25,21 @@ class Cloudtipsadp:
         self.places_send_sms = _place_send
         self.receivers_create = _receiver_create
         self.receivers_pages = _receiver_pages
+        self.receivers_photo = _receiver_photo
 
 
 def _accum_get(accumulation: Accumulation):
+    """Получить общую сумму донатов, по сотруднику."""
     return accumulation.get()
 
 
 def _card_auth(card: Card):
+    """Отправить криптограмму."""
     return card.auth()
 
 
 def _card_get(card: Card):
+    """Список карт получателя."""
     return card.get()
 
 
@@ -47,20 +51,36 @@ def _card_flow(flow: FlowBase):
 
 
 def _place_confirm(place: Place):
+    """
+    Передать код из смс.
+    Подтверждение привязки телефона (пользователя) к предприятию.
+    """
     return place.confirm()
 
 
 def _place_get(place: Place):
+    """Информация по всем заведениям ТСП."""
     return place.get()
 
 
 def _place_send(place: Place):
+    """
+    Привязка получателя к заведению.
+    Отправить сотруднику на его номер телефона код в смс сообщении.
+    """
     return place.send()
 
 
 def _receiver_create(receiver: Receiver):
+    """Создать получателя донатов."""
     return receiver.create()
 
 
 def _receiver_pages(receiver: Receiver):
+    """Все получатели донатов."""
     return receiver.pages()
+
+
+def _receiver_photo(receiver: Receiver):
+    """Загрузить фотографию получателя."""
+    return receiver.photo()

@@ -8,6 +8,7 @@ __all__ = [
     'API_VERSION',
     'HEADERS_REQUEST',
     'SITE_RETURNING_URL',
+    'FILE_PATH_BAD',
 ]
 BASE_URL = 'https://identity.cloudtips.ru'
 BASE_URL_SANDBOX = 'https://identity-sandbox.cloudtips.ru'
@@ -18,4 +19,5 @@ M_BASE_IMPLEMENTED = 'Base class method not implemented.'
 # URL сайта для возврата плательщика после аутентификации карты
 SITE_RETURNING_URL = 'http://127.0.0.1:8000'
 API_VERSION = 'api'
+FILE_PATH_BAD = 'File path missing:'
 HEADERS_REQUEST = {"Content-Type": "application/x-www-form-urlencoded"}
