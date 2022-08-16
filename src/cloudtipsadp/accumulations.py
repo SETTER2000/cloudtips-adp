@@ -27,19 +27,38 @@ class Accumulations(Accumulation):
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 
-    def payout(self):
+    def __get_data(self):
+        pass
+        # try:
+        #     receivers = [dict(phoneNumber=self.phone_number, name=self.name)]
+        #     data = dict(placeId=Places.get_place(), receivers=receivers)
+        # except AttributeError:
+        #     print('No user data.')
+        # else:
+        #     return json.dumps(data)
+
+    def payout_receiver(self):
         """Выплата накопления получателю."""
-        # TODO CloudTips ещё не объявлены ручки
+        # api_url = Connect.client.api([self.base_path, 'payout', self.user_id])
+        # parsed = requests.post(api_url, data=self.__get_data(),
+        #                        headers=Connect.get_headers()).json()
+        # return parsed
         pass
 
 
 if __name__ == '__main__':
-    connect = Connect(SandboxClient())
-    accumulations = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf')
+    # connect = Connect(SandboxClient())
+    # accumulations = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf')
     # response = accum_get(accumulations)
+    from core import Cloudtipsadp
 
-    # if response.get('succeed'):
-    #     print('Получить общую сумму донатов, по сотруднику:')
-    #     print(response.get('data'))
-    # else:
-    #     print(response.get('errors'))
+    connect = Connect(SandboxClient())
+    cta = Cloudtipsadp()
+
+    ob = cta.accums_get(
+        cta.accum(user_id='b8835022-f475-44b9-99d3-eddca9c3e44a'))
+    if type(ob) == dict and ob.get('succeed'):
+        print('Получить общую сумму донатов, по сотруднику:')
+        print(ob.get('data'))
+    else:
+        print(f'ERROR все: {ob}')
