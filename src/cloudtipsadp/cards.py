@@ -2,8 +2,8 @@ import json
 
 import requests as requests
 
-from src.cloudtipsadp.clients import Connect, SandboxClient
-from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED, SITE_RETURNING_URL
+from cloudtipsadp.clients import Connect, SandboxClient
+from cloudtipsadp.constants import M_BASE_IMPLEMENTED, SITE_RETURNING_URL
 
 
 class Card:
@@ -115,7 +115,7 @@ class Challenge(FlowBase):
 
 
 if __name__ == '__main__':
-    from src.cloudtipsadp.core import Cloudtipsadp
+    from cloudtipsadp.core import Cloudtipsadp
     connect = Connect(SandboxClient())
     cta = Cloudtipsadp()
     id = '23d3e83b-eef0-42dc-aa45-3d0b7e612924'

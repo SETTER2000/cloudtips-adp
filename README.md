@@ -33,11 +33,7 @@ Password=<your_password>
 placeId=<your_placeId>
 ```
 
-##  Работа с пакетом
-
-```angular2html
-from cloudtipsadp.clients import Connect, SandboxClient 
-```
+#  Работа с пакетом
 ### Работа с тестовым сервисом
 Установка соединения c песочницей (тестовый сервис CloudTips)
 * Эта инструкция обязательна в любом файле где используется пакет

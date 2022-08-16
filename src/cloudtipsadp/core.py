@@ -9,6 +9,8 @@ from src.cloudtipsadp.payouts import Payouts, Payout
 
 
 class Cloudtipsadp:
+    __link = None
+
     def __init__(self):
         # class
         self.__connect = Connect
@@ -35,8 +37,14 @@ class Cloudtipsadp:
     def connect(self, sandbox=False):
         """Подключение."""
         if sandbox:
-            self.__connect(self.__sandbox_client())
-        self.__connect()
+            self.__link = self.__connect(self.__sandbox_client())
+        self.__link = self.__connect()
+
+    def get_token(self):
+        return self.__connect.get_token()
+
+    def refresh_token(self):
+        return self.__link.refresh_token()
 
 
 def _accum_get(accumulation: Accumulation):

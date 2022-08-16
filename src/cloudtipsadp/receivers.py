@@ -5,9 +5,9 @@ import requests
 # from requests_toolbelt import MultipartEncoder
 # from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-from src.cloudtipsadp.places import Places
-from src.cloudtipsadp.clients import Connect, SandboxClient
-from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED, FILE_PATH_BAD
+from cloudtipsadp.places import Places
+from cloudtipsadp.clients import Connect, SandboxClient
+from cloudtipsadp.constants import M_BASE_IMPLEMENTED, FILE_PATH_BAD
 
 mime = magic.Magic(mime=True)
 

@@ -13,7 +13,6 @@ class Token:
         return self.refresh_token
 
 
-# @dataclass(frozen=True)
 class Filter:
     dateFrom: str
     dateTo: str
