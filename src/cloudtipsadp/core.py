@@ -9,16 +9,17 @@ from src.cloudtipsadp.payouts import Payouts, Payout
 
 
 class Cloudtipsadp:
-    Connect = Connect
-    ProductClient = ProductClient
-    SandboxClient = SandboxClient
-    accums: Type[Accumulation] = Accumulations
-    cards = Cards
-    payouts = Payouts
-    places = Places
-    receivers = Receivers
-
     def __init__(self):
+        # class
+        self.__connect = Connect
+        self.__sandbox_client = SandboxClient
+        self.__product_client = ProductClient
+        self.accums: Type[Accumulation] = Accumulations
+        self.cards = Cards
+        self.payouts = Payouts
+        self.places = Places
+        self.receivers = Receivers
+        # funcs
         self.accums_get = _accum_get
         self.cards_auth = _card_auth
         self.cards_get = _card_get
@@ -30,6 +31,12 @@ class Cloudtipsadp:
         self.receivers_create = _receiver_create
         self.receivers_pages = _receiver_pages
         self.receivers_photo = _receiver_photo
+
+    def connect(self, sandbox=False):
+        """Подключение."""
+        if sandbox:
+            self.__connect(self.__sandbox_client())
+        self.__connect()
 
 
 def _accum_get(accumulation: Accumulation):

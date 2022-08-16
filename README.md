@@ -42,22 +42,21 @@ from cloudtipsadp.clients import Connect, SandboxClient
 Установка соединения c песочницей (тестовый сервис CloudTips)
 * Эта инструкция обязательна в любом файле где используется пакет
 ```angular2html
-connect = Connect(SandboxClient())
+cta.connect(sandbox=True)
 ```
 ### Работа с Production Serves
 После тестирования для работы с production сервисом поменяйте данные в файле .
-env, уберите SandboxClient из Connect.
+env и уберите "sandbox=True" из сonnect.
 ```angular2html
-connect = Connect()
+cta.connect()
 ```
 
-### В общем установка зависимостей для модуля выглядит так
+### В общем установка зависимостей для модуля выглядит так. Вариант для работы с sandbox.
 ```angular2html
-from cloudtipsadp.clients import Connect, SandboxClient
 from cloudtipsadp import Cloudtipsadp
 
-connect = Connect(SandboxClient())
 cta = Cloudtipsadp()
+cta.connect(sandbox=True)
 ```
 
 

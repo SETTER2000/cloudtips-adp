@@ -11,3 +11,16 @@ class Token:
 
     def refresh(self):
         return self.refresh_token
+
+
+# @dataclass(frozen=True)
+class Filter:
+    dateFrom: str
+    dateTo: str
+    phoneNumber: str
+    layoutId: str
+    id: str
+    status: str
+    userId: str
+    page: str
+    limit: str
