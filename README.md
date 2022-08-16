@@ -116,3 +116,9 @@ response = cta.cards_auth(cta.cards(user_id, checkout))
 ```angular2html
 response = cta.accums_get(cta.accums(user_id))
 ```
+
+## Транзакции
+#### Получение всех транзакций выплат получателям менеджера
+```angular2html
+response = cta.payouts_get(cta.payouts())
+```
