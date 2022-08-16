@@ -35,10 +35,10 @@ class Receivers(Receiver):
     base_path = 'receivers'
 
     def __init__(self, name: str = None, phone_number: str = None,
-                 id_user: str = None, photo_path: str = None):
+                 user_id: str = None, photo_path: str = None):
         super(Receivers, self).__init__(phone_number)
         self.name = name
-        self.user_id = id_user
+        self.user_id = user_id
         self.photo_path = photo_path
 
     def __get_data(self):
@@ -77,7 +77,9 @@ class Receivers(Receiver):
                     paths[1],
                     open(self.photo_path, 'rb'),
                     magic.from_file(self.photo_path, mime=True)))]
-        except TypeError as e:
+        except TypeError:
+            print(f'{FILE_PATH_BAD}')
+        except FileNotFoundError as e:
             print(f'{FILE_PATH_BAD} {e}')
         else:
             api_url = Connect.client.api([self.base_path,
@@ -98,9 +100,8 @@ if __name__ == '__main__':
 
     user_id = 'b8835022-f475-44b9-99d3-eddca9c3e44a'
     photo_path = '/home/setter/Изображения/Рецепты/1.png'
-    ob = cta.receivers_photo(cta.receivers(id_user=user_id,
+    ob = cta.receivers_photo(cta.receivers(user_id=user_id,
                                            photo_path=photo_path))
-    # print(f'PPP::: {ob}')
     if type(ob) == dict and ob.get('succeed'):
         print('Фото получателя успешно загружено:')
         print(ob.get('data'))

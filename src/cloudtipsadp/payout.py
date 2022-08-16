@@ -1,0 +1,3 @@
+class Payout:
+    """Выплаты."""
+    pass

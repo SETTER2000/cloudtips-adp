@@ -12,7 +12,7 @@ pip uninstall cloudtipsadp
 ```
 Зависимости разрешить 
 ```angular2html
-pip install python-dotenv requests
+pip install python-dotenv requests python-magic
 ```
 ### Настройка переменных окружения
 В корне проекта создать файл .env 
@@ -73,9 +73,7 @@ response = cta.receivers_pages(cta.receivers())
 ```
 #### Загрузка фотографии получателя
 ```angular2html
-user_id = 'b8835022-f475-44b9-99d3-e22ca9c3e44a'
-photo_path='/home/user_name/Изображения/photo/1.png'
-response = cta.receivers_photo(cta.receivers(id_user=user_id,photo_path=photo_path))
+response = cta.receivers_photo(cta.receivers(user_id, photo_path))
 ```
 
 #### Вариант просмотра результата ответа сервера
