@@ -1,5 +1,5 @@
 """Top-level package for cloudtipsadp API Python Client Library."""
-from cloudtipsadp.core import Cloudtipsadp
+from src.cloudtipsadp.core import Cloudtipsadp
 
 
 __author__ = "SETTER"
