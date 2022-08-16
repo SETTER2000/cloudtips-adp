@@ -1,7 +1,6 @@
 from src.cloudtipsadp.clients import (Connect, ProductClient, SandboxClient)
 from src.cloudtipsadp.accumulations import Accumulation, Accumulations
-from src.cloudtipsadp.cards import (Card, Cards, FlowBase, Frictionless,
-                                    Challenge)
+from src.cloudtipsadp.cards import (Card, Cards, FlowBase)
 from src.cloudtipsadp.places import Place, Places
 from src.cloudtipsadp.receivers import Receivers, Receiver
 

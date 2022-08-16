@@ -97,7 +97,7 @@ if __name__ == '__main__':
     cta = Cloudtipsadp()
 
     user_id = 'b8835022-f475-44b9-99d3-eddca9c3e44a'
-    photo_path='/home/setter/Изображения/Рецепты/1.png'
+    photo_path = '/home/setter/Изображения/Рецепты/1.png'
     ob = cta.receivers_photo(cta.receivers(id_user=user_id,
                                            photo_path=photo_path))
     # print(f'PPP::: {ob}')
@@ -119,14 +119,25 @@ if __name__ == '__main__':
     # print(ob)
 
     # Получатель уже есть в системе, но не в нашем скоупе.
-    # ob = {'data': {'created': [{'phoneNumber': '+72002040005', 'name': 'Foo-55', 'userId': '21591c56-dfc6-432d-93af-882c0ea454aa', 'layoutId': 'a454aabd', 'layoutStatus': 'WaitingForConfirmation'}], 'skipped': []}, 'succeed': True, 'errors': None, 'validationErrors': None}
+    # ob = {'data': {'created': [{'phoneNumber': '+72002040005',
+    # 'name': 'Foo-55', 'userId': '21591c56-dfc6-432d-93af-882c0ea454aa',
+    # 'layoutId': 'a454aabd', 'layoutStatus': 'WaitingForConfirmation'}],
+    # 'skipped': []}, 'succeed': True, 'errors': None,
+    # 'validationErrors': None}
 
     # Новый получатель создан
-    # ob = {'data': {'created': [{'phoneNumber': '+72002040005', 'name': 'Foo-55', 'userId': '21591c56-dfc6-432d-93af-882c0ea454aa', 'layoutId': 'a454aabd', 'layoutStatus': 'None'}], 'skipped': []}, 'succeed': True, 'errors': None, 'validationErrors': None}
+    # ob = {'data': {'created': [{'phoneNumber': '+72002040005',
+    # 'name': 'Foo-55', 'userId': '21591c56-dfc6-432d-93af-882c0ea454aa',
+    # 'layoutId': 'a454aabd', 'layoutStatus': 'None'}], 'skipped': []},
+    # 'succeed': True, 'errors': None, 'validationErrors': None}
 
     # Получатель уже есть в системе и находится в вашем скоупе,так как
     # находится в массиве skipped:
-    # ob = {'data': {'created': [], 'skipped': [{'phoneNumber': '+79162047558', 'name': 'Adam', 'userId': '44a38440-595d-494e-a028-09804355757a', 'layoutId': '55757a3e', 'layoutStatus': 'None'}]}, 'succeed': True, 'errors': None, 'validationErrors': None}
+    # ob = {'data': {'created': [], 'skipped': [{'phoneNumber': '+79162047558',
+    # 'name': 'Adam', 'userId': '44a38440-595d-494e-a028-09804355757a',
+    # 'layoutId': '55757a3e', 'layoutStatus': 'None'}]}, 'succeed': True,
+    # 'errors': None, 'validationErrors': None}
+
     # if ob.get('succeed'):
     #     if len(ob.get('data')['skipped']) > 0:
     #         print('Получатель уже есть в системе и находится в вашем скоупе,'
