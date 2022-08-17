@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from loguru import logger
 
-logger.add('debug.log', format='{time} {level} {message}', level='DEBUG',
+logger.add("file_{time}.log", format='{time} {level} {message}', level='INFO',
            rotation='1 MB', compression='zip')
 
 

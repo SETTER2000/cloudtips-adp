@@ -10,7 +10,7 @@ pip install cloudtipsadp
 ```angular2html
 pip uninstall cloudtipsadp
 ```
-Зависимости разрешить 
+Зависимости разрешить [^1]
 ```angular2html
 pip install python-dotenv requests python-magic loguru
 ```
@@ -119,4 +119,13 @@ response = cta.accums_get(cta.accums(user_id))
 #### Получение всех транзакций выплат получателям менеджера
 ```angular2html
 response = cta.payouts_get(cta.payouts())
+```
+
+### Возможные проблемы
+____
+
+[^1]: Если возникли проблемы с установкой пакета python-magic на macos 
+установите:
+```angular2html
+brew install libmagic 
 ```
