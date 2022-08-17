@@ -2,11 +2,9 @@ import json
 import magic
 import os
 import requests
-# from requests_toolbelt import MultipartEncoder
-# from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 from src.cloudtipsadp.places import Places
-from src.cloudtipsadp.clients import Connect, SandboxClient
+from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED, FILE_PATH_BAD
 
 mime = magic.Magic(mime=True)
@@ -92,11 +90,10 @@ class Receivers(Receiver):
 
 
 if __name__ == '__main__':
-    # from cloudtipsadp.clients import Connect, SandboxClient
     from core import Cloudtipsadp
 
-    connect = Connect(SandboxClient())
     cta = Cloudtipsadp()
+    cta.connect(sandbox=True)
 
     user_id = 'b8835022-f475-44b9-99d3-eddca9c3e44a'
     photo_path = '/home/setter/Изображения/Рецепты/1.png'
@@ -107,6 +104,7 @@ if __name__ == '__main__':
         print(ob.get('data'))
     else:
         print(f'ERROR все: {ob}')
+
     # ob = cta.receivers_pages(cta.receivers())
     # if ob.get('succeed'):
     #     print('Все получатели в системе:')

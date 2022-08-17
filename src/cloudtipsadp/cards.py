@@ -2,7 +2,7 @@ import json
 
 import requests as requests
 
-from src.cloudtipsadp.clients import Connect, SandboxClient
+from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED, SITE_RETURNING_URL
 
 
@@ -115,9 +115,11 @@ class Challenge(FlowBase):
 
 
 if __name__ == '__main__':
-    from src.cloudtipsadp.core import Cloudtipsadp
-    connect = Connect(SandboxClient())
+    from src.cloudtipsadp import Cloudtipsadp
+
     cta = Cloudtipsadp()
+    cta.connect(sandbox=True)
+
     id = '23d3e83b-eef0-42dc-aa45-3d0b7e612924'
     checkout = ''
 
@@ -134,14 +136,10 @@ if __name__ == '__main__':
     ob = ob.get('data')
     print(f'PPPP:{ob}')
 
-    challenge = Challenge(**ob)
-    print(challenge.__dict__)
-
-    try:
+    if type(ob) == dict and len(ob) > 0:
+        challenge = Challenge(**ob)
+        print(challenge.__dict__)
         response = cta.cards_flow(challenge)
-        print(f'TUTUU::: {response}')
-    except ValueError:
-        print('3D Secure аутентификации')
 
     # if (response.status_code != 204 and response.headers[
     #     "content-type"].strip().startswith("application/json")):

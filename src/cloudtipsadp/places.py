@@ -69,6 +69,7 @@ class Places(Place):
 
 if __name__ == '__main__':
     from core import Cloudtipsadp
+
     connect = Connect(SandboxClient())
     cta = Cloudtipsadp()
 

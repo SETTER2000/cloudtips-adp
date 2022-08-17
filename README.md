@@ -12,10 +12,13 @@ pip uninstall cloudtipsadp
 ```
 Зависимости разрешить 
 ```angular2html
-pip install python-dotenv requests python-magic
+pip install python-dotenv requests python-magic loguru
 ```
 ### Настройка переменных окружения
 В корне проекта создать файл .env 
+
+*Файл .env используется для тестов. В production установить переменные 
+окружения уровня сеанса пользователя или системы.*
 
 ```angular2html
 sudo touch .env

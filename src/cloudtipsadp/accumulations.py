@@ -1,6 +1,6 @@
 import requests as requests
 
-from src.cloudtipsadp.clients import Connect, SandboxClient
+from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
 
@@ -47,16 +47,16 @@ class Accumulations(Accumulation):
 
 
 if __name__ == '__main__':
-    # connect = Connect(SandboxClient())
+    from src.cloudtipsadp import Cloudtipsadp
+
+    cta = Cloudtipsadp()
+    cta.connect(sandbox=True)
+
     # accumulations = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf')
     # response = accum_get(accumulations)
-    from core import Cloudtipsadp
-
-    connect = Connect(SandboxClient())
-    cta = Cloudtipsadp()
 
     ob = cta.accums_get(
-        cta.accum(user_id='b8835022-f475-44b9-99d3-eddca9c3e44a'))
+        cta.accums(user_id='44a38440-595d-494e-a028-09804355757a'))
     if type(ob) == dict and ob.get('succeed'):
         print('Получить общую сумму донатов, по сотруднику:')
         print(ob.get('data'))

@@ -1,3 +1,2 @@
-class FilterBase:
-    """Базовый класс фильтров."""
+class Filter:
     pass

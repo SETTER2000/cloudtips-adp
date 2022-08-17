@@ -1,6 +1,5 @@
 import requests
-
-from src.cloudtipsadp.clients import Connect, SandboxClient
+from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
 
@@ -36,6 +35,7 @@ if __name__ == '__main__':
     cta.connect(sandbox=True)
 
     ob = cta.payouts_get(cta.payouts())
+
     if type(ob) == dict and ob.get('succeed'):
         print('Получение всех транзакций выплат получателям менеджера:')
         print(ob.get('data'))

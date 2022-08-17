@@ -124,15 +124,13 @@ class Connect:
 
     @classmethod
     def get_token(cls):
-        # TODO заменить на метод get() ["token.."] и т.п. Избавиться от
-        #  двойных кавычек и желтизны кода.
-
         try:
             type_token = cls.client.token['token_type']
             access_token = cls.client.token['access_token']
             return f'{type_token} {access_token}'
         except AttributeError:
             print(M_BAD_CONNECT)
+            raise
 
     def refresh_token(self):
         try:
