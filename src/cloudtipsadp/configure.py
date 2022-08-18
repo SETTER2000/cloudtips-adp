@@ -3,9 +3,11 @@ from dotenv import load_dotenv
 from dataclasses import dataclass
 from loguru import logger
 
-from src.cloudtipsadp.constants import (LOG_NOT_LINK,)
+from src.cloudtipsadp.constants import (LOGS_NOT_LINK, CTA, LOGS_NOT_VALUES, )
 
 load_dotenv()
+
+level = 'DEBUG'
 
 
 class ConfigurationError(Exception):
@@ -13,7 +15,7 @@ class ConfigurationError(Exception):
 
 
 class DirLogs:
-    DIRS = {'root': ''}
+    __DIRS = {'root': ''}
     __file_name_log = 'cloudtipsadp.log'
 
     def __init__(self, path: str = None):
@@ -21,15 +23,22 @@ class DirLogs:
 
     def __call__(self, *args, **kwargs):
         if self.path is not None:
-            return os.path.join(self.DIRS.get(self.path), self.__file_name_log)
-        print(LOG_NOT_LINK)
+            return os.path.join(self.__DIRS.get(self.path),
+                                self.__file_name_log)
         return os.path.join(os.path.dirname(__file__), self.__file_name_log)
 
 
+if os.getenv('LOG_LEVEL') is not None:
+    level = DirLogs(os.getenv('LOG_LEVEL'))
+
 path_log = DirLogs(os.getenv('LOG_OUT'))
-logger.add(path_log(), format='{time} {level} {message}',
-           level=os.getenv('LOG_LEVEL'),
-           rotation='5 MB', compression='zip')
+
+try:
+    logger.add(path_log(), format='{time} {level} {message}',
+               level=level,
+               rotation='5 MB', compression='zip')
+except TypeError:
+    print(f'{CTA}: {LOGS_NOT_VALUES}')
 
 
 @dataclass(frozen=True)
@@ -74,13 +83,14 @@ filters = Filter(date_from='2022-05-01',
                  date_to='2022-08-15',
                  phone='+79062047500')
 if __name__ == '__main__':
+    pass
     # path_log = DirLogs(os.getenv('LOGS_OUT'))
     # print(f'path_log::: {path_log()}')
     # print(filters.__dict__)
 
-    level = os.getenv('LOG_LEVEL')
-    print(f'LOG-LLEVELL::: {level}')
-    print(f'path_log::: {path_log()}')
-
-    print(os.getenv('LOGS_OUT'))
-    print(os.getenv('LOG_LEVEL'))
+    # level = os.getenv('LOG_LEVEL')
+    # print(f'LOG-LLEVELL::: {level}')
+    # print(f'path_log::: {path_log()}')
+    #
+    # print(os.getenv('LOGS_OUT'))
+    # print(os.getenv('LOG_LEVEL'))
