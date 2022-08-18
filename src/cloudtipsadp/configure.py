@@ -1,13 +1,35 @@
+import os
+from dotenv import load_dotenv
 from dataclasses import dataclass
-
 from loguru import logger
 
-logger.add('debug.log', format='{time} {level} {message}', level='INFO',
-           rotation='1 MB', compression='zip')
+from src.cloudtipsadp.constants import (LOG_NOT_LINK,)
+
+load_dotenv()
 
 
 class ConfigurationError(Exception):
     pass
+
+
+class DirLogs:
+    DIRS = {'root': ''}
+    __file_name_log = 'cloudtipsadp.log'
+
+    def __init__(self, path: str = None):
+        self.path = path
+
+    def __call__(self, *args, **kwargs):
+        if self.path is not None:
+            return os.path.join(self.DIRS.get(self.path), self.__file_name_log)
+        print(LOG_NOT_LINK)
+        return os.path.join(os.path.dirname(__file__), self.__file_name_log)
+
+
+path_log = DirLogs(os.getenv('LOG_OUT'))
+logger.add(path_log(), format='{time} {level} {message}',
+           level=os.getenv('LOG_LEVEL'),
+           rotation='5 MB', compression='zip')
 
 
 @dataclass(frozen=True)
@@ -52,4 +74,13 @@ filters = Filter(date_from='2022-05-01',
                  date_to='2022-08-15',
                  phone='+79062047500')
 if __name__ == '__main__':
-    print(filters.__dict__)
+    # path_log = DirLogs(os.getenv('LOGS_OUT'))
+    # print(f'path_log::: {path_log()}')
+    # print(filters.__dict__)
+
+    level = os.getenv('LOG_LEVEL')
+    print(f'LOG-LLEVELL::: {level}')
+    print(f'path_log::: {path_log()}')
+
+    print(os.getenv('LOGS_OUT'))
+    print(os.getenv('LOG_LEVEL'))

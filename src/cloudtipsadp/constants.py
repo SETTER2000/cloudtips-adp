@@ -9,6 +9,7 @@ __all__ = [
     'HEADERS_REQUEST',
     'SITE_RETURNING_URL',
     'FILE_PATH_BAD',
+    'LOG_NOT_LINK',
 ]
 BASE_URL = 'https://identity.cloudtips.ru'
 BASE_URL_SANDBOX = 'https://identity-sandbox.cloudtips.ru'
@@ -21,3 +22,4 @@ SITE_RETURNING_URL = 'http://127.0.0.1:8000'
 API_VERSION = 'api'
 FILE_PATH_BAD = 'File path missing:'
 HEADERS_REQUEST = {"Content-Type": "application/x-www-form-urlencoded"}
+LOG_NOT_LINK = 'cloudtipsadp: путь вывода логов не указан'
