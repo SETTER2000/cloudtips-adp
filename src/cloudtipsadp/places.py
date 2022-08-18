@@ -2,7 +2,7 @@ import json
 import os
 import requests as requests
 
-from src.cloudtipsadp.clients import Connect, SandboxClient
+from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
 
@@ -44,9 +44,8 @@ class Places(Place):
         Привязка получателя к заведению.
         Отправить сотруднику на его номер телефона код в смс сообщении.
         """
-        api_url = Connect.client.api(
-            [self.base_path, self.get_place(), 'employees', 'attach',
-             'send-sms'])
+        api_url = Connect.client.api([self.base_path, self.get_place(),
+                                      'employees', 'attach', 'send-sms'])
         parsed = requests.post(
             api_url, data=json.dumps(dict(UserId=self.user_id)),
             headers=Connect.get_headers()).json()
@@ -54,7 +53,7 @@ class Places(Place):
 
     def confirm(self):
         """
-        Подтверждение привязки телефона (пользователя) к предприятию.
+        Подтвердить привязку телефона (пользователя) к предприятию.
         Передать код из смс.
         """
         api_url = Connect.client.api(
@@ -70,8 +69,8 @@ class Places(Place):
 if __name__ == '__main__':
     from core import Cloudtipsadp
 
-    connect = Connect(SandboxClient())
     cta = Cloudtipsadp()
+    cta.connect(sandbox=True)
 
     places = cta.places_send_sms(
         cta.places('44a38440-595d-494e-a028-09804355757a'))

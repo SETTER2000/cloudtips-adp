@@ -95,15 +95,15 @@ if __name__ == '__main__':
     cta = Cloudtipsadp()
     cta.connect(sandbox=True)
 
-    user_id = 'b8835022-f475-44b9-99d3-eddca9c3e44a'
-    photo_path = '/home/setter/Изображения/Рецепты/1.png'
-    ob = cta.receivers_photo(cta.receivers(user_id=user_id,
-                                           photo_path=photo_path))
-    if type(ob) == dict and ob.get('succeed'):
-        print('Фото получателя успешно загружено:')
-        print(ob.get('data'))
-    else:
-        print(f'ERROR все: {ob}')
+    user_id = '44a38440-595d-494e-a028-09804355757a'
+    # photo_path = '/home/setter/Изображения/Рецепты/1.png'
+    # ob = cta.receivers_photo(cta.receivers(user_id=user_id,
+    #                                        photo_path=photo_path))
+    # if type(ob) == dict and ob.get('succeed'):
+    #     print('Фото получателя успешно загружено:')
+    #     print(ob.get('data'))
+    # else:
+    #     print(f'ERROR все: {ob}')
 
     # ob = cta.receivers_pages(cta.receivers())
     # if ob.get('succeed'):

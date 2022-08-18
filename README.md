@@ -43,7 +43,7 @@ placeId=<your_placeId>
 ```angular2html
 cta.connect(sandbox=True)
 ```
-### Работа с Production Serves
+### Работа с Production Service
 После тестирования для работы с production сервисом поменяйте данные в файле .
 env и уберите "sandbox=True" из сonnect.
 ```angular2html
@@ -126,6 +126,7 @@ ____
 
 [^1]: Если возникли проблемы с установкой пакета python-magic на macos 
 установите:
+
 ```angular2html
 brew install libmagic 
 ```
