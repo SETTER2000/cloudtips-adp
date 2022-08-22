@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from dataclasses import dataclass
 from loguru import logger
 
-from src.cloudtipsadp.constants import (LOGS_NOT_LINK, CTA, LOGS_NOT_VALUES, )
+from src.cloudtipsadp.constants import (CTA, LOGS_NOT_VALUES, )
 
 load_dotenv()
 
