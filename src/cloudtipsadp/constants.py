@@ -9,9 +9,7 @@ __all__ = [
     'HEADERS_REQUEST',
     'SITE_RETURNING_URL',
     'FILE_PATH_BAD',
-    'LOGS_NOT_LINK',
     'CTA',
-    'LOGS_NOT_VALUES',
 ]
 CTA = 'cloudtipsadp'
 BASE_URL = 'https://identity.cloudtips.ru'
@@ -25,5 +23,3 @@ SITE_RETURNING_URL = 'http://127.0.0.1:8000'
 API_VERSION = 'api'
 FILE_PATH_BAD = 'File path missing:'
 HEADERS_REQUEST = {"Content-Type": "application/x-www-form-urlencoded"}
-LOGS_NOT_LINK = 'cloudtipsadp: путь вывода логов не указан'
-LOGS_NOT_VALUES = 'не установлены переменные окружения для логирования'
