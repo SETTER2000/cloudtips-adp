@@ -80,14 +80,14 @@ if __name__ == '__main__':
     else:
         print(places)
 
-    places = cta.places_confirm(
-        cta.places('44a38440-595d-494e-a028-09804355757a', '000000'))
-
-    if places.get('succeed'):
-        print(f'Код из sms: '
-              f'{places.get("data")}')
-    else:
-        print(places)
+    # places = cta.places_confirm(
+    #     cta.places('44a38440-595d-494e-a028-09804355757a', '000000'))
+    #
+    # if places.get('succeed'):
+    #     print(f'Код из sms: '
+    #           f'{places.get("data")}')
+    # else:
+    #     print(places)
     #
     # places = places_get(Places())
     # if places.get('succeed'):

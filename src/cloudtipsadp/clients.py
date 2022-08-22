@@ -86,9 +86,8 @@ class ProductClient(BaseClient):
                              data=ConnectData.refresh(self.token),
                              headers=HEADERS_REQUEST)
 
-    @staticmethod
-    def api(endpoints: list, base_url=BASE_URL_API):
-        pass
+    def api(self, endpoints: list, base_url=BASE_URL_API):
+        return super(ProductClient, self).api(endpoints, base_url)
 
 
 class SandboxClient(BaseClient):
@@ -153,20 +152,23 @@ class Connect:
 
 
 if __name__ == '__main__':
+    from core import Cloudtipsadp
+
+    cta = Cloudtipsadp()
+    # Подключение к Sandbox service
+    cta.connect(sandbox=True)
+    # Подключение к Product service
+    # cta.connect()
+
     # Чтоб понять как работает обновление и получение токенов,
     # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
     # ProductClient - будет доступен с данными для production, когда менеджер
     # выдаст новые логин и пароль
     # Подключение к Production service
-    # connect = Connect()
     # # Получить токен
-    # token = connect.get_token()
 
-    # Подключение к Sandbox service
-    connect = Connect(SandboxClient())
-    # Получить токен
-    token = connect.get_token()
+    token = cta.get_token()
     print(token)
-    #
-    # token = connect.refresh_token()
-    # print(token)
+
+    token = cta.refresh_token()
+    print(token)
