@@ -7,7 +7,7 @@ from src.cloudtipsadp.constants import (CTA, LOGS_NOT_VALUES, )
 
 load_dotenv()
 
-level = 'DEBUG'
+level = 'WARNING'
 
 
 class ConfigurationError(Exception):
