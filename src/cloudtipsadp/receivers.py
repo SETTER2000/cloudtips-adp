@@ -133,7 +133,7 @@ if __name__ == '__main__':
     else:
         print(f'ERROR все: {ob}')
 
-    user_id='44a38440-595d-494e-a028-09804355757a'
+    user_id = '44a38440-595d-494e-a028-09804355757a'
     ob = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
     if type(ob) == dict and ob.get('succeed'):
         print(f'Удалён получатель {user_id} из скоупа:')
