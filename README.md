@@ -61,9 +61,12 @@ cta.connect(sandbox=True)
 
 ## Получатель
 #### Создать получателя донатов
-
 ```angular2html
 response = cta.receivers_create(cta.receivers(name, phone_number))
+```
+#### Удалить получателя из скоупа
+```angular2html
+response = cta.receivers_detach_agent(cta.receivers(user_id))
 ```
 #### Все получатели донатов
 ```angular2html
@@ -94,7 +97,7 @@ response = cta.places_send_sms(cta.places(user_id))
 ```
 #### Подтверждение привязки телефона (пользователя) к предприятию. Передать код из смс.
 ```angular2html
-response = cta.places_confirm(cta.places(user_id, confirm_code))
+response = cta.places_confirm(cta.places(user_id, code))
 ```
 
 

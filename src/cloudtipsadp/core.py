@@ -31,6 +31,7 @@ class Cloudtipsadp:
         self.places_get = _place_get
         self.places_send_sms = _place_send
         self.receivers_create = _receiver_create
+        self.receivers_detach_agent = _receiver_detach_agent
         self.receivers_pages = _receiver_pages
         self.receivers_photo = _receiver_photo
 
@@ -98,6 +99,11 @@ def _place_send(place: Place):
 def _receiver_create(receiver: Receiver):
     """Создать получателя донатов."""
     return receiver.create()
+
+
+def _receiver_detach_agent(receiver: Receiver):
+    """Удалить получателя из скоупа."""
+    return receiver.detach_agent()
 
 
 def _receiver_pages(receiver: Receiver):

@@ -27,6 +27,9 @@ class Receiver:
     def photo(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
+    def detach_agent(self):
+        raise NotImplementedError(M_BASE_IMPLEMENTED)
+
 
 class Receivers(Receiver):
     """Получатель донатов."""
@@ -53,6 +56,13 @@ class Receivers(Receiver):
         api_url = Connect.client.api([self.base_path, 'create-many'])
         parsed = requests.post(api_url, data=self.__get_data(),
                                headers=Connect.get_headers()).json()
+        return parsed
+
+    def detach_agent(self):
+        """Удалить получателя из скоупа."""
+        api_url = Connect.client.api([self.base_path, self.user_id,
+                                      'detach-agent'])
+        parsed = requests.post(api_url, headers=Connect.get_headers()).json()
         return parsed
 
     def pages(self):
@@ -94,8 +104,43 @@ if __name__ == '__main__':
 
     cta = Cloudtipsadp()
     cta.connect(sandbox=True)
+    # user_id = '44a38440-595d-494e-a028-09804355757a'
+    name = 'Poale Ell Adam'
+    phone_number = '+79162047558'
+    ob = cta.receivers_create(cta.receivers(name, phone_number))
+    if type(ob) == dict and ob.get('succeed'):
+        print('Получатель донатов создан:')
+        print(ob.get('data'))
+        # obg = ob.get('data')
+        # print(obg)
+        user_id = ob.get('data')['created'][0]['userId']
+        print(f'USER ID: {user_id}')
+    else:
+        print(f'ERROR**: {ob}')
 
-    user_id = '44a38440-595d-494e-a028-09804355757a'
+    ob = cta.places_send_sms(cta.places(user_id=user_id))
+    if type(ob) == dict and ob.get('succeed'):
+        print(
+            f'Отправлено сообщении код в смс на телефона получателя {user_id}')
+        print(ob)
+        ob = cta.places_confirm(cta.places(user_id=user_id, code=000000))
+        if type(ob) == dict and ob.get('succeed'):
+            print(
+                f'Отправлен код из SMS получателя: {user_id}')
+            print(ob)
+        else:
+            print(f'ERROR код: {ob}')
+    else:
+        print(f'ERROR все: {ob}')
+
+    user_id='44a38440-595d-494e-a028-09804355757a'
+    ob = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
+    if type(ob) == dict and ob.get('succeed'):
+        print(f'Удалён получатель {user_id} из скоупа:')
+        print(ob)
+    else:
+        print(f'ERROR все: {ob}')
+
     # photo_path = '/home/setter/Изображения/Рецепты/1.png'
     # ob = cta.receivers_photo(cta.receivers(user_id=user_id,
     #                                        photo_path=photo_path))
