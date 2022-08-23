@@ -13,6 +13,9 @@ class Card:
     def auth(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
+    def default(self):
+        raise NotImplementedError(M_BASE_IMPLEMENTED)
+
     def delete(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
@@ -51,6 +54,16 @@ class Cards(Card):
         api_url = Connect.client.api([self.base_path])
         parsed = requests.get(api_url, params=dict(userId=self.user_id),
                               headers=Connect.get_headers()).json()
+        return parsed
+
+    def default(self):
+        """Изменить карту, на которую выплачиваются чаевые по умолчанию."""
+        api_url = Connect.client.api([self.base_path, 'default'])
+        parsed = requests.post(
+            api_url,
+            data=json.dumps(dict(userId=self.user_id,
+                                 cardToken=self.card_token)),
+            headers=Connect.get_headers()).json()
         return parsed
 
     def delete(self):

@@ -111,6 +111,10 @@ response = cta.cards_get(cta.cards(user_id))
 ```angular2html
 response = cta.cards_auth(cta.cards(user_id, checkout))
 ```
+#### Изменить карту, которая по умолчанию.
+```angular2html
+response = cta.cards_default(cta.cards(user_id, token))
+```
 #### Удаление карты получателя. Карту по умолчанию удалить нельзя.
 ```angular2html
 response = cta.cards_delete(cta.cards(user_id, token))
