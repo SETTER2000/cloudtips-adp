@@ -12,7 +12,7 @@ pip uninstall cloudtipsadp
 ```
 Зависимости разрешить [^1]
 ```angular2html
-pip install python-dotenv requests python-magic loguru
+pip install python-dotenv requests python-magic
 ```
 ### Настройка переменных окружения
 В корне проекта создать файл .env 
@@ -129,4 +129,6 @@ ____
 
 ```angular2html
 brew install libmagic 
+pip uninstall python-magic
+pip install python-magic-bin
 ```
