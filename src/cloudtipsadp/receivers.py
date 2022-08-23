@@ -66,7 +66,7 @@ class Receivers(Receiver):
             parsed = requests.post(api_url,
                                    headers=Connect.get_headers()).json()
         except TypeError:
-            print(f'NotFound user_id.')
+            print('NotFound user_id.')
         else:
             return parsed
 
