@@ -60,10 +60,15 @@ class Receivers(Receiver):
 
     def detach_agent(self):
         """Удалить получателя из скоупа."""
-        api_url = Connect.client.api([self.base_path, self.user_id,
-                                      'detach-agent'])
-        parsed = requests.post(api_url, headers=Connect.get_headers()).json()
-        return parsed
+        try:
+            api_url = Connect.client.api(
+                [self.base_path, self.user_id, 'detach-agent'])
+            parsed = requests.post(api_url,
+                                   headers=Connect.get_headers()).json()
+        except TypeError:
+            print(f'NotFound user_id.')
+        else:
+            return parsed
 
     def pages(self):
         """Все получатели в заведении."""

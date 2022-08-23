@@ -66,7 +66,7 @@ response = cta.receivers_create(cta.receivers(name, phone_number))
 ```
 #### Удалить получателя из скоупа
 ```angular2html
-response = cta.receivers_detach_agent(cta.receivers(user_id))
+response = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
 ```
 #### Все получатели донатов
 ```angular2html
