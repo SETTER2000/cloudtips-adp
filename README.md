@@ -111,12 +111,20 @@ response = cta.cards_get(cta.cards(user_id))
 ```angular2html
 response = cta.cards_auth(cta.cards(user_id, checkout))
 ```
+#### Удаление карты получателя. Карту по умолчанию удалить нельзя.
+```angular2html
+response = cta.cards_delete(cta.cards(user_id, token))
+```
+
+
 
 ## Накопления
 #### Получить общую сумму донатов, по сотруднику
 ```angular2html
 response = cta.accums_get(cta.accums(user_id))
 ```
+
+
 
 ## Транзакции
 #### Получение всех транзакций выплат получателям менеджера

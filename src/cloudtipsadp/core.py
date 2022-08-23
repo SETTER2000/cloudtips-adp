@@ -24,6 +24,7 @@ class Cloudtipsadp:
         # funcs
         self.accums_get = _accum_get
         self.cards_auth = _card_auth
+        self.cards_delete = _card_delete
         self.cards_get = _card_get
         self.cards_flow = _card_flow
         self.payouts_get = _payout_get
@@ -56,6 +57,11 @@ def _accum_get(accumulation: Accumulation):
 def _card_auth(card: Card):
     """Отправить криптограмму."""
     return card.auth()
+
+
+def _card_delete(card: Card):
+    """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
+    return card.delete()
 
 
 def _card_get(card: Card):

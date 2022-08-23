@@ -10,20 +10,24 @@ class Card:
     """Карта."""
     base_path = 'cards'
 
-    def __init__(self, user_id: str = None):
-        self.user_id = user_id
+    def auth(self):
+        raise NotImplementedError(M_BASE_IMPLEMENTED)
+
+    def delete(self):
+        raise NotImplementedError(M_BASE_IMPLEMENTED)
 
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
-    def auth(self):
-        raise NotImplementedError(M_BASE_IMPLEMENTED)
+    def __init__(self, user_id: str = None):
+        self.user_id = user_id
 
 
 class Cards(Card):
-    def __init__(self, user_id, key: str = None):
+    def __init__(self, user_id, key: str = None, token: str = None):
         super(Cards, self).__init__(user_id)
         self.checkout = key
+        self.card_token = token
 
     def __get_data(self):
         try:
@@ -35,19 +39,29 @@ class Cards(Card):
         else:
             return json.dumps(data)
 
-    def get(self):
-        """Список карт получателя."""
-        api_url = Connect.client.api([self.base_path])
-        response = requests.get(api_url, params=dict(userId=self.user_id),
-                                headers=Connect.get_headers())
-        return response.json()
-
     def auth(self):
         """Привязка карты получателю."""
         api_url = Connect.client.api([self.base_path, 'auth'])
-        response = requests.post(api_url, data=self.__get_data(),
-                                 headers=Connect.get_headers())
-        return response.json()
+        parsed = requests.post(api_url, data=self.__get_data(),
+                               headers=Connect.get_headers()).json()
+        return parsed
+
+    def get(self):
+        """Список карт получателя."""
+        api_url = Connect.client.api([self.base_path])
+        parsed = requests.get(api_url, params=dict(userId=self.user_id),
+                              headers=Connect.get_headers()).json()
+        return parsed
+
+    def delete(self):
+        """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
+        api_url = Connect.client.api([self.base_path])
+        parsed = requests.delete(
+            api_url,
+            data=json.dumps(dict(userId=self.user_id,
+                                 cardToken=self.card_token)),
+            headers=Connect.get_headers()).json()
+        return parsed
 
 
 class FlowBase:
