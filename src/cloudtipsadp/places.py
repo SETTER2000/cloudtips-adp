@@ -13,6 +13,10 @@ class Place:
     def __init__(self, user_id: str = None):
         self.user_id = user_id
 
+    @classmethod
+    def api_url(cls, *args):
+        return Connect.client.api(list(args))
+
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
@@ -35,7 +39,7 @@ class Places(Place):
     def get(self):
         """Позволяет получить информацию по всем заведениям ТСП."""
         # URL для запроса к API
-        api_url = Connect.client.api([self.base_path])
+        api_url = self.api_url(self.base_path)
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 
@@ -44,8 +48,8 @@ class Places(Place):
         Привязка получателя к заведению.
         Отправить сотруднику на его номер телефона код в смс сообщении.
         """
-        api_url = Connect.client.api([self.base_path, self.get_place(),
-                                      'employees', 'attach', 'send-sms'])
+        api_url = self.api_url(self.base_path, self.get_place(),
+                               'employees', 'attach', 'send-sms')
         parsed = requests.post(
             api_url, data=json.dumps(dict(UserId=self.user_id)),
             headers=Connect.get_headers()).json()
@@ -56,9 +60,8 @@ class Places(Place):
         Подтвердить привязку телефона (пользователя) к предприятию.
         Передать код из смс.
         """
-        api_url = Connect.client.api(
-            [self.base_path, self.get_place(), 'employees', 'attach',
-             'confirm'])
+        api_url = self.api_url(
+            self.base_path, self.get_place(), 'employees', 'attach', 'confirm')
         parsed = requests.post(
             api_url, data=json.dumps(dict(UserId=self.user_id,
                                           SmsCode=self.code)),

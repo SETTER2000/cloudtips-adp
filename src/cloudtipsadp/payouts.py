@@ -9,6 +9,10 @@ class Payout:
     def __init__(self, payloads: dict = None):
         self.payload = payloads
 
+    @classmethod
+    def api_url(cls, *args):
+        return Connect.client.api(list(args))
+
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
@@ -22,7 +26,7 @@ class Payouts(Payout):
 
     def get(self):
         """Получение всех транзакций выплат получателям менеджера."""
-        api_url = Connect.client.api([self.base_path])
+        api_url = self.api_url(self.base_path)
         parsed = requests.get(
             api_url, params=self.payload, headers=Connect.get_headers()).json()
         return parsed

@@ -11,6 +11,10 @@ class Accumulation:
     def __init__(self, user_id: str):
         self.user_id = user_id
 
+    @classmethod
+    def api_url(cls, *args):
+        return Connect.client.api(list(args))
+
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
@@ -23,7 +27,7 @@ class Accumulations(Accumulation):
 
     def get(self):
         """Получить общую сумму донатов, по сотруднику."""
-        api_url = Connect.client.api([self.base_path, self.user_id, 'summary'])
+        api_url = self.api_url(self.base_path, self.user_id, 'summary')
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 

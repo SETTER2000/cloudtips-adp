@@ -18,6 +18,10 @@ class Receiver:
     def __init__(self, phone_number: str):
         self.phone_number = phone_number
 
+    @classmethod
+    def api_url(cls, *args):
+        return Connect.client.api(list(args))
+
     def create(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
@@ -53,7 +57,7 @@ class Receivers(Receiver):
 
     def create(self):
         """Создать получателя донатов в сервисе."""
-        api_url = Connect.client.api([self.base_path, 'create-many'])
+        api_url = self.api_url(self.base_path, 'create-many')
         parsed = requests.post(api_url, data=self.__get_data(),
                                headers=Connect.get_headers()).json()
         return parsed
@@ -61,8 +65,8 @@ class Receivers(Receiver):
     def detach_agent(self):
         """Удалить получателя из скоупа."""
         try:
-            api_url = Connect.client.api(
-                [self.base_path, self.user_id, 'detach-agent'])
+            api_url = self.api_url(self.base_path, self.user_id,
+                                      'detach-agent')
             parsed = requests.post(api_url,
                                    headers=Connect.get_headers()).json()
         except TypeError:
@@ -72,7 +76,7 @@ class Receivers(Receiver):
 
     def pages(self):
         """Все получатели в заведении."""
-        api_url = Connect.client.api([self.base_path])
+        api_url = self.api_url(self.base_path)
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 
@@ -95,8 +99,7 @@ class Receivers(Receiver):
         except FileNotFoundError as e:
             print(f'{FILE_PATH_BAD} {e}')
         else:
-            api_url = Connect.client.api([self.base_path,
-                                          self.user_id, 'photo'])
+            api_url = self.api_url(self.base_path, self.user_id, 'photo')
             parsed = requests.post(api_url,
                                    headers=Connect.get_headers_token(),
                                    data=payload,
@@ -110,6 +113,7 @@ if __name__ == '__main__':
     cta = Cloudtipsadp()
     cta.connect(sandbox=True)
     # user_id = '44a38440-595d-494e-a028-09804355757a'
+
     name = 'Poale Ell Adam'
     phone_number = '+79162047558'
     ob = cta.receivers_create(cta.receivers(name, phone_number))
