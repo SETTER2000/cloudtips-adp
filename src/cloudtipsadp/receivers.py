@@ -66,7 +66,7 @@ class Receivers(Receiver):
         """Удалить получателя из скоупа."""
         try:
             api_url = self.api_url(self.base_path, self.user_id,
-                                      'detach-agent')
+                                   'detach-agent')
             parsed = requests.post(api_url,
                                    headers=Connect.get_headers()).json()
         except TypeError:
