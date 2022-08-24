@@ -10,8 +10,19 @@ class Card:
     """Карта."""
     base_path = 'cards'
 
+    def __init__(self, user_id: str = None):
+        self.user_id = user_id
+        self.header = Connect.get_headers()
+
     def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
+
+    def _post(self, url, data: dict = dict()):
+        return requests.post(url, data=json.dumps(data),
+                             headers=self.header).json()
+
+    def _get(self, url, params: dict = dict()):
+        return requests.get(url, params=params, headers=self.header).json()
 
     def auth(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
@@ -24,9 +35,6 @@ class Card:
 
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
-
-    def __init__(self, user_id: str = None):
-        self.user_id = user_id
 
 
 class Cards(Card):
@@ -43,41 +51,30 @@ class Cards(Card):
         except AttributeError:
             print('No user data.')
         else:
-            return json.dumps(data)
+            return data
 
     def auth(self):
         """Привязка карты получателю."""
-        api_url = self(self.base_path, 'auth')
-        parsed = requests.post(api_url, data=self.__get_data(),
-                               headers=Connect.get_headers()).json()
-        return parsed
+        url = self(self.base_path, 'auth')
+        return self._post(url, self.__get_data())
 
     def get(self):
         """Список карт получателя."""
-        api_url = self(self.base_path)
-        parsed = requests.get(api_url, params=dict(userId=self.user_id),
-                              headers=Connect.get_headers()).json()
+        url = self(self.base_path)
+        parsed = self._get(url, dict(userId=self.user_id))
         return parsed
 
     def default(self):
         """Изменить карту, на которую выплачиваются чаевые по умолчанию."""
-        api_url = self(self.base_path, 'default')
-        parsed = requests.post(
-            api_url,
-            data=json.dumps(dict(userId=self.user_id,
-                                 cardToken=self.card_token)),
-            headers=Connect.get_headers()).json()
-        return parsed
+        url = self(self.base_path, 'default')
+        return self._post(url, dict(userId=self.user_id,
+                                    cardToken=self.card_token))
 
     def delete(self):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
-        api_url = self(self.base_path)
-        parsed = requests.delete(
-            api_url,
-            data=json.dumps(dict(userId=self.user_id,
-                                 cardToken=self.card_token)),
-            headers=Connect.get_headers()).json()
-        return parsed
+        url = self(self.base_path)
+        return self._del(url, dict(userId=self.user_id,
+                                   cardToken=self.card_token))
 
 
 class FlowBase:

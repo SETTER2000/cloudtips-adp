@@ -8,9 +8,17 @@ class Payout:
 
     def __init__(self, payloads: dict = None):
         self.payload = payloads
+        self.header = Connect.get_headers()
 
     def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
+
+    def _post(self, url, data: dict = dict()):
+        return requests.post(url, data=json.dumps(data),
+                             headers=self.header).json()
+
+    def _get(self, url, params: dict = dict()):
+        return requests.get(url, params=params, headers=self.header).json()
 
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
@@ -25,10 +33,8 @@ class Payouts(Payout):
 
     def get(self):
         """Получение всех транзакций выплат получателям менеджера."""
-        api_url = self(self.base_path)
-        parsed = requests.get(
-            api_url, params=self.payload, headers=Connect.get_headers()).json()
-        return parsed
+        url = self(self.base_path)
+        return self._get(url, self.payload)
 
 
 if __name__ == '__main__':
