@@ -158,7 +158,6 @@ if __name__ == '__main__':
     else:
         print(f'ERROR donations: {response}')
 
-
     # photo_path = '/home/setter/Изображения/Рецепты/1.png'
     # response = cta.receivers_photo(cta.receivers(user_id=user_id,
     #                                        photo_path=photo_path))
@@ -176,7 +175,8 @@ if __name__ == '__main__':
     #     print(f'ERROR все: {response}')
 
     # response = cta.receivers_create(cta.receivers('Adam', '+79162047558'))
-    # response = cta.receivers_create(cta.receivers('Ozzy Osbourne', '+72002040001'))
+    # response = cta.receivers_create(cta.receivers('Ozzy Osbourne',
+    # '+72002040001'))
     # response = cta.receivers_create(cta.receivers('AC/DC', '+71002040007'))
     # print(response)
 
@@ -195,7 +195,8 @@ if __name__ == '__main__':
 
     # Получатель уже есть в системе и находится в вашем скоупе,так как
     # находится в массиве skipped:
-    # response = {'data': {'created': [], 'skipped': [{'phoneNumber': '+79162047558',
+    # response = {'data': {'created': [], 'skipped': [
+    # {'phoneNumber': '+79162047558',
     # 'name': 'Adam', 'userId': '44a38440-595d-494e-a028-09804355757a',
     # 'layoutId': '55757a3e', 'layoutStatus': 'None'}]}, 'succeed': True,
     # 'errors': None, 'validationErrors': None}
