@@ -48,7 +48,7 @@ class Places(Place):
         Отправить сотруднику на его номер телефона код в смс сообщении.
         """
         api_url = self(self.base_path, self.get_place(),
-                               'employees', 'attach', 'send-sms')
+                       'employees', 'attach', 'send-sms')
         parsed = requests.post(
             api_url, data=json.dumps(dict(UserId=self.user_id)),
             headers=Connect.get_headers()).json()
