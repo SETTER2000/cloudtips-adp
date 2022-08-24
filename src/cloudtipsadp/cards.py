@@ -10,8 +10,7 @@ class Card:
     """Карта."""
     base_path = 'cards'
 
-    @classmethod
-    def api_url(cls, *args):
+    def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
 
     def auth(self):
@@ -48,21 +47,21 @@ class Cards(Card):
 
     def auth(self):
         """Привязка карты получателю."""
-        api_url = self.api_url(self.base_path, 'auth')
+        api_url = self(self.base_path, 'auth')
         parsed = requests.post(api_url, data=self.__get_data(),
                                headers=Connect.get_headers()).json()
         return parsed
 
     def get(self):
         """Список карт получателя."""
-        api_url = self.api_url(self.base_path)
+        api_url = self(self.base_path)
         parsed = requests.get(api_url, params=dict(userId=self.user_id),
                               headers=Connect.get_headers()).json()
         return parsed
 
     def default(self):
         """Изменить карту, на которую выплачиваются чаевые по умолчанию."""
-        api_url = self.api_url(self.base_path, 'default')
+        api_url = self(self.base_path, 'default')
         parsed = requests.post(
             api_url,
             data=json.dumps(dict(userId=self.user_id,
@@ -72,7 +71,7 @@ class Cards(Card):
 
     def delete(self):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
-        api_url = self.api_url(self.base_path)
+        api_url = self(self.base_path)
         parsed = requests.delete(
             api_url,
             data=json.dumps(dict(userId=self.user_id,
@@ -140,7 +139,7 @@ class Challenge(FlowBase):
 
     def auth(self):
         """Авторизация платежа."""
-        # api_url = self.api_url(self.base_path, 'auth')
+        # api_url = self(self.base_path, 'auth')
         parsed = requests.post(self.acsUrl, data=self.__get_data()).json()
         return parsed
 

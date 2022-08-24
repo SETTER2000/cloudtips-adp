@@ -17,9 +17,13 @@ class Receiver:
 
     def __init__(self, phone_number: str):
         self.phone_number = phone_number
+        # self.url = Connect.client.api(list(args))
 
-    @classmethod
-    def api_url(cls, *args):
+    # @classmethod
+    # def api_url(cls, *args):
+    #     return Connect.client.api(list(args))
+
+    def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
 
     def create(self):
@@ -57,7 +61,7 @@ class Receivers(Receiver):
 
     def create(self):
         """Создать получателя донатов в сервисе."""
-        api_url = self.api_url(self.base_path, 'create-many')
+        api_url = self(self.base_path, 'create-many')
         parsed = requests.post(api_url, data=self.__get_data(),
                                headers=Connect.get_headers()).json()
         return parsed
@@ -65,8 +69,7 @@ class Receivers(Receiver):
     def detach_agent(self):
         """Удалить получателя из скоупа."""
         try:
-            api_url = self.api_url(self.base_path, self.user_id,
-                                   'detach-agent')
+            api_url = self(self.base_path, self.user_id, 'detach-agent')
             parsed = requests.post(api_url,
                                    headers=Connect.get_headers()).json()
         except TypeError:
@@ -76,7 +79,7 @@ class Receivers(Receiver):
 
     def pages(self):
         """Все получатели в заведении."""
-        api_url = self.api_url(self.base_path)
+        api_url = self(self.base_path)
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 
@@ -99,7 +102,7 @@ class Receivers(Receiver):
         except FileNotFoundError as e:
             print(f'{FILE_PATH_BAD} {e}')
         else:
-            api_url = self.api_url(self.base_path, self.user_id, 'photo')
+            api_url = self(self.base_path, self.user_id, 'photo')
             parsed = requests.post(api_url,
                                    headers=Connect.get_headers_token(),
                                    data=payload,
@@ -130,7 +133,7 @@ if __name__ == '__main__':
     ob = cta.places_send_sms(cta.places(user_id=user_id))
     if type(ob) == dict and ob.get('succeed'):
         print(
-            f'Отправлено сообщении код в смс на телефона получателя {user_id}')
+            f'Отправлено сообщении код в смс на телефон получателя {user_id}')
         print(ob)
         ob = cta.places_confirm(cta.places(user_id=user_id, code=000000))
         if type(ob) == dict and ob.get('succeed'):

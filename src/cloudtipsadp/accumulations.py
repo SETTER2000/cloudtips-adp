@@ -11,8 +11,7 @@ class Accumulation:
     def __init__(self, user_id: str):
         self.user_id = user_id
 
-    @classmethod
-    def api_url(cls, *args):
+    def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
 
     def get(self):
@@ -27,7 +26,7 @@ class Accumulations(Accumulation):
 
     def get(self):
         """Получить общую сумму донатов, по сотруднику."""
-        api_url = self.api_url(self.base_path, self.user_id, 'summary')
+        api_url = self(self.base_path, self.user_id, 'summary')
         parsed = requests.get(api_url, headers=Connect.get_headers()).json()
         return parsed
 
@@ -43,7 +42,7 @@ class Accumulations(Accumulation):
 
     def payout_receiver(self):
         """Выплата накопления получателю."""
-        # api_url = Connect.client.api([self.base_path, 'payout', self.user_id])
+        # api_url = self(self.base_path, 'payout', self.user_id)
         # parsed = requests.post(api_url, data=self.__get_data(),
         #                        headers=Connect.get_headers()).json()
         # return parsed
