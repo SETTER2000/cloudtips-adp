@@ -24,6 +24,10 @@ class Card:
     def _get(self, url, params: dict = dict()):
         return requests.get(url, params=params, headers=self.header).json()
 
+    def _del(self, url, data: dict = dict()):
+        return requests.delete(url, data=json.dumps(data),
+                               headers=self.header).json()
+
     def auth(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
