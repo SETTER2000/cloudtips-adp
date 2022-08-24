@@ -123,9 +123,13 @@ response = cta.cards_delete(cta.cards(user_id, token))
 
 
 ## Накопления
-#### Получить общую сумму донатов, по сотруднику
+#### Накопления по получателю
 ```angular2html
-response = cta.accums_get(cta.accums(user_id))
+response = cta.accums_summary(cta.accums(user_id))
+```
+#### Выплата накопления получателю
+```angular2html
+response = cta.accums_payout_receiver(cta.accums(user_id))
 ```
 
 

@@ -34,18 +34,15 @@ class Accumulations(Accumulation):
     def __init__(self, user_id):
         super(Accumulations, self).__init__(user_id)
 
-    def get(self):
-        """Получить общую сумму донатов, по сотруднику."""
+    def summary(self):
+        """Накопления получателя."""
         url = self(self.base_path, self.user_id, 'summary')
         return self._get(url)
 
     def payout_receiver(self):
         """Выплата накопления получателю."""
-        # api_url = self(self.base_path, 'payout', self.user_id)
-        # parsed = requests.post(api_url, data=self.__get_data(),
-        #                        headers=Connect.get_headers()).json()
-        # return parsed
-        pass
+        url = self(self.base_path, 'payout', self.user_id)
+        return self._post(url)
 
 
 if __name__ == '__main__':
@@ -57,10 +54,18 @@ if __name__ == '__main__':
     # accumulations = Accumulations('19b3f83f-9930-4d50-b293-06edccbef2cf')
     # response = accum_get(accumulations)
 
-    ob = cta.accums_get(
+    response = cta.accums_summary(
         cta.accums(user_id='44a38440-595d-494e-a028-09804355757a'))
-    if type(ob) == dict and ob.get('succeed'):
+    if type(response) == dict and response.get('succeed'):
         print('Получить общую сумму донатов, по сотруднику:')
-        print(ob.get('data'))
+        print(response.get('data'))
     else:
-        print(f'ERROR все: {ob}')
+        print(f'ERROR все: {response}')
+
+    response = cta.accums_payout_receiver(
+        cta.accums(user_id='44a38440-595d-494e-a028-09804355757a'))
+    if type(response) == dict and response.get('succeed'):
+        print('Выплата накопления получателю:')
+        print(response.get('data'))
+    else:
+        print(f'ERROR все: {response}')

@@ -22,7 +22,8 @@ class Cloudtipsadp:
         self.places = Places
         self.receivers = Receivers
         # funcs
-        self.accums_get = _accum_get
+        self.accums_summary = _accum_summary
+        self.accums_payout_receiver = _accum_payout_receiver
         self.cards_auth = _card_auth
         self.cards_delete = _card_delete
         self.cards_default = _card_default
@@ -50,9 +51,14 @@ class Cloudtipsadp:
         return self.__link.refresh_token()
 
 
-def _accum_get(accumulation: Accumulation):
-    """Получить общую сумму донатов, по сотруднику."""
-    return accumulation.get()
+def _accum_summary(accumulation: Accumulation):
+    """Накопления по получателю."""
+    return accumulation.summary()
+
+
+def _accum_payout_receiver(accumulation: Accumulation):
+    """Выплата накопления получателю."""
+    return accumulation.payout_receiver()
 
 
 def _card_auth(card: Card):

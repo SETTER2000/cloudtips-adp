@@ -144,12 +144,12 @@ if __name__ == '__main__':
         print(f'ERROR все: {response}')
 
     # user_id = '44a38440-595d-494e-a028-09804355757a'
-    response = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
-    if type(response) == dict and response.get('succeed'):
-        print(f'Удалён получатель {user_id} из скоупа:')
-        print(response)
-    else:
-        print(f'ERROR все: {response}')
+    # response = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
+    # if type(response) == dict and response.get('succeed'):
+    #     print(f'Удалён получатель {user_id} из скоупа:')
+    #     print(response)
+    # else:
+    #     print(f'ERROR все: {response}')
 
     response = cta.receivers_pages(cta.receivers())
     if type(response) == dict and response.get('succeed'):
@@ -157,6 +157,8 @@ if __name__ == '__main__':
         print(response.get('data'))
     else:
         print(f'ERROR donations: {response}')
+
+
     # photo_path = '/home/setter/Изображения/Рецепты/1.png'
     # response = cta.receivers_photo(cta.receivers(user_id=user_id,
     #                                        photo_path=photo_path))
