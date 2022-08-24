@@ -12,9 +12,17 @@ class Place:
 
     def __init__(self, user_id: str = None):
         self.user_id = user_id
+        self.header = Connect.get_headers()
 
     def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
+
+    def _post(self, url, data: dict = dict()):
+        return requests.post(url, data=json.dumps(data),
+                             headers=self.header).json()
+
+    def _get(self, url, params: dict = dict()):
+        return requests.get(url, params=params, headers=self.header).json()
 
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
@@ -32,40 +40,32 @@ class Places(Place):
         self.code = code
 
     @staticmethod
-    def get_place():
+    def get_id():
         return os.getenv('placeId')
 
     def get(self):
         """Позволяет получить информацию по всем заведениям ТСП."""
         # URL для запроса к API
-        api_url = self(self.base_path)
-        parsed = requests.get(api_url, headers=Connect.get_headers()).json()
-        return parsed
+        url = self(self.base_path)
+        return self._get(url)
 
     def send(self):
         """
         Привязка получателя к заведению.
         Отправить сотруднику на его номер телефона код в смс сообщении.
         """
-        api_url = self(self.base_path, self.get_place(),
-                       'employees', 'attach', 'send-sms')
-        parsed = requests.post(
-            api_url, data=json.dumps(dict(UserId=self.user_id)),
-            headers=Connect.get_headers()).json()
-        return parsed
+        url = self(self.base_path, self.get_id(),
+                   'employees', 'attach', 'send-sms')
+        return self._post(url, dict(UserId=self.user_id))
 
     def confirm(self):
         """
         Подтвердить привязку телефона (пользователя) к предприятию.
         Передать код из смс.
         """
-        api_url = self(
-            self.base_path, self.get_place(), 'employees', 'attach', 'confirm')
-        parsed = requests.post(
-            api_url, data=json.dumps(dict(UserId=self.user_id,
-                                          SmsCode=self.code)),
-            headers=Connect.get_headers()).json()
-        return parsed
+        url = self(
+            self.base_path, self.get_id(), 'employees', 'attach', 'confirm')
+        return self._post(url, dict(UserId=self.user_id, SmsCode=self.code))
 
 
 if __name__ == '__main__':

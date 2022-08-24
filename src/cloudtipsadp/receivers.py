@@ -53,7 +53,7 @@ class Receivers(Receiver):
     def __get_data(self):
         try:
             receivers = [dict(phoneNumber=self.phone_number, name=self.name)]
-            data = dict(placeId=Places.get_place(), receivers=receivers)
+            data = dict(placeId=Places.get_id(), receivers=receivers)
         except AttributeError:
             print('No user data.')
         else:

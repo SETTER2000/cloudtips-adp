@@ -1,3 +1,5 @@
+import json
+
 import requests as requests
 
 from src.cloudtipsadp.clients import Connect
@@ -10,9 +12,17 @@ class Accumulation:
 
     def __init__(self, user_id: str):
         self.user_id = user_id
+        self.header = Connect.get_headers()
 
     def __call__(self, *args, **kwargs):
         return Connect.client.api(list(args))
+
+    def _post(self, url, data: dict = dict()):
+        return requests.post(url, data=json.dumps(data),
+                             headers=self.header).json()
+
+    def _get(self, url, params: dict = dict()):
+        return requests.get(url, params=params, headers=self.header).json()
 
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
@@ -26,19 +36,8 @@ class Accumulations(Accumulation):
 
     def get(self):
         """Получить общую сумму донатов, по сотруднику."""
-        api_url = self(self.base_path, self.user_id, 'summary')
-        parsed = requests.get(api_url, headers=Connect.get_headers()).json()
-        return parsed
-
-    def __get_data(self):
-        pass
-        # try:
-        #     receivers = [dict(phoneNumber=self.phone_number, name=self.name)]
-        #     data = dict(placeId=Places.get_place(), receivers=receivers)
-        # except AttributeError:
-        #     print('No user data.')
-        # else:
-        #     return json.dumps(data)
+        url = self(self.base_path, self.user_id, 'summary')
+        return self._get(url)
 
     def payout_receiver(self):
         """Выплата накопления получателю."""
