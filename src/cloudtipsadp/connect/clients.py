@@ -68,33 +68,6 @@ class BaseClient:
         refresh_token полученный при авторизации.
         """
         raise NotImplementedError(cnt.M_BASE_IMPLEMENTED)
-#
-#
-# class ProductClient(BaseClient):
-#     """Production server."""
-#     base_url = urljoin(BaseClient.base_url, BaseClient.auth_url)
-#
-#     def refresh_token(self):
-#         return requests.post(self.base_url,
-#                              data=ConnectData.refresh(self.token),
-#                              headers=cnt.HEADERS_REQUEST)
-#
-#     def api(self, endpoints: list, base_url=settings.BASE_URL_API):
-#         return super(ProductClient, self).api(endpoints, base_url)
-#
-#
-# class SandboxClient(BaseClient):
-#     """Тестовый сервер. Для работы в песочнице."""
-#     base_url: str = urljoin(settings.BASE_URL, BaseClient.auth_url)
-#
-#     def refresh_token(self):
-#         response = requests.post(self.base_url,
-#                                  data=ConnectData.refresh(self.token),
-#                                  headers=cnt.HEADERS_REQUEST)
-#         self.valid(response)
-#
-#     def api(self, endpoints: list, base_url=settings.BASE_URL_API):
-#         return super(SandboxClient, self).api(endpoints, base_url)
 
 
 class CurrentClient(BaseClient):
@@ -157,25 +130,24 @@ class Connect:
     def get_headers_token(cls):
         return {'Authorization': f'{cls.get_token()}'}
 
-
 # if __name__ == '__main__':
-    # from src.cloudtipsadp.main import Cloudtipsadp
-    #
-    # cta = Cloudtipsadp()
-    # # Подключение к Sandbox service
-    # cta.connect()
-    # # Подключение к Product service
-    # # cta.connect()
-    #
-    # # Чтоб понять как работает обновление и получение токенов,
-    # # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
-    # # ProductClient - будет доступен с данными для production, когда менеджер
-    # # выдаст новые логин и пароль
-    # # Подключение к Production service
-    # # # Получить токен
-    #
-    # token = cta.get_token()
-    # print(token)
-    #
-    # token = cta.refresh_token()
-    # print(token)
+# from src.cloudtipsadp.main import Cloudtipsadp
+#
+# cta = Cloudtipsadp()
+# # Подключение к Sandbox service
+# cta.connect()
+# # Подключение к Product service
+# # cta.connect()
+#
+# # Чтоб понять как работает обновление и получение токенов,
+# # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
+# # ProductClient - будет доступен с данными для production, когда менеджер
+# # выдаст новые логин и пароль
+# # Подключение к Production service
+# # # Получить токен
+#
+# token = cta.get_token()
+# print(token)
+#
+# token = cta.refresh_token()
+# print(token)

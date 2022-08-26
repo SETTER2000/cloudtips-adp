@@ -1,9 +1,14 @@
+import requests
 from abc import ABC, abstractmethod
+
+from src.cloudtipsadp.connect.clients import Connect
 
 
 class Repository(ABC):
-    def __init__(self, session):
+    def __init__(self, req: requests, session: Connect, base_path: str):
+        self.req = req
         self.session = session
+        self.base_path = base_path
 
     @abstractmethod
     def get(self):
@@ -20,3 +25,6 @@ class Repository(ABC):
     @abstractmethod
     def update(self, obj):
         raise NotImplementedError()
+
+    def __call__(self, *args, **kwargs):
+        return self.session.client.api(list(args))

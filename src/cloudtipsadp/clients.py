@@ -86,7 +86,7 @@ class ProductClient(BaseClient):
 
 class SandboxClient(BaseClient):
     """Тестовый сервер. Для работы в песочнице."""
-    base_url: str = urljoin(cnt.BASE_URL_SANDBOX, BaseClient.auth_url)
+    base_url: str = urljoin(cnt.BASE_URL, BaseClient.auth_url)
 
     def refresh_token(self):
         response = requests.post(self.base_url,
@@ -94,7 +94,7 @@ class SandboxClient(BaseClient):
                                  headers=cnt.HEADERS_REQUEST)
         self.valid(response)
 
-    def api(self, endpoints: list, base_url=cnt.BASE_URL_API_SANDBOX):
+    def api(self, endpoints: list, base_url=cnt.BASE_URL_API):
         return super(SandboxClient, self).api(endpoints, base_url)
 
 

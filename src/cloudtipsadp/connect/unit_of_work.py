@@ -34,22 +34,10 @@ class UnitOfWork(ABC):
 class CloudtipsUnitOfWork(UnitOfWork):
     """Cloudtips service. Connect session."""
     def begin(self):
-        self.session.begin()
+        self.session.get_token()
 
     def rollback(self):
-        self.session.rollback()
+        self.session.refresh_token()
 
     def commit(self):
         self.session.commit()
-
-#
-# class AlchemyUnitOfWork(UnitOfWork):
-#
-#     def begin(self):
-#         self.session.begin()
-#
-#     def rollback(self):
-#         self.session.rollback()
-#
-#     def commit(self):
-#         self.session.commit()

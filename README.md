@@ -28,12 +28,19 @@ sudo touch .env
 placeId - идентификатор вашего заведения (в админке CloudTips)
 
 ```angular2html
-Grant_type=password
-Client_id=Partner
-UserName=<your_email>
-Password=<your_password>
+CTA_GRANT_TYPE=password
+CTA_CLIENT_ID=Partner
+CTA_USER_NAME=<your_email>
+CTA_PASSWORD=<your_password>
+CTA_PLACE_ID=<your_placeId>
 
-placeId=<your_placeId>
+# Production. Раскомментировать
+#CTA_BASE_URL = 'https://identity.cloudtips.ru'
+#CTA_BASE_URL_API = 'https://api.cloudtips.ru/api'
+
+# Production. Закомментировать
+CTA_BASE_URL = 'https://identity-sandbox.cloudtips.ru'
+CTA_BASE_URL_API = 'https://api-sandbox.cloudtips.ru'
 ```
 
 #  Работа с пакетом

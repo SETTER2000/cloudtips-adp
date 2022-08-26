@@ -1,6 +1,6 @@
 from typing import Type
 from src.cloudtipsadp.containers import Container
-from src.cloudtipsadp.payouts_pak.services import list_payouts
+from src.cloudtipsadp.payouts_pak.services import (payout_list,)
 from src.cloudtipsadp.accumulations import Accumulation, Accumulations
 from src.cloudtipsadp.cards import Card, Cards, FlowBase
 from src.cloudtipsadp.clients import Connect, ProductClient, SandboxClient
@@ -32,8 +32,8 @@ class Cloudtipsadp:
         self.cards_default = _card_default
         self.cards_get = _card_get
         self.cards_flow = _card_flow
-        self.payouts_get = _payout_get
-        self.payouts_list = _payout_list
+        self.payouts_get = payout_get
+        self.payouts_list = payout_list
         self.places_confirm = _place_confirm
         self.places_get = _place_get
         self.places_send_sms = _place_send
@@ -92,14 +92,14 @@ def _card_flow(flow: FlowBase):
         print('Error, type mismatch.')
 
 
-def _payout_get(payout: Payout):
-    """ Получение всех транзакций выплат получателям менеджера."""
-    return payout.get()
+# def _payout_get(payout: Payout):
+#     """ Получение всех транзакций выплат получателям менеджера."""
+#     return payout.get()
+#
 
-
-def _payout_list():
-    """ Получение всех транзакций выплат получателям менеджера."""
-    return list_payouts()
+# def _payout_list():
+#     """ Получение всех транзакций выплат получателям менеджера."""
+#     return list_payouts()
 
 
 def _place_confirm(place: Place):

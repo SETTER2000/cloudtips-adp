@@ -5,19 +5,12 @@ from src.cloudtipsadp.connect.unit_of_work import UnitOfWork
 
 
 @inject
-def list_payouts(
+def payout_list(
         repository: Repository = Provide[Container.payout_repository]):
     return repository().provider().list()
 
 
-# @inject
-# def list_payouts(unit_of_work: UnitOfWork = Provide[Container.payouts_uow]):
-#     with unit_of_work:
-#         return unit_of_work.repository.list()
-
-if __name__ == "__main__":
-    from src.cloudtipsadp.containers import Container
-    container = Container()
-    container.wire(modules=[__name__])
-
-    list_payouts()
+@inject
+def payout_get(
+        repository: Repository = Provide[Container.payout_repository]):
+    return repository().provider().get()
