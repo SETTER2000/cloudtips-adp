@@ -1,11 +1,14 @@
 from typing import Type
-
-from src.cloudtipsadp.clients import (Connect, ProductClient, SandboxClient)
+from src.cloudtipsadp.containers import Container
+from src.cloudtipsadp.payouts_pak.services import list_payouts
 from src.cloudtipsadp.accumulations import Accumulation, Accumulations
-from src.cloudtipsadp.cards import (Card, Cards, FlowBase)
+from src.cloudtipsadp.cards import Card, Cards, FlowBase
+from src.cloudtipsadp.clients import Connect, ProductClient, SandboxClient
+from src.cloudtipsadp.payouts import Payout, Payouts
 from src.cloudtipsadp.places import Place, Places
-from src.cloudtipsadp.receivers import Receivers, Receiver
-from src.cloudtipsadp.payouts import Payouts, Payout
+from src.cloudtipsadp.receivers import Receiver, Receivers
+
+container = Container()
 
 
 class Cloudtipsadp:
@@ -30,6 +33,7 @@ class Cloudtipsadp:
         self.cards_get = _card_get
         self.cards_flow = _card_flow
         self.payouts_get = _payout_get
+        self.payouts_list = _payout_list
         self.places_confirm = _place_confirm
         self.places_get = _place_get
         self.places_send_sms = _place_send
@@ -91,6 +95,11 @@ def _card_flow(flow: FlowBase):
 def _payout_get(payout: Payout):
     """ Получение всех транзакций выплат получателям менеджера."""
     return payout.get()
+
+
+def _payout_list():
+    """ Получение всех транзакций выплат получателям менеджера."""
+    return list_payouts()
 
 
 def _place_confirm(place: Place):

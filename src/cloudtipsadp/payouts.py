@@ -1,6 +1,7 @@
 import json
 
 import requests
+
 from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
@@ -16,7 +17,8 @@ class Payout:
         return Connect.client.api(list(args))
 
     def _post(self, url, data: dict = dict()):
-        return requests.post(url, data=json.dumps(data),
+        return requests.post(url, data=json
+                             .dumps(data),
                              headers=self.header).json()
 
     def _get(self, url, params: dict = dict()):
@@ -40,7 +42,7 @@ class Payouts(Payout):
 
 
 if __name__ == '__main__':
-    from core import Cloudtipsadp
+    from main import Cloudtipsadp
 
     cta = Cloudtipsadp()
     cta.connect(sandbox=True)

@@ -27,6 +27,12 @@ class Accumulation:
     def get(self):
         raise NotImplementedError(M_BASE_IMPLEMENTED)
 
+    def summary(self):
+        raise NotImplementedError(M_BASE_IMPLEMENTED)
+
+    def payout_receiver(self):
+        raise NotImplementedError(M_BASE_IMPLEMENTED)
+
 
 class Accumulations(Accumulation):
     """Накопления."""

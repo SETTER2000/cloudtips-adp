@@ -1,7 +1,9 @@
 import json
 import os
+
 import requests as requests
 
+from src.cloudtipsadp import settings
 from src.cloudtipsadp.clients import Connect
 from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED
 
@@ -41,7 +43,7 @@ class Places(Place):
 
     @staticmethod
     def get_id():
-        return os.getenv('placeId')
+        return settings.CTA_PLACE_ID
 
     def get(self):
         """Позволяет получить информацию по всем заведениям ТСП."""
@@ -69,7 +71,7 @@ class Places(Place):
 
 
 if __name__ == '__main__':
-    from core import Cloudtipsadp
+    from main import Cloudtipsadp
 
     cta = Cloudtipsadp()
     cta.connect(sandbox=True)

@@ -1,11 +1,12 @@
 import json
-import magic
 import os
+
+import magic
 import requests
 
-from src.cloudtipsadp.places import Places
 from src.cloudtipsadp.clients import Connect
-from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED, FILE_PATH_BAD
+from src.cloudtipsadp.constants import FILE_PATH_BAD, M_BASE_IMPLEMENTED
+from src.cloudtipsadp.places import Places
 
 mime = magic.Magic(mime=True)
 
@@ -91,81 +92,79 @@ class Receivers(Receiver):
         payload = {}
         try:
             paths = os.path.split(self.photo_path)
-            files = [
-                ('FormFile', (
-                    paths[1],
-                    open(self.photo_path, 'rb'),
-                    magic.from_file(self.photo_path, mime=True)))]
-        except TypeError:
-            print(f'{FILE_PATH_BAD}')
+            with open(self.photo_path, 'rb') as file:
+                files = [
+                    ('FormFile', (paths[1], file,
+                                  magic.from_file(self.photo_path, mime=True)))
+                ]
+                url = self(self.base_path, self.user_id, 'photo')
+                parsed = requests.post(
+                    url, headers=Connect.get_headers_token(), data=payload,
+                    files=files).json()
         except FileNotFoundError as e:
             print(f'{FILE_PATH_BAD} {e}')
         else:
-            url = self(self.base_path, self.user_id, 'photo')
-            parsed = requests.post(
-                url, headers=Connect.get_headers_token(), data=payload,
-                files=files).json()
             return parsed
 
 
 if __name__ == '__main__':
-    from core import Cloudtipsadp
+    from main import Cloudtipsadp
 
     cta = Cloudtipsadp()
     cta.connect(sandbox=True)
-    # user_id = '44a38440-595d-494e-a028-09804355757a'
+    user_id = '44a38440-595d-494e-a028-09804355757a'
 
-    name = 'Poale Ell Adam'
-    phone_number = '+79162047558'
-    response = cta.receivers_create(cta.receivers(name, phone_number))
-    if type(response) == dict and response.get('succeed'):
-        print('Получатель донатов создан:')
-        print(response.get('data'))
-        # obg = response.get('data')
-        # print(obg)
-        user_id = response.get('data')['created'][0]['userId']
-        print(f'USER ID: {user_id}')
-    else:
-        print(f'ERROR**: {response}')
-
-    response = cta.places_send_sms(cta.places(user_id=user_id))
-    if type(response) == dict and response.get('succeed'):
-        print(
-            f'Отправлено сообщении код в смс на телефон получателя {user_id}')
-        print(response)
-        response = cta.places_confirm(cta.places(user_id=user_id, code=000000))
-        if type(response) == dict and response.get('succeed'):
-            print(
-                f'Отправлен код из SMS получателя: {user_id}')
-            print(response)
-        else:
-            print(f'ERROR код: {response}')
-    else:
-        print(f'ERROR все: {response}')
-
-    # user_id = '44a38440-595d-494e-a028-09804355757a'
-    # response = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
+    # name = 'Poale Ell Adam'
+    # phone_number = '+79162047558'
+    # response = cta.receivers_create(cta.receivers(name, phone_number))
     # if type(response) == dict and response.get('succeed'):
-    #     print(f'Удалён получатель {user_id} из скоупа:')
+    #     print('Получатель донатов создан:')
+    #     print(response.get('data'))
+    #     # obg = response.get('data')
+    #     # print(obg)
+    #     user_id = response.get('data')['created'][0]['userId']
+    #     print(f'USER ID: {user_id}')
+    # else:
+    #     print(f'ERROR**: {response}')
+    #
+    # response = cta.places_send_sms(cta.places(user_id=user_id))
+    # if type(response) == dict and response.get('succeed'):
+    #     print(
+    #         f'Отправлено сообщении код в смс на телефон получателя {user_id}')
     #     print(response)
+    #     response = cta.places_confirm(cta.places(user_id=user_id, code=000000))
+    #     if type(response) == dict and response.get('succeed'):
+    #         print(
+    #             f'Отправлен код из SMS получателя: {user_id}')
+    #         print(response)
+    #     else:
+    #         print(f'ERROR код: {response}')
     # else:
     #     print(f'ERROR все: {response}')
-
-    response = cta.receivers_pages(cta.receivers())
-    if type(response) == dict and response.get('succeed'):
-        print('Все получатели донатов:')
-        print(response.get('data'))
-    else:
-        print(f'ERROR donations: {response}')
-
-    # photo_path = '/home/setter/Изображения/Рецепты/1.png'
-    # response = cta.receivers_photo(cta.receivers(user_id=user_id,
-    #                                        photo_path=photo_path))
+    #
+    # # user_id = '44a38440-595d-494e-a028-09804355757a'
+    # # response = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
+    # # if type(response) == dict and response.get('succeed'):
+    # #     print(f'Удалён получатель {user_id} из скоупа:')
+    # #     print(response)
+    # # else:
+    # #     print(f'ERROR все: {response}')
+    #
+    # response = cta.receivers_pages(cta.receivers())
     # if type(response) == dict and response.get('succeed'):
-    #     print('Фото получателя успешно загружено:')
+    #     print('Все получатели донатов:')
     #     print(response.get('data'))
     # else:
-    #     print(f'ERROR все: {response}')
+    #     print(f'ERROR donations: {response}')
+
+    photo_path = '/home/setter/Изображения/Adam.jpg'
+    response = cta.receivers_photo(cta.receivers(user_id=user_id,
+                                                 photo_path=photo_path))
+    if type(response) == dict and response.get('succeed'):
+        print('Фото получателя успешно загружено:')
+        print(response.get('data'))
+    else:
+        print(f'RESPONSE: {response}')
 
     # response = cta.receivers_pages(cta.receivers())
     # if response.get('succeed'):

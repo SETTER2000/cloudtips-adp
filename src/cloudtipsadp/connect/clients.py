@@ -4,7 +4,6 @@ import requests as requests
 
 from src.cloudtipsadp import constants as cnt
 from src.cloudtipsadp import settings
-from src.cloudtipsadp.settings import Token
 
 
 class ConnectData:
@@ -28,20 +27,20 @@ class ConnectData:
                     Grant_type=settings.CTA_GRANT_TYPE)
 
     @classmethod
-    def refresh(cls, tkn: Token):
+    def refresh(cls, ref_token: settings.Token):
         return dict(Grant_type=settings.CTA_GRANT_TYPE_REFRESH,
                     Client_id=settings.CTA_CLIENT_ID,
-                    refresh_token=tkn['refresh_token'])
+                    refresh_token=ref_token['refresh_token'])
 
 
 class BaseClient:
-    token: Token
-    base_url: str = cnt.BASE_URL
+    token: settings.Token
+    base_url: str = settings.BASE_URL
     auth_url = 'connect/token'
 
     def valid(self, response):
         if response.ok:
-            self.token: Token = response.json()
+            self.token: settings.Token = response.json()
             return response
         return None
 
@@ -50,7 +49,7 @@ class BaseClient:
         self.valid(response)
 
     @staticmethod
-    def api(endpoints: list, base_url=cnt.BASE_URL_API):
+    def api(endpoints: list, base_url=settings.BASE_URL_API):
         """Вернёт правильный URL для запроса к API."""
         endpoints.insert(0, cnt.API_VERSION)
         path = '/'.join(x for x in endpoints)
@@ -69,24 +68,38 @@ class BaseClient:
         refresh_token полученный при авторизации.
         """
         raise NotImplementedError(cnt.M_BASE_IMPLEMENTED)
+#
+#
+# class ProductClient(BaseClient):
+#     """Production server."""
+#     base_url = urljoin(BaseClient.base_url, BaseClient.auth_url)
+#
+#     def refresh_token(self):
+#         return requests.post(self.base_url,
+#                              data=ConnectData.refresh(self.token),
+#                              headers=cnt.HEADERS_REQUEST)
+#
+#     def api(self, endpoints: list, base_url=settings.BASE_URL_API):
+#         return super(ProductClient, self).api(endpoints, base_url)
+#
+#
+# class SandboxClient(BaseClient):
+#     """Тестовый сервер. Для работы в песочнице."""
+#     base_url: str = urljoin(settings.BASE_URL, BaseClient.auth_url)
+#
+#     def refresh_token(self):
+#         response = requests.post(self.base_url,
+#                                  data=ConnectData.refresh(self.token),
+#                                  headers=cnt.HEADERS_REQUEST)
+#         self.valid(response)
+#
+#     def api(self, endpoints: list, base_url=settings.BASE_URL_API):
+#         return super(SandboxClient, self).api(endpoints, base_url)
 
 
-class ProductClient(BaseClient):
-    """Production server."""
-    base_url = urljoin(BaseClient.base_url, BaseClient.auth_url)
-
-    def refresh_token(self):
-        return requests.post(self.base_url,
-                             data=ConnectData.refresh(self.token),
-                             headers=cnt.HEADERS_REQUEST)
-
-    def api(self, endpoints: list, base_url=cnt.BASE_URL_API):
-        return super(ProductClient, self).api(endpoints, base_url)
-
-
-class SandboxClient(BaseClient):
-    """Тестовый сервер. Для работы в песочнице."""
-    base_url: str = urljoin(cnt.BASE_URL_SANDBOX, BaseClient.auth_url)
+class CurrentClient(BaseClient):
+    """Постоянный клиент сервера."""
+    base_url: str = urljoin(settings.BASE_URL, BaseClient.auth_url)
 
     def refresh_token(self):
         response = requests.post(self.base_url,
@@ -94,8 +107,8 @@ class SandboxClient(BaseClient):
                                  headers=cnt.HEADERS_REQUEST)
         self.valid(response)
 
-    def api(self, endpoints: list, base_url=cnt.BASE_URL_API_SANDBOX):
-        return super(SandboxClient, self).api(endpoints, base_url)
+    def api(self, endpoints: list, base_url=settings.BASE_URL_API):
+        return super(CurrentClient, self).api(endpoints, base_url)
 
 
 class Connect:
@@ -106,7 +119,7 @@ class Connect:
     def __new__(cls, client: BaseClient = None):
         if cls.__instance is None:
             if client is None:
-                cls.client = ProductClient()
+                cls.client = CurrentClient()
             else:
                 cls.client = client
 
@@ -145,24 +158,24 @@ class Connect:
         return {'Authorization': f'{cls.get_token()}'}
 
 
-if __name__ == '__main__':
-    from main import Cloudtipsadp
-
-    cta = Cloudtipsadp()
-    # Подключение к Sandbox service
-    cta.connect(sandbox=True)
-    # Подключение к Product service
+# if __name__ == '__main__':
+    # from src.cloudtipsadp.main import Cloudtipsadp
+    #
+    # cta = Cloudtipsadp()
+    # # Подключение к Sandbox service
     # cta.connect()
-
-    # Чтоб понять как работает обновление и получение токенов,
-    # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
-    # ProductClient - будет доступен с данными для production, когда менеджер
-    # выдаст новые логин и пароль
-    # Подключение к Production service
-    # # Получить токен
-
-    token = cta.get_token()
-    print(token)
-
-    token = cta.refresh_token()
-    print(token)
+    # # Подключение к Product service
+    # # cta.connect()
+    #
+    # # Чтоб понять как работает обновление и получение токенов,
+    # # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
+    # # ProductClient - будет доступен с данными для production, когда менеджер
+    # # выдаст новые логин и пароль
+    # # Подключение к Production service
+    # # # Получить токен
+    #
+    # token = cta.get_token()
+    # print(token)
+    #
+    # token = cta.refresh_token()
+    # print(token)
