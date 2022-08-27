@@ -99,11 +99,11 @@ response = cta.places_confirm(user_id, code)
 ## Карты
 #### Список карт получателя
 ```angular2html
-response = cta.cards_get(cta.cards(user_id))
+response = cta.cards_get(user_id)
 ```
 #### Отправить криптограмму
 ```angular2html
-response = cta.cards_auth(cta.cards(user_id, checkout))
+response = cta.cards_auth(user_id, checkout)
 ```
 #### Изменить карту, которая по умолчанию
 ```angular2html
