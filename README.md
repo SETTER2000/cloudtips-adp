@@ -83,7 +83,7 @@ else:
 ## Заведения
 #### Информация по всем заведениям ТСП
 ```angular2html
-response = cta.places_get(cta.places())
+response = cta.places_get()
 ```
 #### Привязка получателя к заведению. Отправить сотруднику на его номер телефона код в смс сообщении.
 ```angular2html

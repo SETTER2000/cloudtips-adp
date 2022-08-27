@@ -1,7 +1,7 @@
 from typing import Type
 
-from src.cloudtipsadp.cards.services import card_delete, card_default, \
-    card_get, card_auth
+from src.cloudtipsadp.cards.services import (card_delete, card_default,
+                                             card_get, card_auth)
 from src.cloudtipsadp.payouts.services import (payout, )
 from src.cloudtipsadp.accumulations import Accumulation, Accumulations
 # from src.cloudtipsadp.cards import Card, Cards, FlowBase
@@ -185,12 +185,12 @@ if __name__ == '__main__':
     # else:
     #     print(f'RESPONSE: {response}')
 
-    # response = cta.places_get()
-    # if type(response) == dict and response.get('succeed'):
-    #     print('Позволяет получить информацию по всем заведениям ТСП:')
-    #     print(response.get('data'))
-    # else:
-    #     print(f'RESPONSE: {response}')
+    response = cta.places_get()
+    if type(response) == dict and response.get('succeed'):
+        print('Позволяет получить информацию по всем заведениям ТСП:')
+        print(response.get('data'))
+    else:
+        print(f'RESPONSE: {response}')
 
     # response = cta.cards_get(user_id)
     # if type(response) == dict and response.get('succeed'):
