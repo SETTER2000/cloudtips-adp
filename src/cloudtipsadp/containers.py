@@ -10,7 +10,6 @@ from src.cloudtipsadp.accumulations.connect.repository import \
     AccumulationRepository
 from src.cloudtipsadp.cards.connect.repository import CardRepository
 from src.cloudtipsadp.connect.sessions import Session
-from src.cloudtipsadp.connect.unit_of_work import CloudtipsUnitOfWork
 from src.cloudtipsadp.payouts.connect.repository import PayoutRepository
 from src.cloudtipsadp.places.connect.repository import PlaceRepository
 from src.cloudtipsadp.receivers.connect.repository import ReceiverRepository

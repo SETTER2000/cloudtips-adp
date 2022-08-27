@@ -129,25 +129,3 @@ class Connect:
     @classmethod
     def get_headers_token(cls):
         return {'Authorization': f'{cls.get_token()}'}
-
-# if __name__ == '__main__':
-# from src.cloudtipsadp.main import Cloudtipsadp
-#
-# cta = Cloudtipsadp()
-# # Подключение к Sandbox service
-# cta.connect()
-# # Подключение к Product service
-# # cta.connect()
-#
-# # Чтоб понять как работает обновление и получение токенов,
-# # нужно смотреть в дебагере. Run и Debug возвращают разные значения.
-# # ProductClient - будет доступен с данными для production, когда менеджер
-# # выдаст новые логин и пароль
-# # Подключение к Production service
-# # # Получить токен
-#
-# token = cta.get_token()
-# print(token)
-#
-# token = cta.refresh_token()
-# print(token)

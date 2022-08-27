@@ -1,6 +1,7 @@
-from src.cloudtipsadp.connect.repository import Repository
 import requests
+
 from src.cloudtipsadp.connect.clients import Connect
+from src.cloudtipsadp.connect.repository import Repository
 
 
 class AccumulationRepository(Repository):

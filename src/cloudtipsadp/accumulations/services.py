@@ -1,6 +1,7 @@
-from dependency_injector.wiring import inject, Provide
-from src.cloudtipsadp.containers import Container
+from dependency_injector.wiring import Provide, inject
+
 from src.cloudtipsadp.connect.repository import Repository
+from src.cloudtipsadp.containers import Container
 
 
 @inject

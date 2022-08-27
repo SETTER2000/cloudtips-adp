@@ -59,9 +59,3 @@ class Challenge(FlowBase):
             print('No user data.')
         else:
             return json.dumps(data)
-
-    # def auth(self):
-    #     """Авторизация платежа."""
-    #     # api_url = self(self.base_path, 'auth')
-    #     parsed = requests.post(self.acsUrl, data=self.__get_data()).json()
-    #     return parsed

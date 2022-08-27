@@ -1,10 +1,9 @@
 import json
+
 import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
-from src.cloudtipsadp.constants import FILE_PATH_BAD
-from src.cloudtipsadp.settings import CTA_PLACE_ID
 
 
 class CardRepository(Repository):
@@ -26,11 +25,6 @@ class CardRepository(Repository):
     def list(self):
         pass
 
-    #     """Позволяет получить информацию по всем заведениям ТСП."""
-    #     api_url = self(self.base_path)
-    #     return self.req.get(api_url,
-    #                         headers=self.session.get_headers()).json()
-
     def save(self, obj):
         pass
 
@@ -50,9 +44,6 @@ class CardRepository(Repository):
         return self.req.delete(
             url, data=json.dumps(dict(userId=user_id, cardToken=card_token)),
             headers=self.session.get_headers()).json()
-        #
-        # return requests.delete(url, data=json.dumps(data),
-        #                        headers=self.header).json()
 
     def auth(self, user_id, checkout):
         """Привязка карты получателю."""

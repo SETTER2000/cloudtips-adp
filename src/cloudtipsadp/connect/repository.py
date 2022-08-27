@@ -1,5 +1,6 @@
-import requests
 from abc import ABC, abstractmethod
+
+import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 

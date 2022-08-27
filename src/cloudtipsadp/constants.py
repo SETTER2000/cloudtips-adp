@@ -18,7 +18,6 @@ BASE_URL_API = 'https://api.cloudtips.ru/api'
 BASE_URL_API_SANDBOX = 'https://api-sandbox.cloudtips.ru'
 M_BAD_CONNECT = 'No service connection.'
 M_BASE_IMPLEMENTED = 'Base class method not implemented.'
-# URL сайта для возврата плательщика после аутентификации карты
 SITE_RETURNING_URL = 'http://127.0.0.1:8000'
 API_VERSION = 'api'
 FILE_PATH_BAD = 'File path missing:'

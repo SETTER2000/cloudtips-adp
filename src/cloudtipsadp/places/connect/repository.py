@@ -1,12 +1,8 @@
 import json
-import os
-
-import magic
 import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
-from src.cloudtipsadp.constants import FILE_PATH_BAD
 from src.cloudtipsadp.settings import CTA_PLACE_ID
 
 
