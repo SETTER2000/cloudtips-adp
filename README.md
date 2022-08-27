@@ -68,7 +68,7 @@ response = cta.receivers_pages()
 ```
 #### Загрузка фотографии получателя
 ```angular2html
-response = cta.receivers_photo(cta.receivers(user_id, photo_path))
+response = cta.receivers_photo(user_id, photo_path)
 ```
 
 #### Вариант просмотра результата ответа сервера
@@ -87,11 +87,11 @@ response = cta.places_get(cta.places())
 ```
 #### Привязка получателя к заведению. Отправить сотруднику на его номер телефона код в смс сообщении.
 ```angular2html
-response = cta.places_send_sms(cta.places(user_id))
+response = cta.places_send_sms(user_id)
 ```
 #### Подтверждение привязки телефона (пользователя) к предприятию. Передать код из смс.
 ```angular2html
-response = cta.places_confirm(cta.places(user_id, code))
+response = cta.places_confirm(user_id, code)
 ```
 
 
