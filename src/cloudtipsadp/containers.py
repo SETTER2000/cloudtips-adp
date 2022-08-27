@@ -5,17 +5,36 @@
 """
 import requests
 from dependency_injector import containers, providers
+
+from src.cloudtipsadp.cards.connect.repository import CardRepository
 from src.cloudtipsadp.connect.sessions import Session
 from src.cloudtipsadp.connect.unit_of_work import CloudtipsUnitOfWork
-from src.cloudtipsadp.payouts_pak.connect.repository import PayoutRepository
+from src.cloudtipsadp.payouts.connect.repository import PayoutRepository
+from src.cloudtipsadp.places.connect.repository import PlaceRepository
+from src.cloudtipsadp.receivers.connect.repository import ReceiverRepository
 
 
 class Container(containers.DeclarativeContainer):
-    wiring_config = containers.WiringConfiguration(packages=['payouts_pak'])
-
+    wiring_config = containers.WiringConfiguration(
+        packages=['payouts', 'receivers', 'places', 'cards'])
     session_creator = providers.Factory(Session)
+
+    # Payouts
     payout_repository = providers.Factory(
         PayoutRepository, req=requests, session=session_creator,
         base_path='payout')
-    payouts_uow = providers.Factory(
-        CloudtipsUnitOfWork, repository=payout_repository)
+
+    # Receivers
+    receiver_repository = providers.Factory(
+        ReceiverRepository, req=requests, session=session_creator,
+        base_path='receivers')
+
+    # Places
+    place_repository = providers.Factory(
+        PlaceRepository, req=requests, session=session_creator,
+        base_path='places')
+
+    # Cards
+    card_repository = providers.Factory(
+        CardRepository, req=requests, session=session_creator,
+        base_path='cards')

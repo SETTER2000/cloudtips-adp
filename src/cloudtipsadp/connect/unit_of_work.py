@@ -22,7 +22,7 @@ class UnitOfWork(ABC):
     def commit(self):
         raise NotImplementedError()
 
-    def __next__(self):
+    def __enter__(self):
         self.begin()
         return self
 

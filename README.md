@@ -44,40 +44,27 @@ CTA_BASE_URL_API = 'https://api-sandbox.cloudtips.ru'
 ```
 
 #  Работа с пакетом
-### Работа с тестовым сервисом
-Установка соединения c песочницей (тестовый сервис CloudTips)
-* Эта инструкция обязательна в любом файле где используется пакет
-```angular2html
-cta.connect(sandbox=True)
-```
-### Работа с Production Service
-После тестирования для работы с production сервисом поменяйте данные в файле .
-env и уберите "sandbox=True" из сonnect.
-```angular2html
-cta.connect()
-```
 
-### В общем установка зависимостей для модуля выглядит так. Вариант для работы с sandbox.
+### Подключение 
 ```angular2html
 from cloudtipsadp import Cloudtipsadp
 
 cta = Cloudtipsadp()
-cta.connect(sandbox=True)
 ```
 
 
 ## Получатель
 #### Создать получателя донатов
 ```angular2html
-response = cta.receivers_create(cta.receivers(name, phone_number))
+response = cta.receivers_create(name, phone_number)
 ```
 #### Удалить получателя из скоупа
 ```angular2html
-response = cta.receivers_detach_agent(cta.receivers(user_id=user_id))
+response = cta.receivers_detach_agent(user_id)
 ```
 #### Все получатели донатов
 ```angular2html
-response = cta.receivers_pages(cta.receivers())
+response = cta.receivers_pages()
 ```
 #### Загрузка фотографии получателя
 ```angular2html
@@ -120,11 +107,11 @@ response = cta.cards_auth(cta.cards(user_id, checkout))
 ```
 #### Изменить карту, которая по умолчанию
 ```angular2html
-response = cta.cards_default(cta.cards(user_id, token))
+response = cta.cards_default(user_id, card_token)
 ```
 #### Удаление карты получателя. Карту по умолчанию удалить нельзя
 ```angular2html
-response = cta.cards_delete(cta.cards(user_id, token))
+response = cta.cards_delete(user_id, card_token)
 ```
 
 
@@ -144,7 +131,7 @@ response = cta.accums_payout_receiver(cta.accums(user_id))
 ## Транзакции
 #### Получение всех транзакций выплат получателям менеджера
 ```angular2html
-response = cta.payouts_get(cta.payouts())
+response = cta.payouts()
 ```
 
 ### Возможные проблемы

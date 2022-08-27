@@ -57,28 +57,28 @@ class Cards(Card):
         else:
             return data
 
-    def auth(self):
-        """Привязка карты получателю."""
-        url = self(self.base_path, 'auth')
-        return self._post(url, self.__get_data())
+    # def auth(self):
+    #     """Привязка карты получателю."""
+    #     url = self(self.base_path, 'auth')
+    #     return self._post(url, self.__get_data())
 
-    def get(self):
-        """Список карт получателя."""
-        url = self(self.base_path)
-        parsed = self._get(url, dict(userId=self.user_id))
-        return parsed
+    # def get(self):
+    #     """Список карт получателя."""
+    #     url = self(self.base_path)
+    #     parsed = self._get(url, dict(userId=self.user_id))
+    #     return parsed
 
-    def default(self):
-        """Изменить карту, на которую выплачиваются чаевые по умолчанию."""
-        url = self(self.base_path, 'default')
-        return self._post(url, dict(userId=self.user_id,
-                                    cardToken=self.card_token))
+    # def default(self):
+    #     """Изменить карту, на которую выплачиваются чаевые по умолчанию."""
+    #     url = self(self.base_path, 'default')
+    #     return self._post(url, dict(userId=self.user_id,
+    #                                 cardToken=self.card_token))
 
-    def delete(self):
-        """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
-        url = self(self.base_path)
-        return self._del(url, dict(userId=self.user_id,
-                                   cardToken=self.card_token))
+    # def delete(self):
+    #     """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
+    #     url = self(self.base_path)
+    #     return self._del(url, dict(userId=self.user_id,
+    #                                cardToken=self.card_token))
 
 
 class FlowBase:
@@ -138,11 +138,11 @@ class Challenge(FlowBase):
         else:
             return json.dumps(data)
 
-    def auth(self):
-        """Авторизация платежа."""
-        # api_url = self(self.base_path, 'auth')
-        parsed = requests.post(self.acsUrl, data=self.__get_data()).json()
-        return parsed
+    # def auth(self):
+    #     """Авторизация платежа."""
+    #     # api_url = self(self.base_path, 'auth')
+    #     parsed = requests.post(self.acsUrl, data=self.__get_data()).json()
+    #     return parsed
 
 
 if __name__ == '__main__':

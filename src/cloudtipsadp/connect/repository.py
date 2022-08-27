@@ -11,7 +11,7 @@ class Repository(ABC):
         self.base_path = base_path
 
     @abstractmethod
-    def get(self):
+    def get(self, obj_id: str):
         raise NotImplementedError()
 
     @abstractmethod
