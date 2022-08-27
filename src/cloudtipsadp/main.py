@@ -1,9 +1,11 @@
 from typing import Type
 
+from src.cloudtipsadp.accumulations.services import (
+    accum_summary, accum_payout_receiver)
 from src.cloudtipsadp.cards.services import (card_delete, card_default,
                                              card_get, card_auth)
 from src.cloudtipsadp.payouts.services import (payout, )
-from src.cloudtipsadp.accumulations import Accumulation, Accumulations
+# from src.cloudtipsadp.accumulations import Accumulation, Accumulations
 # from src.cloudtipsadp.cards import Card, Cards, FlowBase
 from src.cloudtipsadp.clients import Connect, ProductClient, SandboxClient
 # from src.cloudtipsadp.places import Place, Places
@@ -23,9 +25,9 @@ class Cloudtipsadp:
         self.__connect = Connect
         self.__sandbox_client = SandboxClient
         self.__product_client = ProductClient
-        self.accums: Type[Accumulation] = Accumulations
-        self.accums_summary = _accum_summary
-        self.accums_payout_receiver = _accum_payout_receiver
+        # self.accums: Type[Accumulation] = Accumulations
+        self.accums_summary = accum_summary
+        self.accums_payout_receiver = accum_payout_receiver
         self.cards_auth = card_auth
         self.cards_delete = card_delete
         self.cards_default = card_default
@@ -54,14 +56,15 @@ class Cloudtipsadp:
         return self.__link.refresh_token()
 
 
-def _accum_summary(accumulation: Accumulation):
-    """Накопления по получателю."""
-    return accumulation.summary()
-
-
-def _accum_payout_receiver(accumulation: Accumulation):
-    """Выплата накопления получателю."""
-    return accumulation.payout_receiver()
+#
+# def _accum_summary(accumulation: Accumulation):
+#     """Накопления по получателю."""
+#     return accumulation.summary()
+#
+#
+# def _accum_payout_receiver(accumulation: Accumulation):
+#     """Выплата накопления получателю."""
+#     return accumulation.payout_receiver()
 
 
 #
@@ -155,8 +158,8 @@ if __name__ == '__main__':
     # print(response)
     # response = cta.payouts()
     # print(response)
-    response = cta.receivers_create(name='Adam', phone_number='+79162047558')
-    print(response)
+    # response = cta.receivers_create(name='Adam', phone_number='+79162047558')
+    # print(response)
     # response = cta.receivers_pages()
     # print(response)
     # response = cta.receivers_detach_agent(
@@ -180,12 +183,12 @@ if __name__ == '__main__':
     # else:
     #     print(f'RESPONSE: {response}')
 
-    response = cta.places_get()
-    if type(response) == dict and response.get('succeed'):
-        print('Позволяет получить информацию по всем заведениям ТСП:')
-        print(response.get('data'))
-    else:
-        print(f'RESPONSE: {response}')
+    # response = cta.places_get()
+    # if type(response) == dict and response.get('succeed'):
+    #     print('Позволяет получить информацию по всем заведениям ТСП:')
+    #     print(response.get('data'))
+    # else:
+    #     print(f'RESPONSE: {response}')
 
     # response = cta.cards_get(user_id)
     # if type(response) == dict and response.get('succeed'):
@@ -207,10 +210,24 @@ if __name__ == '__main__':
     #     print(response.get('data'))
     # else:
     #     print(f'RESPONSE66: {response}')
+    #
+    # response = cta.cards_auth(user_id, checkout='124234234234234')
+    # if type(response) == dict and response.get('succeed'):
+    #     print('Привязка карты получателю:')
+    #     print(response.get('data'))
+    # else:
+    #     print(f'RESPONSE-87: {response}')
+    #
+    # response = cta.accums_summary(user_id)
+    # if type(response) == dict and response.get('succeed'):
+    #     print('Накопления получателя:')
+    #     print(response.get('data'))
+    # else:
+    #     print(f'RESPONSE-87: {response}')
 
-    response = cta.cards_auth(user_id, checkout='124234234234234')
+    response = cta.accums_payout_receiver(user_id)
     if type(response) == dict and response.get('succeed'):
-        print('Привязка карты получателю:')
+        print('Выплата накопления получателю:')
         print(response.get('data'))
     else:
-        print(f'RESPONSE-87: {response}')
+        print(f'RESPONSE-0: {response}')

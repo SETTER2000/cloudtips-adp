@@ -119,11 +119,11 @@ response = cta.cards_delete(user_id, card_token)
 ## Накопления
 #### Накопления по получателю
 ```angular2html
-response = cta.accums_summary(cta.accums(user_id))
+response = cta.accums_summary(user_id)
 ```
 #### Выплата накопления получателю
 ```angular2html
-response = cta.accums_payout_receiver(cta.accums(user_id))
+response = cta.accums_payout_receiver(user_id)
 ```
 
 

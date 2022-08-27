@@ -6,6 +6,8 @@
 import requests
 from dependency_injector import containers, providers
 
+from src.cloudtipsadp.accumulations.connect.repository import \
+    AccumulationRepository
 from src.cloudtipsadp.cards.connect.repository import CardRepository
 from src.cloudtipsadp.connect.sessions import Session
 from src.cloudtipsadp.connect.unit_of_work import CloudtipsUnitOfWork
@@ -16,7 +18,7 @@ from src.cloudtipsadp.receivers.connect.repository import ReceiverRepository
 
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
-        packages=['payouts', 'receivers', 'places', 'cards'])
+        packages=['payouts', 'receivers', 'places', 'cards', 'accumulation'])
     session_creator = providers.Factory(Session)
 
     # Payouts
@@ -38,3 +40,8 @@ class Container(containers.DeclarativeContainer):
     card_repository = providers.Factory(
         CardRepository, req=requests, session=session_creator,
         base_path='cards')
+
+    # Cards
+    accumulation_repository = providers.Factory(
+        AccumulationRepository, req=requests, session=session_creator,
+        base_path='accumulations')
