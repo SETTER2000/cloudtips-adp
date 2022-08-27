@@ -24,10 +24,6 @@ class Cloudtipsadp:
         self.__sandbox_client = SandboxClient
         self.__product_client = ProductClient
         self.accums: Type[Accumulation] = Accumulations
-        # self.cards = Cards
-        # self.places = Places
-        # self.receivers = Receivers
-        # funcs
         self.accums_summary = _accum_summary
         self.accums_payout_receiver = _accum_payout_receiver
         self.cards_auth = card_auth
@@ -35,7 +31,6 @@ class Cloudtipsadp:
         self.cards_default = card_default
         self.cards_get = card_get
         # self.cards_flow = _card_flow
-        # self.payouts_get = payout_get
         self.payouts = payout
         self.places_confirm = place_confirm
         self.places_get = place_list
