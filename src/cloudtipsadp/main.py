@@ -2,7 +2,7 @@ from src.cloudtipsadp.accumulations.services import (
     accum_payout_receiver, accum_summary)
 from src.cloudtipsadp.cards.services import (
     card_auth, card_default, card_delete, card_get, card_add, card_3ds,
-    token_connect, token_refresh)
+    token_connect, token_refresh, headers_get)
 from src.cloudtipsadp.payouts.services import payout
 from src.cloudtipsadp.places.services import (
     place_confirm, place_list, place_send)
@@ -25,6 +25,7 @@ class Cloudtipsadp:
         self.cards_get = card_get
         self.get_token = token_connect
         self.refresh_token = token_refresh
+        self.get_headers = headers_get
         self.payouts = payout
         self.places_confirm = place_confirm
         self.places_get = place_list
@@ -43,6 +44,7 @@ if __name__ == '__main__':
     checkout = '014242424242250102CmRUh+v/FysG8c2kGbrJttFXCqHUJDohTXLJb8Wqpq9'
 
     print(f'TOKEN: {cta.get_token()}')
+    print(f'HEADERS+TOKEN: {cta.get_headers()}')
     # print(f'TOKEN REFRESH: {cta.refresh_token()}')
     ###############################################################
     # def res(response=None, text: str = None):

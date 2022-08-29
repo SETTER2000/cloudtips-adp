@@ -66,3 +66,8 @@ def token_connect(repository: Repository = Provide[Container.card_repository]):
 @inject
 def token_refresh(repository: Repository = Provide[Container.card_repository]):
     return repository().provider().refresh_token()
+
+
+@inject
+def headers_get(repository: Repository = Provide[Container.card_repository]):
+    return repository().provider().get_headers()
