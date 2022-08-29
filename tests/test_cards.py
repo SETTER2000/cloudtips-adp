@@ -1,10 +1,8 @@
 import pytest
 
-from src.cloudtipsadp.clients import Connect, SandboxClient
 from src.cloudtipsadp import Cloudtipsadp
+from src.cloudtipsadp.connect.clients import Connect
 
-
-connect = Connect(SandboxClient())
 cta = Cloudtipsadp()
 
 
@@ -17,12 +15,12 @@ def res(response=None, text: str = None):
 
 
 def get_token():
-    token = connect.get_token()
+    token = Connect.get_token()
     print(f'TOKEN:: {token}')
 
 
 def refresh_token():
-    token = connect.refresh_token()
+    token = Connect.refresh_token()
     print(f'REFRESH TOKEN:: {token}')
 
 

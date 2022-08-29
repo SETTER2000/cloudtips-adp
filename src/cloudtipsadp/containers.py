@@ -40,7 +40,7 @@ class Container(containers.DeclarativeContainer):
         CardRepository, req=requests, session=session_creator,
         base_path='cards')
 
-    # Cards
+    # Accumulations
     accumulation_repository = providers.Factory(
         AccumulationRepository, req=requests, session=session_creator,
         base_path='accumulations')

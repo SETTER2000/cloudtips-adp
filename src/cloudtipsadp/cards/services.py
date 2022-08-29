@@ -39,7 +39,30 @@ def card_delete(user_id: str, card_token: str,
 
 
 @inject
+def card_add(user_id: str, transact_id: str,
+             repository: Repository = Provide[Container.card_repository]):
+    return repository().provider().add(user_id=user_id,
+                                       transact_id=transact_id)
+
+
+@inject
 def card_auth(user_id: str, checkout: str,
               repository: Repository = Provide[Container.card_repository]):
     return repository().provider().auth(user_id=user_id,
                                         checkout=checkout)
+
+
+@inject
+def card_3ds(user_id: str, md: str, paRes: str,
+             repository: Repository = Provide[Container.card_repository]):
+    return repository().provider().post3ds(user_id=user_id, md=md, paRes=paRes)
+
+
+@inject
+def token_connect(repository: Repository = Provide[Container.card_repository]):
+    return repository().provider().get_token()
+
+
+@inject
+def token_refresh(repository: Repository = Provide[Container.card_repository]):
+    return repository().provider().refresh_token()

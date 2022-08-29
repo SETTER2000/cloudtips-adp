@@ -105,6 +105,10 @@ response = cta.cards_get(user_id)
 ```angular2html
 response = cta.cards_auth(user_id, checkout)
 ```
+#### Для проведения 3-D Secure аутентификации
+```angular2html
+response = cta.cards_3ds(user_id, md, paReq)
+```
 #### Изменить карту, которая по умолчанию
 ```angular2html
 response = cta.cards_default(user_id, card_token)
@@ -112,6 +116,11 @@ response = cta.cards_default(user_id, card_token)
 #### Удаление карты получателя. Карту по умолчанию удалить нельзя
 ```angular2html
 response = cta.cards_delete(user_id, card_token)
+```
+
+#### Подтвердить привязку карты на стороне системы
+```angular2html
+response = cta.cards_add(user_id, transact_id)
 ```
 
 
