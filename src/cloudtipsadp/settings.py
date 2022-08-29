@@ -5,6 +5,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# BASE_URL = os.getenv('CTA_BASE_URL')
+# BASE_URL_API = os.getenv('CTA_BASE_URL_API')
+BASE_URL = 'https://identity-sandbox.cloudtips.ru'
+BASE_URL_API = 'https://api-sandbox.cloudtips.ru'
+
 BASE_URL = os.getenv('CTA_BASE_URL')
 BASE_URL_API = os.getenv('CTA_BASE_URL_API')
 
