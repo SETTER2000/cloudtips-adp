@@ -71,7 +71,7 @@ class CardRepository(Repository):
 
     def get_token(self):
         """Return Header & Token."""
-        return self.session.get_headers()
+        return self.session.get_token()
 
     def refresh_token(self):
         """Return Refresh Token."""

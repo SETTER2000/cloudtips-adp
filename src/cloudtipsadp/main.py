@@ -42,7 +42,7 @@ if __name__ == '__main__':
     photo_path = '/home/setter/Изображения/Adam.jpg'
     checkout = '014242424242250102CmRUh+v/FysG8c2kGbrJttFXCqHUJDohTXLJb8Wqpq9'
 
-    # print(f'TOKEN: {cta.get_token()}')
+    print(f'TOKEN: {cta.get_token()}')
     # print(f'TOKEN REFRESH: {cta.refresh_token()}')
     ###############################################################
     # def res(response=None, text: str = None):
