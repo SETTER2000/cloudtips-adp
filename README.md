@@ -35,12 +35,12 @@ CTA_PASSWORD=<your_password>
 CTA_PLACE_ID=<your_placeId>
 
 # Production. Раскомментировать
-#CTA_BASE_URL = 'https://identity.cloudtips.ru'
-#CTA_BASE_URL_API = 'https://api.cloudtips.ru/api'
+#CTA_BASE_URL=https://identity.cloudtips.ru
+#CTA_BASE_URL_API=https://api.cloudtips.ru/api
 
 # Production. Закомментировать
-CTA_BASE_URL = 'https://identity-sandbox.cloudtips.ru'
-CTA_BASE_URL_API = 'https://api-sandbox.cloudtips.ru'
+CTA_BASE_URL=https://identity-sandbox.cloudtips.ru
+CTA_BASE_URL_API=https://api-sandbox.cloudtips.ru
 ```
 
 #  Работа с пакетом

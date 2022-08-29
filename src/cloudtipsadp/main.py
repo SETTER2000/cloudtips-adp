@@ -44,7 +44,7 @@ if __name__ == '__main__':
     checkout = '014242424242250102CmRUh+v/FysG8c2kGbrJttFXCqHUJDohTXLJb8Wqpq9'
 
     print(f'TOKEN: {cta.get_token()}')
-    print(f'HEADERS+TOKEN: {cta.get_headers()}')
+    # print(f'HEADERS+TOKEN: {cta.get_headers()}')
     # print(f'TOKEN REFRESH: {cta.refresh_token()}')
     ###############################################################
     # def res(response=None, text: str = None):
@@ -88,10 +88,11 @@ if __name__ == '__main__':
     # print(f'RESP::: {data}')
     # # Step 2 transactionId
     ########################################################################
-    transact_id = 'AQ=='
-    response = cta.cards_add(user_id, transact_id)
-    if type(response) == dict and response.get('succeed'):
-        print('Подтвердить привязку карты на стороне системы:')
-        print(response.get('data'))
-    else:
-        print(f'ERR-007: {response}')
+    # transact_id = 'AQ=='
+    # TODO здесь надо в метод /api/cards/post3ds отправлять, а потом в add
+    # response = cta.cards_add(user_id, transact_id)
+    # if type(response) == dict and response.get('succeed'):
+    #     print('Подтвердить привязку карты на стороне системы:')
+    #     print(response.get('data'))
+    # else:
+    #     print(f'ERR-007: {response}')
