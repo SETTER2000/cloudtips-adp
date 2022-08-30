@@ -48,8 +48,7 @@ def card_add(user_id: str, transact_id: str,
 @inject
 def card_auth(user_id: str, checkout: str,
               repository: Repository = Provide[Container.card_repository]):
-    return repository().provider().auth(user_id=user_id,
-                                        checkout=checkout)
+    return repository().provider().auth(user_id=user_id, checkout=checkout)
 
 
 @inject
@@ -64,7 +63,7 @@ def token_connect(repository: Repository = Provide[Container.card_repository]):
 
 
 @inject
-def token_refresh(repository: Repository = Provide[Container.card_repository]):
+def token_ref(repository: Repository = Provide[Container.card_repository]):
     return repository().provider().refresh_token()
 
 
