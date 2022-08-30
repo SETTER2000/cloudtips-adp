@@ -35,7 +35,7 @@ class ConnectData:
 
 class BaseClient:
     token: settings.Token
-    base_url: str = settings.BASE_URL
+    base_url = settings.BASE_URL
     auth_url = 'connect/token'
 
     def valid(self, response):
@@ -58,7 +58,8 @@ class BaseClient:
     @classmethod
     def auth(cls):
         """Авторизоваться в системе."""
-        return requests.post(cls.base_url, data=ConnectData.get(),
+        data = ConnectData.get()
+        return requests.post(cls.base_url, data=data,
                              headers=cnt.HEADERS_REQUEST)
 
     def refresh_token(self):
@@ -108,14 +109,13 @@ class Connect:
             access_token = cls.client.token['access_token']
             return f'{type_token} {access_token}'
         except AttributeError:
-            print(cnt.M_BAD_CONNECT)
-            raise
+            print(cnt.CTA, cnt.BAD_REQUEST, 'get_token()', cnt.BAD_CONNECT)
 
     def refresh_token(self):
         try:
             self.client.refresh_token()
         except AttributeError:
-            print(cnt.M_BAD_CONNECT)
+            print(cnt.CTA, cnt.BAD_REQUEST, 'refresh_token()', cnt.BAD_CONNECT)
         else:
             type_token = self.client.token['token_type']
             access_token = self.client.token['access_token']
