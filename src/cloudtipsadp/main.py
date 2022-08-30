@@ -1,4 +1,3 @@
-from src.cloudtipsadp import settings
 from src.cloudtipsadp.accumulations.services import (
     accum_payout_receiver, accum_summary)
 from src.cloudtipsadp.cards.services import (
@@ -43,8 +42,7 @@ if __name__ == '__main__':
     user_id = '44a38440-595d-494e-a028-09804355757a'
     photo_path = '/home/setter/Изображения/Adam.jpg'
     checkout = '014242424242250102CmRUh+v/FysG8c2kGbrJttFXCqHUJDohTXLJb8Wqpq9'
-    print(f'settings.BASE_URL:::: {settings.BASE_URL}')
-    print(f'TOKEN: {cta.get_token()}')
+
     # print(f'HEADERS+TOKEN: {cta.get_headers()}')
     # print(f'TOKEN REFRESH: {cta.refresh_token()}')
     ###############################################################

@@ -109,13 +109,13 @@ class Connect:
             access_token = cls.client.token['access_token']
             return f'{type_token} {access_token}'
         except AttributeError:
-            print(cnt.CTA, cnt.BAD_REQUEST, 'get_token()', cnt.BAD_CONNECT)
+            print(cnt.CTA, cnt.BAD_CONNECT)
 
     def refresh_token(self):
         try:
             self.client.refresh_token()
         except AttributeError:
-            print(cnt.CTA, cnt.BAD_REQUEST, 'refresh_token()', cnt.BAD_CONNECT)
+            print(cnt.CTA, cnt.BAD_CONNECT)
         else:
             type_token = self.client.token['token_type']
             access_token = self.client.token['access_token']

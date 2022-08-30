@@ -1,6 +1,5 @@
 __all__ = [
     'BAD_CONNECT',
-    'BAD_REQUEST',
     'BASE_IMPLEMENTED',
     'API_VERSION',
     'HEADERS_REQUEST',
@@ -10,8 +9,8 @@ __all__ = [
 ]
 CTA = 'cloudtipsadp: '
 BAD_CONNECT = 'No service connection.'
-BAD_REQUEST = 'BadRequest.'
 BASE_IMPLEMENTED = 'Base class method not implemented.'
+# URL для приема ответа от платежной системы при привязке карты
 SITE_RETURNING_URL = 'http://127.0.0.1:8000'
 API_VERSION = 'api'
 FILE_PATH_BAD = 'File path missing:'
