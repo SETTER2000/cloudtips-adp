@@ -1,24 +1,21 @@
 import os
 from dataclasses import dataclass
 
-from dotenv import load_dotenv
+BASE_URL_default = 'https://identity-sandbox.cloudtips.ru'
+BASE_URL_API_default = 'https://api-sandbox.cloudtips.ru'
 
-load_dotenv()
+print(os.environ.get('CTA_BASE_URL'))
+print(os.environ.get('CTA_BASE_URL_API'))
 
-# BASE_URL = os.getenv('CTA_BASE_URL')
-# BASE_URL_API = os.getenv('CTA_BASE_URL_API')
-BASE_URL = 'https://identity-sandbox.cloudtips.ru'
-BASE_URL_API = 'https://api-sandbox.cloudtips.ru'
+BASE_URL = os.environ.get('CTA_BASE_URL', BASE_URL_default)
+BASE_URL_API = os.environ.get('CTA_BASE_URL_API', BASE_URL_API_default)
 
-BASE_URL = os.getenv('CTA_BASE_URL')
-BASE_URL_API = os.getenv('CTA_BASE_URL_API')
-
-CTA_CLIENT_ID = os.getenv('CTA_CLIENT_ID')
-CTA_USER_NAME = os.getenv('CTA_USER_NAME')
-CTA_PASSWORD = os.getenv('CTA_PASSWORD')
-CTA_GRANT_TYPE = os.getenv('CTA_GRANT_TYPE')
+CTA_CLIENT_ID = os.environ.get('CTA_CLIENT_ID')
+CTA_USER_NAME = os.environ.get('CTA_USER_NAME')
+CTA_PASSWORD = os.environ.get('CTA_PASSWORD')
+CTA_GRANT_TYPE = os.environ.get('CTA_GRANT_TYPE')
 CTA_GRANT_TYPE_REFRESH = 'refresh_token'
-CTA_PLACE_ID = os.getenv('CTA_PLACE_ID')
+CTA_PLACE_ID = os.environ.get('CTA_PLACE_ID')
 
 
 class ConfigurationError(Exception):
