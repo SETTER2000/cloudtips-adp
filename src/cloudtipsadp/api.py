@@ -1,4 +1,3 @@
-from typing import Optional
 from src.cloudtipsadp.accumulations.services import (
     accum_payout_receiver, accum_summary)
 from src.cloudtipsadp.cards.services import (
