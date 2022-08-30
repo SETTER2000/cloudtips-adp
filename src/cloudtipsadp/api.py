@@ -29,12 +29,12 @@ def headers() -> dict:
 
 def accums_summary(user_id: str):
     """Накопления получателя."""
-    return accum_summary(obj_id=user_id)
+    return accum_summary(user_id)
 
 
 def accums_payout_receiver(user_id: str):
     """Выплата накопления получателю."""
-    return accum_payout_receiver(obj_id=user_id)
+    return accum_payout_receiver(user_id)
 
 
 def cards_3ds(user_id: str, md: str, paRes: str):
@@ -70,11 +70,6 @@ def cards_get(user_id: str):
     return card_get(user_id=user_id)
 
 
-def receivers_create(phone_number: str, name: str):
-    """Создать получателя донатов в сервисе."""
-    return receiver_create(phone_number, name)
-
-
 def payouts():
     """Получение всех транзакций выплат получателям менеджера."""
     return payout()
@@ -101,19 +96,24 @@ def places_send_sms(user_id: str):
     return place_send(user_id=user_id)
 
 
+def receivers_create(phone_number: str, name: str):
+    """Создать получателя донатов в сервисе."""
+    return receiver_create(phone_number, name)
+
+
+def receivers_detach_agent(user_id: str):
+    """Удалить получателя из скоупа."""
+    return receiver_detach_agent(user_id)
+
+
 def receivers_get(user_id: str):
     """Получателя по id выбрать."""
     return receiver_get(obj_id=user_id)
 
 
-def receivers_detach_agent(user_id: str):
-    """Удалить получателя из скоупа."""
-    return receiver_detach_agent(obj_id=user_id)
-
-
 def receivers_pages():
     """Все получатели в заведении."""
-    return receiver_pages(obj_id=user_id)
+    return receiver_pages()
 
 
 def receivers_photo(user_id: str, photo_path: str):

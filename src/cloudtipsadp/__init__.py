@@ -21,6 +21,7 @@ from .api import (  # noqa: F401
     receivers_get,
     receivers_detach_agent,
     receivers_pages,
+    receivers_photo,
 )
 
 __version__ = '0.15.0'
