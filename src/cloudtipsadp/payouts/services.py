@@ -5,6 +5,6 @@ from src.cloudtipsadp.containers import Container
 
 
 @inject
-def payout(
-        repository: Repository = Provide[Container.payout_repository]):
-    return repository().provider().list()
+def payout(filters=None,
+           repository: Repository = Provide[Container.payout_repository]):
+    return repository().provider().list(filters=filters)

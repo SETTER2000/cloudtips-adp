@@ -69,9 +69,9 @@ def cards_get(user_id: str):
     return card_get(user_id=user_id)
 
 
-def payouts():
+def payouts(filters: dict = None):
     """Получение всех транзакций выплат получателям менеджера."""
-    return payout()
+    return payout(filters)
 
 
 def places_confirm(user_id: str, code: str):
@@ -124,10 +124,20 @@ if __name__ == '__main__':
     user_id = '44a38440-595d-494e-a028-09804355757a'
     photo_path = '/home/setter/Изображения/Adam.jpg'
     checkout = '014242424242250102CmRUh+v/FysG8c2kGbrJttFXCqHUJDohTXLJb8Wqpq9'
-    print(f'CARDS::: {cards_get(user_id=user_id)}')
+    # print(f'CARDS::: {cards_get(user_id=user_id)}')
     # print(f'CARDS_TYPE_3Ds::: '
     #       f'{}')
-    print(f'HEADERS+TOKEN: {headers()}')
+    # print(f'HEADERS+TOKEN: {headers()}')
+    filters = dict(dateFrom='2022-08-01',
+                   dateTo='2022-08-31',
+                   phoneNumber='+78009005050',
+                   userId=user_id,
+                   limit=10)
+    # filters = dict(userId=user_id)
+    # filters = ''
+    res = payouts(filters)
+    print(res)
+
     # print(f'TOKEN REFRESH: {cta.refresh_token()}')
     ###############################################################
     # def res(response=None, text: str = None):

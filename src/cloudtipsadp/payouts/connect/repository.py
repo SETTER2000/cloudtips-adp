@@ -4,10 +4,12 @@ from src.cloudtipsadp.connect.repository import Repository
 class PayoutRepository(Repository):
     """Выплата."""
 
-    def list(self):
+    def list(self, filters=None):
         """Получение всех транзакций выплат получателям менеджера."""
+
         url = self(self.base_path)
-        return self.req.get(url, headers=self.session.get_headers()).json()
+        return self.req.get(url, params=filters,
+                            headers=self.session.get_headers()).json()
 
     def get(self, obj_id: str):
         raise NotImplementedError()
