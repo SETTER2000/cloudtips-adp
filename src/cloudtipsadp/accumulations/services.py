@@ -8,11 +8,11 @@ from src.cloudtipsadp.containers import Container
 def accum_summary(
         user_id: str,
         repository: Repository = Provide[Container.accumulation_repository]):
-    return repository().provider().get(obj_id=user_id)
+    return repository().provider().get(user_id)
 
 
 @inject
 def accum_payout_receiver(
         user_id: str,
         repository: Repository = Provide[Container.accumulation_repository]):
-    return repository().provider().payout_receiver(user_id=user_id)
+    return repository().provider().payout_receiver(user_id)
