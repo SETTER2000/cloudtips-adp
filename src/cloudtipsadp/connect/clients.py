@@ -21,10 +21,13 @@ class ConnectData:
 
     @staticmethod
     def get():
-        return dict(Client_id=settings.CTA_CLIENT_ID,
-                    UserName=settings.CTA_USER_NAME,
-                    Password=settings.CTA_PASSWORD,
-                    Grant_type=settings.CTA_GRANT_TYPE)
+        try:
+            return dict(Client_id=settings.CTA_CLIENT_ID,
+                        UserName=settings.CTA_USER_NAME,
+                        Password=settings.CTA_PASSWORD,
+                        Grant_type=settings.CTA_GRANT_TYPE)
+        except AttributeError as e:
+            raise SystemExit(e)
 
     @classmethod
     def refresh(cls, ref_token: settings.Token):
@@ -59,8 +62,12 @@ class BaseClient:
     def auth(cls):
         """Авторизоваться в системе."""
         data = ConnectData.get()
-        return requests.post(cls.base_url, data=data,
-                             headers=cnt.HEADERS_REQUEST)
+        res = requests.post(cls.base_url, data=data,
+                            headers=cnt.HEADERS_REQUEST)
+        if res.ok:
+            return res
+        else:
+            raise SystemExit('Error connect to cloudtips!')
 
     def refresh_token(self):
         """

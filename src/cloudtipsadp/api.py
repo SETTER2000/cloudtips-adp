@@ -121,7 +121,9 @@ def receivers_photo(user_id: str, photo_path: str):
 
 
 if __name__ == '__main__':
-    user_id = '44a38440-595d-494e-a028-09804355757a'
+    # user_id = '44a38440-595d-494e-a028-09804355757a'  # sandbox user
+    user_id = '70e6531e-2d05-4f17-8f75-1bbe68d04c26'  # prod user
+
     photo_path = '/home/setter/Изображения/Adam.jpg'
     checkout = '014242424242250102CmRUh+v/FysG8c2kGbrJttFXCqHUJDohTXLJb8Wqpq9'
     # print(f'CARDS::: {cards_get(user_id=user_id)}')
@@ -135,8 +137,18 @@ if __name__ == '__main__':
                    limit=10)
     # filters = dict(userId=user_id)
     # filters = ''
-    res = payouts(filters)
+
+    # res = payouts(filters)
+    res = token()
     print(res)
+    res = accums_summary(user_id)
+    print(res)
+    # response = payouts(filters)
+    # print(response)
+    # print(result(response))
+    # receivers_create(phone_number='+79162047558', name="Adam")
+    # res = accums_summary(user_id=user_id)
+    # print(res)
 
     # print(f'TOKEN REFRESH: {cta.refresh_token()}')
     ###############################################################

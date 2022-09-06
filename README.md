@@ -40,7 +40,7 @@ CTA_PLACE_ID=<your_placeId>
 
 # Production. Закомментировать
 CTA_BASE_URL=https://identity-sandbox.cloudtips.ru
-CTA_BASE_URL_API=https://api-sandbox.cloudtips.ru
+CTA_BASE_URL_API=https://api-sandbox.cloudtips.ru/api
 ```
 
 #  Работа с пакетом
