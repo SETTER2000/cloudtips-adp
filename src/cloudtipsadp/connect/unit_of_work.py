@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from src.cloudtipsadp.connect.repository import Repository
+from cloudtipsadp.connect.repository import Repository
 
 
 class UnitOfWork(ABC):

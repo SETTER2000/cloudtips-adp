@@ -1,3 +1,3 @@
-from src.cloudtipsadp.connect.clients import Connect
+from cloudtipsadp.connect.clients import Connect
 
 Session = Connect

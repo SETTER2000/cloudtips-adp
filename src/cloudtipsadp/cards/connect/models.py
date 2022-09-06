@@ -1,6 +1,6 @@
 import json
 
-from src.cloudtipsadp.constants import M_BASE_IMPLEMENTED, SITE_RETURNING_URL
+from cloudtipsadp.constants import M_BASE_IMPLEMENTED, SITE_RETURNING_URL
 
 
 class FlowBase:
