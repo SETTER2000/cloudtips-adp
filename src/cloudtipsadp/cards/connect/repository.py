@@ -4,6 +4,12 @@ import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
+from src.cloudtipsadp import constants as cnt
+
+try:
+    from simplejson import JSONDecodeError
+except ImportError:
+    from json import JSONDecodeError
 
 
 class CardRepository(Repository):
@@ -17,10 +23,12 @@ class CardRepository(Repository):
 
     def get(self, obj_id: str):
         """Список карт получателя."""
-        url = self(self.base_path)
-        parsed = self.req.get(url, params=dict(userId=obj_id),
-                              headers=self.session.get_headers()).json()
-        return parsed
+        try:
+            url = self(self.base_path)
+            return self.req.get(url, params=dict(userId=obj_id),
+                                headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def list(self):
         pass
@@ -50,10 +58,14 @@ class CardRepository(Repository):
 
     def delete(self, user_id, card_token):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
-        url = self(self.base_path)
-        return self.req.delete(
-            url, data=json.dumps(dict(userId=user_id, cardToken=card_token)),
-            headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path)
+            return self.req.delete(
+                url,
+                data=json.dumps(dict(userId=user_id, cardToken=card_token)),
+                headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def auth(self, user_id, checkout):
         """Привязка карты получателю."""

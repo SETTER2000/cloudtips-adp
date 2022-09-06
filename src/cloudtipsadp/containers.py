@@ -15,7 +15,6 @@ from src.cloudtipsadp.places.connect.repository import PlaceRepository
 from src.cloudtipsadp.receivers.connect.repository import ReceiverRepository
 
 
-
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
         packages=['payouts', 'receivers', 'places', 'cards', 'accumulation'])

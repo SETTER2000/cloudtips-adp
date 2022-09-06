@@ -54,11 +54,14 @@ class PlaceRepository(Repository):
         Подтвердить привязку телефона (пользователя) к предприятию.
         Передать код из смс.
         """
-        url = self(
-            self.base_path, CTA_PLACE_ID, 'employees', 'attach', 'confirm')
-        return self.req.post(
-            url, data=json.dumps(dict(UserId=user_id, SmsCode=code)),
-            headers=self.session.get_headers()).json()
+        try:
+            url = self(
+                self.base_path, CTA_PLACE_ID, 'employees', 'attach', 'confirm')
+            return self.req.post(
+                url, data=json.dumps(dict(UserId=user_id, SmsCode=code)),
+                headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
 
     def delete(self, user_id, card_token):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
