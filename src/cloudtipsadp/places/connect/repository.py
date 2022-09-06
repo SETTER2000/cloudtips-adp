@@ -3,7 +3,13 @@ import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
+from src.cloudtipsadp import constants as cnt
 from src.cloudtipsadp.settings import CTA_PLACE_ID
+
+try:
+    from simplejson import JSONDecodeError
+except ImportError:
+    from json import JSONDecodeError
 
 
 class PlaceRepository(Repository):
@@ -20,9 +26,12 @@ class PlaceRepository(Repository):
 
     def list(self):
         """Позволяет получить информацию по всем заведениям ТСП."""
-        api_url = self(self.base_path)
-        return self.req.get(api_url,
-                            headers=self.session.get_headers()).json()
+        try:
+            api_url = self(self.base_path)
+            return self.req.get(api_url,
+                                headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
 
     def save(self, obj):
         pass

@@ -9,7 +9,7 @@ __all__ = [
     'JSON_ERR_OBJECT',
 ]
 CTA = 'cloudtipsadp: '
-BAD_CONNECT = 'No service connection.'
+BAD_CONNECT = 'Ошибка. Не могу подключиться к cloudtips.'
 BASE_IMPLEMENTED = 'Base class method not implemented.'
 # URL для приема ответа от платежной системы при привязке карты
 SITE_RETURNING_URL = 'http://127.0.0.1:8000'

@@ -2,7 +2,7 @@ import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
-from src.cloudtipsadp.constants import JSON_ERR_OBJECT
+from src.cloudtipsadp import constants as cnt
 
 try:
     from simplejson import JSONDecodeError
@@ -25,7 +25,7 @@ class AccumulationRepository(Repository):
             url = self(self.base_path, obj_id, 'summary')
             return self.req.get(url, headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def list(self):
         raise NotImplementedError()

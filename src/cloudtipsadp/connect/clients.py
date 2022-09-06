@@ -66,12 +66,8 @@ class BaseClient:
     def auth(cls):
         """Авторизоваться в системе."""
         data = ConnectData.get()
-        res = requests.post(cls.base_url, data=data,
-                            headers=cnt.HEADERS_REQUEST)
-        if res.ok:
-            return res
-        else:
-            raise SystemExit('Error connect to cloudtips!')
+        return requests.post(cls.base_url, data=data,
+                             headers=cnt.HEADERS_REQUEST)
 
     def refresh_token(self):
         """

@@ -6,7 +6,11 @@ import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
-from src.cloudtipsadp.constants import FILE_PATH_BAD, JSON_ERR_OBJECT
+from src.cloudtipsadp import constants as cnt
+try:
+    from simplejson import JSONDecodeError
+except ImportError:
+    from json import JSONDecodeError
 
 
 class ReceiverRepository(Repository):
@@ -37,8 +41,8 @@ class ReceiverRepository(Repository):
             url = self(self.base_path, 'create-many')
             return self.req.post(url, data=json.dumps(obj),
                                  headers=self.session.get_headers()).json()
-        except self.json_err:
-            print(JSON_ERR_OBJECT)
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
 
     def update(self, obj):
         pass
@@ -69,6 +73,6 @@ class ReceiverRepository(Repository):
                     url, headers=Connect.get_headers_token(), data=payload,
                     files=files).json()
         except FileNotFoundError as e:
-            print(f'{FILE_PATH_BAD} {e}')
+            print(f'{cnt.FILE_PATH_BAD} {e}')
         else:
             return parsed
