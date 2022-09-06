@@ -69,10 +69,13 @@ class CardRepository(Repository):
 
     def auth(self, user_id, checkout):
         """Привязка карты получателю."""
-        url = self(self.base_path, 'auth')
-        return self.req.post(url, json.dumps(
-            dict(CardholderName='NONE', CardCryptogramPacket=checkout,
-                 UserId=user_id)), headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, 'auth')
+            return self.req.post(url, json.dumps(
+                dict(CardholderName='NONE', CardCryptogramPacket=checkout,
+                     UserId=user_id)), headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def post3ds(self, user_id, md, paRes):
         """Для проведения 3-D Secure аутентификации."""
