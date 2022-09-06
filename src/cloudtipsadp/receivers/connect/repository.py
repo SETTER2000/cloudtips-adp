@@ -7,6 +7,7 @@ import requests
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
 from src.cloudtipsadp import constants as cnt
+
 try:
     from simplejson import JSONDecodeError
 except ImportError:
@@ -26,14 +27,20 @@ class ReceiverRepository(Repository):
 
     def get(self, obj_id: str):
         """Получателя по id выбрать."""
-        url = self(self.base_path, obj_id)
-        return self.req.get(url, headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, obj_id)
+            return self.req.get(url, headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
 
     def list(self):
         """Все получатели в заведении."""
-        api_url = self(self.base_path)
-        return self.req.get(api_url,
-                            headers=self.session.get_headers()).json()
+        try:
+            api_url = self(self.base_path)
+            return self.req.get(api_url,
+                                headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
 
     def save(self, obj):
         """Создать получателя донатов в сервисе."""
@@ -55,6 +62,8 @@ class ReceiverRepository(Repository):
                                    headers=self.session.get_headers()).json()
         except TypeError:
             print('NotFound user_id.')
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
         else:
             return parsed
 
@@ -74,5 +83,7 @@ class ReceiverRepository(Repository):
                     files=files).json()
         except FileNotFoundError as e:
             print(f'{cnt.FILE_PATH_BAD} {e}')
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
         else:
             return parsed
