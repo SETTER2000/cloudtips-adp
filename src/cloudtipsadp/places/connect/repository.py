@@ -44,10 +44,13 @@ class PlaceRepository(Repository):
         Привязка получателя к заведению.
         Отправить сотруднику на его номер телефона код в смс сообщении.
         """
-        url = self(self.base_path, CTA_PLACE_ID,
-                   'employees', 'attach', 'send-sms')
-        return self.req.post(url, data=json.dumps(dict(UserId=user_id)),
-                             headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, CTA_PLACE_ID,
+                       'employees', 'attach', 'send-sms')
+            return self.req.post(url, data=json.dumps(dict(UserId=user_id)),
+                                 headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
 
     def confirm(self, user_id, code):
         """
@@ -65,5 +68,9 @@ class PlaceRepository(Repository):
 
     def delete(self, user_id, card_token):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
-        url = self(self.base_path)
-        return self.req.delete(url, dict(userId=user_id, cardToken=card_token))
+        try:
+            url = self(self.base_path)
+            return self.req.delete(url,
+                                   dict(userId=user_id, cardToken=card_token))
+        except JSONDecodeError:
+            print(cnt.JSON_ERR_OBJECT)
