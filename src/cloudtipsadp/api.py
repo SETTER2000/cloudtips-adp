@@ -1,12 +1,12 @@
-from cloudtipsadp.accumulations.services import (
+from src.cloudtipsadp.accumulations.services import (
     accum_payout_receiver, accum_summary)
-from cloudtipsadp.cards.services import (
+from src.cloudtipsadp.cards.services import (
     card_auth, card_default, card_delete, card_get, card_add, card_3ds,
     token_connect, token_ref, headers_get)
-from cloudtipsadp.payouts.services import payout
-from cloudtipsadp.places.services import (
+from src.cloudtipsadp.payouts.services import payout
+from src.cloudtipsadp.places.services import (
     place_confirm, place_list, place_send)
-from cloudtipsadp.receivers.services import (
+from src.cloudtipsadp.receivers.services import (
     photo_load, receiver_create, receiver_detach_agent, receiver_get,
     receiver_pages)
 

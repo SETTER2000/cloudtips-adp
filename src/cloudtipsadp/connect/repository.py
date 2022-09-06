@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 import requests
 
-from cloudtipsadp.connect.clients import Connect
+from src.cloudtipsadp.connect.clients import Connect
 
 
 class Repository(ABC):

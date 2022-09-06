@@ -1,8 +1,8 @@
 import requests
 
-from cloudtipsadp.connect.clients import Connect
-from cloudtipsadp.connect.repository import Repository
-from cloudtipsadp import constants as cnt
+from src.cloudtipsadp.connect.clients import Connect
+from src.cloudtipsadp.connect.repository import Repository
+from src.cloudtipsadp import constants as cnt
 
 try:
     from simplejson import JSONDecodeError

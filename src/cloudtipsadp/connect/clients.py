@@ -2,8 +2,8 @@ from urllib.parse import urljoin
 
 import requests as requests
 
-from cloudtipsadp import constants as cnt
-from cloudtipsadp import settings
+from src.cloudtipsadp import constants as cnt
+from src.cloudtipsadp import settings
 
 
 class ConfigurationError(Exception):

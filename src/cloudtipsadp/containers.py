@@ -6,13 +6,13 @@
 import requests
 from dependency_injector import containers, providers
 
-from cloudtipsadp.accumulations.connect.repository import \
+from src.cloudtipsadp.accumulations.connect.repository import \
     AccumulationRepository
-from cloudtipsadp.cards.connect.repository import CardRepository
-from cloudtipsadp.connect.sessions import Session
-from cloudtipsadp.payouts.connect.repository import PayoutRepository
-from cloudtipsadp.places.connect.repository import PlaceRepository
-from cloudtipsadp.receivers.connect.repository import ReceiverRepository
+from src.cloudtipsadp.cards.connect.repository import CardRepository
+from src.cloudtipsadp.connect.sessions import Session
+from src.cloudtipsadp.payouts.connect.repository import PayoutRepository
+from src.cloudtipsadp.places.connect.repository import PlaceRepository
+from src.cloudtipsadp.receivers.connect.repository import ReceiverRepository
 
 
 class Container(containers.DeclarativeContainer):

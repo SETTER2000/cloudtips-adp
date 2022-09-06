@@ -1,4 +1,4 @@
-from cloudtipsadp import settings
+from src.cloudtipsadp import settings
 
 
 class Receiver:

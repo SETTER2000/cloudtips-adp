@@ -1,5 +1,5 @@
 """Спецификация для пакета."""
-from cloudtipsadp.connect.spec import Specification
+from src.cloudtipsadp.connect.spec import Specification
 
 
 class OtherPayoutsSpecification(Specification):
