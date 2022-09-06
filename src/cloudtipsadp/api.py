@@ -143,7 +143,7 @@ if __name__ == '__main__':
     print(res)
     res = accums_summary(user_id)
     print(res)
-    # response = payouts(filters)
+    response = payouts(filters)
     # print(response)
     # print(result(response))
     # receivers_create(phone_number='+79162047558', name="Adam")

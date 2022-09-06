@@ -14,10 +14,6 @@ from src.cloudtipsadp.payouts.connect.repository import PayoutRepository
 from src.cloudtipsadp.places.connect.repository import PlaceRepository
 from src.cloudtipsadp.receivers.connect.repository import ReceiverRepository
 
-try:
-    from simplejson import JSONDecodeError
-except ImportError:
-    from json import JSONDecodeError
 
 
 class Container(containers.DeclarativeContainer):
@@ -28,24 +24,24 @@ class Container(containers.DeclarativeContainer):
     # Payouts
     payout_repository = providers.Factory(
         PayoutRepository, req=requests, session=session_creator,
-        json_err=JSONDecodeError, base_path='payout')
+        base_path='payout')
 
     # Receivers
     receiver_repository = providers.Factory(
         ReceiverRepository, req=requests, session=session_creator,
-        json_err=JSONDecodeError, base_path='receivers')
+        base_path='receivers')
 
     # Places
     place_repository = providers.Factory(
         PlaceRepository, req=requests, session=session_creator,
-        json_err=JSONDecodeError, base_path='places')
+        base_path='places')
 
     # Cards
     card_repository = providers.Factory(
         CardRepository, req=requests, session=session_creator,
-        json_err=JSONDecodeError, base_path='cards')
+        base_path='cards')
 
     # Accumulations
     accumulation_repository = providers.Factory(
         AccumulationRepository, req=requests, session=session_creator,
-        json_err=JSONDecodeError, base_path='accumulations')
+        base_path='accumulations')

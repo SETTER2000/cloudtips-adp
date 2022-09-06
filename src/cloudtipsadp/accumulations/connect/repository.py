@@ -4,6 +4,11 @@ from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
 from src.cloudtipsadp.constants import JSON_ERR_OBJECT
 
+try:
+    from simplejson import JSONDecodeError
+except ImportError:
+    from json import JSONDecodeError
+
 
 class AccumulationRepository(Repository):
     """Выплата."""
@@ -19,7 +24,7 @@ class AccumulationRepository(Repository):
         try:
             url = self(self.base_path, obj_id, 'summary')
             return self.req.get(url, headers=self.session.get_headers()).json()
-        except self.json_err:
+        except JSONDecodeError:
             print(JSON_ERR_OBJECT)
 
     def list(self):
