@@ -24,6 +24,6 @@ from .api import (  # noqa: F401
     receivers_photo,
 )
 
-__version__ = '0.15.1'
+__version__ = '0.15.2'
 __author__ = "SETTER"
 __email__ = 'lphp@mail.ru'
