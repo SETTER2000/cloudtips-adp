@@ -38,6 +38,9 @@ class AccumulationRepository(Repository):
 
     def payout_receiver(self, user_id):
         """Выплата накопления получателю."""
-        url = self(self.base_path, 'payout', user_id)
-        return self.req.post(url,
-                             headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, 'payout', user_id)
+            return self.req.post(url,
+                                 headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
