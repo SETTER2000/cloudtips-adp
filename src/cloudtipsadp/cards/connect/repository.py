@@ -44,17 +44,23 @@ class CardRepository(Repository):
         При успешном окончании методов 3, 4 или 5 необходимо подтвердить
         привязку карты на стороне системы.
         """
-        url = self(self.base_path, 'add')
-        return self.req.post(url, dict(
-            userId=user_id, TransactionId=transact_id),
-                             headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, 'add')
+            return self.req.post(url, dict(
+                userId=user_id, TransactionId=transact_id),
+                                 headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def default(self, user_id, card_token):
         """Изменить карту, на которую выплачиваются чаевые по умолчанию."""
-        url = self(self.base_path, 'default')
-        return self.req.post(url, dict(
-            userId=user_id, cardToken=card_token),
-                             headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, 'default')
+            return self.req.post(url, dict(
+                userId=user_id, cardToken=card_token),
+                                 headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def delete(self, user_id, card_token):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
@@ -73,16 +79,20 @@ class CardRepository(Repository):
             url = self(self.base_path, 'auth')
             return self.req.post(url, json.dumps(
                 dict(CardholderName='NONE', CardCryptogramPacket=checkout,
-                     UserId=user_id)), headers=self.session.get_headers()).json()
+                     UserId=user_id)),
+                                 headers=self.session.get_headers()).json()
         except JSONDecodeError:
             print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def post3ds(self, user_id, md, paRes):
         """Для проведения 3-D Secure аутентификации."""
-        url = self(self.base_path, 'post3ds')
-        return self.req.post(url, json.dumps(dict(userId=user_id, md=md,
-                                                  paRes=paRes)),
-                             headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, 'post3ds')
+            return self.req.post(url, json.dumps(dict(userId=user_id, md=md,
+                                                      paRes=paRes)),
+                                 headers=self.session.get_headers()).json()
+        except JSONDecodeError:
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def get_token(self):
         """Return Header & Token."""
