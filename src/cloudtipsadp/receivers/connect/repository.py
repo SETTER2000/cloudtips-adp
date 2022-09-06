@@ -6,7 +6,7 @@ import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
-from src.cloudtipsadp.constants import FILE_PATH_BAD
+from src.cloudtipsadp.constants import FILE_PATH_BAD, JSON_ERR_OBJECT
 
 
 class ReceiverRepository(Repository):
@@ -33,9 +33,12 @@ class ReceiverRepository(Repository):
 
     def save(self, obj):
         """Создать получателя донатов в сервисе."""
-        url = self(self.base_path, 'create-many')
-        return self.req.post(url, data=json.dumps(obj),
-                             headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, 'create-many')
+            return self.req.post(url, data=json.dumps(obj),
+                                 headers=self.session.get_headers()).json()
+        except self.json_err:
+            print(JSON_ERR_OBJECT)
 
     def update(self, obj):
         pass

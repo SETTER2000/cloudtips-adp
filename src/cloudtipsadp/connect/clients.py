@@ -6,6 +6,10 @@ from src.cloudtipsadp import constants as cnt
 from src.cloudtipsadp import settings
 
 
+class ConfigurationError(Exception):
+    pass
+
+
 class ConnectData:
     """
     Данные для подключения к API.

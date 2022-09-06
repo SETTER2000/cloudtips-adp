@@ -2,6 +2,7 @@ import requests
 
 from src.cloudtipsadp.connect.clients import Connect
 from src.cloudtipsadp.connect.repository import Repository
+from src.cloudtipsadp.constants import JSON_ERR_OBJECT
 
 
 class AccumulationRepository(Repository):
@@ -15,8 +16,11 @@ class AccumulationRepository(Repository):
 
     def get(self, obj_id):
         """Накопления получателя."""
-        url = self(self.base_path, obj_id, 'summary')
-        return self.req.get(url, headers=self.session.get_headers()).json()
+        try:
+            url = self(self.base_path, obj_id, 'summary')
+            return self.req.get(url, headers=self.session.get_headers()).json()
+        except self.json_err:
+            print(JSON_ERR_OBJECT)
 
     def list(self):
         raise NotImplementedError()
