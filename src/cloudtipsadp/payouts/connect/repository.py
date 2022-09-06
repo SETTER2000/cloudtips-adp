@@ -17,7 +17,7 @@ class PayoutRepository(Repository):
             return self.req.get(url, params=filters,
                                 headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def get(self, obj_id: str):
         raise NotImplementedError()

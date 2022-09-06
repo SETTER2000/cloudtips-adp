@@ -31,7 +31,7 @@ class PlaceRepository(Repository):
             return self.req.get(api_url,
                                 headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def save(self, obj):
         pass
@@ -50,7 +50,7 @@ class PlaceRepository(Repository):
             return self.req.post(url, data=json.dumps(dict(UserId=user_id)),
                                  headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def confirm(self, user_id, code):
         """
@@ -64,7 +64,7 @@ class PlaceRepository(Repository):
                 url, data=json.dumps(dict(UserId=user_id, SmsCode=code)),
                 headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def delete(self, user_id, card_token):
         """Удаление карты получателя. Карту по умолчанию удалить нельзя."""
@@ -73,4 +73,4 @@ class PlaceRepository(Repository):
             return self.req.delete(url,
                                    dict(userId=user_id, cardToken=card_token))
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)

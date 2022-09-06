@@ -31,7 +31,7 @@ class ReceiverRepository(Repository):
             url = self(self.base_path, obj_id)
             return self.req.get(url, headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def list(self):
         """Все получатели в заведении."""
@@ -40,7 +40,7 @@ class ReceiverRepository(Repository):
             return self.req.get(api_url,
                                 headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def save(self, obj):
         """Создать получателя донатов в сервисе."""
@@ -49,7 +49,7 @@ class ReceiverRepository(Repository):
             return self.req.post(url, data=json.dumps(obj),
                                  headers=self.session.get_headers()).json()
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
 
     def update(self, obj):
         pass
@@ -63,7 +63,7 @@ class ReceiverRepository(Repository):
         except TypeError:
             print('NotFound user_id.')
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
         else:
             return parsed
 
@@ -84,6 +84,6 @@ class ReceiverRepository(Repository):
         except FileNotFoundError as e:
             print(f'{cnt.FILE_PATH_BAD} {e}')
         except JSONDecodeError:
-            print(cnt.JSON_ERR_OBJECT)
+            print(cnt.CTA, cnt.JSON_ERR_OBJECT)
         else:
             return parsed
